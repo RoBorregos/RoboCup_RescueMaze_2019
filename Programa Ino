@@ -604,6 +604,42 @@ void buscarObjetivo()
   y = objY;
 }
 
+void alineaRobot(){
+    distanciaE=distanciaEnfrente();
+    distanciaA=distanciaAtras();
+    distanciaDE=distanciaDerechaEnfrente();
+    distanciaDA=distanciaDerechaAtras();
+    distanciaIE=distanciaIzquierdaEnfrente();
+    distanciaIA=distanciaIzquierdaAtras();
+    if((distanciaDE!=distanciaDA||distanciaIE!=distanciaIA)&&((distanciaDE<20 && distanciaDA<20)||(distanciaIE<20 && distanciaIA<20))){
+  Serial.println("Desalineado******************");
+  if(distanciaDE>distanciaDA && distanciaIE<distanciaIA){
+    while(distanciaDE>distanciaDA && distanciaIE<distanciaIA){
+       robot.moveDerAcomodo();
+       digitalWrite(ledAzul, HIGH); 
+       distanciaDE=distanciaDerechaEnfrente();
+       distanciaDA=distanciaDerechaAtras();
+       delay(50);
+    }  
+    robot.detenerse();
+    digitalWrite(ledAzul, LOW);    
+  }
+   
+  if(distanciaDE<distanciaDA && distanciaIE>distanciaIA){
+    while(distanciaDE<distanciaDA && distanciaIE>distanciaIA){
+     robot.moveIzqAcomodo();  
+   digitalWrite(ledAmarillo, HIGH);
+   distanciaIE=distanciaIzquierdaEnfrente();
+   distanciaIA=distanciaIzquierdaAtras();
+   delay(50);
+    } 
+   robot.detenerse();
+   digitalWrite(ledAmarillo, LOW);  
+}
+}
+delay(500);
+}
+
 void setup() {
   Serial.begin(9600);
   mlx.begin();  
@@ -681,40 +717,7 @@ byte pos;
   
   robot.detenerse();
   delay(50);
-  distanciaE=distanciaEnfrente();
-    distanciaA=distanciaAtras();
-    distanciaDE=distanciaDerechaEnfrente();
-    distanciaDA=distanciaDerechaAtras();
-    distanciaIE=distanciaIzquierdaEnfrente();
-    distanciaIA=distanciaIzquierdaAtras();
-    if((distanciaDE!=distanciaDA||distanciaIE!=distanciaIA)&&((distanciaDE<20 && distanciaDA<20)||(distanciaIE<20 && distanciaIA<20))){
-  Serial.println("Desalineado****");
-  if(distanciaDE>distanciaDA && distanciaIE<distanciaIA){
-    while(distanciaDE>distanciaDA && distanciaIE<distanciaIA){
-       robot.moveDerAcomodo();
-       digitalWrite(ledAzul, HIGH); 
-       distanciaDE=distanciaDerechaEnfrente();
-       distanciaDA=distanciaDerechaAtras();
-       delay(50);
-    }  
-    robot.detenerse();
-    digitalWrite(ledAzul, LOW);    
-  }
-   
-  if(distanciaDE<distanciaDA && distanciaIE>distanciaIA){
-    while(distanciaDE<distanciaDA && distanciaIE>distanciaIA){
-     robot.moveIzqAcomodo();  
-   digitalWrite(ledAmarillo, HIGH);
-   distanciaIE=distanciaIzquierdaEnfrente();
-   distanciaIA=distanciaIzquierdaAtras();
-   delay(50);
-    } 
-   robot.detenerse();
-   digitalWrite(ledAmarillo, LOW);  
-}
-
-}
-
+  alineaRobot();
   distanciaE = distanciaEnfrente();
 
   if(distanciaE > 6 && distanciaE < 15)
