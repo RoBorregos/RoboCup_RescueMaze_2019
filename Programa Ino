@@ -1,4 +1,4 @@
-//PROGRAMA INO. ROBORREGOS.
+ //PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
 
@@ -261,33 +261,40 @@ void findp(){
                   robot.moveDer();
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                   robot.moveDer();
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                   robot.moveAdelante();
                   delay(925);
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                 } break;
                 case 'E':
                 {
                   robot.moveDer();
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                   robot.moveAdelante();
                   delay(925);
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                 } break;
                 case 'O':
                 {
                   robot.moveIzq();
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                   robot.moveAdelante();
                   delay(925);
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                 } break;
                 case 'S':
                 {
@@ -295,6 +302,7 @@ void findp(){
                   delay(925);
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                 } break;
               }
 
@@ -309,10 +317,12 @@ void findp(){
                   robot.moveDer();
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                   robot.moveAdelante();
                   delay(925);
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                 } break;
                 case 'E':
                 {
@@ -320,29 +330,35 @@ void findp(){
                   delay(925);
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                 } break;
                 case 'O':
                 {
                   robot.moveDer();
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                   robot.moveDer();
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                   robot.moveAdelante();
                   delay(925);
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                 } break;
                 case 'S':
                 {
                   robot.moveIzq();
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                   robot.moveAdelante();
                   delay(925);
                   robot.detenerse();
                   delay(100);
+                  alineaRobot();
                 } break;
               }
 
@@ -357,23 +373,28 @@ void findp(){
                       robot.moveIzq();
                       robot.detenerse();
                       delay(100);
+                      alineaRobot();
                       robot.moveAdelante();
                       delay(925);
                       robot.detenerse();
                       delay(100);
+                      alineaRobot();
                     } break;
                     case 'E':
                     {
                       robot.moveDer();
                       robot.detenerse();
                       delay(100);
+                      alineaRobot();
                       robot.moveDer();
                       robot.detenerse();
                       delay(100);
+                      alineaRobot();
                       robot.moveAdelante();
                       delay(925);
                       robot.detenerse();
                       delay(100);
+                      alineaRobot();
                     } break;
                     case 'O':
                     {
@@ -381,16 +402,19 @@ void findp(){
                       delay(925);
                       robot.detenerse();
                       delay(100);
+                      alineaRobot();
                     } break;
                     case 'S':
                     {
                       robot.moveDer();
                       robot.detenerse();
                       delay(100);
+                      alineaRobot();
                       robot.moveAdelante();
                       delay(925);
                       robot.detenerse();
                       delay(100);
+                      alineaRobot();
                     } break;
                   }
 
@@ -406,39 +430,47 @@ void findp(){
                         delay(925);
                         robot.detenerse();
                         delay(100);
+                        alineaRobot();
                       } break;
                       case 'E':
                       {
                         robot.moveIzq();
                         robot.detenerse();
                         delay(100);
+                        alineaRobot();
                         robot.moveAdelante();
                         delay(925);
                         robot.detenerse();
                         delay(100);
+                        alineaRobot();
                       } break;
                       case 'O':
                       {
                         robot.moveDer();
                         robot.detenerse();
                         delay(100);
+                        alineaRobot();
                         robot.moveAdelante();
                         delay(925);
                         robot.detenerse();
                         delay(100);
+                        alineaRobot();
                       } break;
                       case 'S':
                       {
                         robot.moveDer();
                         robot.detenerse();
                         delay(100);
+                        alineaRobot();
                         robot.moveDer();
                         robot.detenerse();
                         delay(100);
+                        alineaRobot();
                         robot.moveAdelante();
                         delay(925);
                         robot.detenerse();
                         delay(100);
+                        alineaRobot();
                       } break;
                     }
                 }
@@ -1035,6 +1067,7 @@ byte pos;
         robot.moveDer();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'E';
 
         if(contador >= 3 && distanciaIE < 15)
@@ -1047,6 +1080,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaDE > 15 && orientacion == 'E' && pasados[x+1][y][z] == 'P')
@@ -1054,6 +1088,7 @@ byte pos;
         robot.moveDer();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'S';
 
         if(contador >= 3 && distanciaIE < 15)
@@ -1065,6 +1100,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaDE > 15 && orientacion == 'S' && pasados[x][y-1][z] == 'P')
@@ -1072,6 +1108,7 @@ byte pos;
         robot.moveDer();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'O';
 
         if(contador >= 3 && distanciaIE <20)
@@ -1083,6 +1120,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaDE > 15 && orientacion == 'O' && pasados[x-1][y][z] == 'P')
@@ -1090,6 +1128,7 @@ byte pos;
         robot.moveDer();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'N';
 
         if(contador >= 3 && distanciaIE <20)
@@ -1101,6 +1140,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaE > 15 && orientacion == 'N' && pasados[x-1][y][z] == 'P')
@@ -1124,6 +1164,7 @@ byte pos;
         robot.moveIzq();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'O';
 
         if(contador >= 3 && distanciaDE <20)
@@ -1136,6 +1177,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaIE > 15 && orientacion == 'E' && pasados[x-1][y][z] == 'P')
@@ -1143,6 +1185,7 @@ byte pos;
         robot.moveIzq();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'N';
 
         if(contador >= 3 && distanciaDE <20)
@@ -1154,6 +1197,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaIE > 15 && orientacion == 'S' && pasados[x][y+1][z] == 'P')
@@ -1161,6 +1205,7 @@ byte pos;
         robot.moveIzq();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'E';
 
         if(contador >= 3 && distanciaDE <20)
@@ -1172,6 +1217,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaIE > 15 && orientacion == 'O' && pasados[x+1][y][z] == 'P')
@@ -1179,6 +1225,7 @@ byte pos;
         robot.moveIzq();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'S';
 
         if(contador >= 3 && distanciaDE <20)
@@ -1190,6 +1237,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else
@@ -1257,6 +1305,7 @@ byte pos;
         robot.moveDer();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'E';
 
         if(contador >= 3 && distanciaIE <20)
@@ -1268,6 +1317,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaDE > 15 && orientacion == 'E' && pasados[x+1][y][z] == 'P')
@@ -1276,6 +1326,7 @@ byte pos;
         robot.moveDer();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'S';
 
         if(contador >= 3 && distanciaIE <20)
@@ -1287,6 +1338,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaDE > 15 && orientacion == 'S' && pasados[x][y-1][z] == 'P')
@@ -1295,6 +1347,7 @@ byte pos;
         robot.moveDer();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'O';
 
         if(contador >= 3 && distanciaIE <20)
@@ -1306,6 +1359,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaDE > 15 && orientacion == 'O' && pasados[x-1][y][z] == 'P')
@@ -1314,6 +1368,7 @@ byte pos;
         robot.moveDer();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'N';
 
         if(contador >= 3 && distanciaIE <20)
@@ -1325,6 +1380,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaIE > 15 && orientacion == 'N' && pasados[x][y-1][z] == 'P')
@@ -1333,6 +1389,7 @@ byte pos;
         robot.moveIzq();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'O';
 
         if(contador >= 3 && distanciaDE <20)
@@ -1344,6 +1401,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaIE > 15 && orientacion == 'E' && pasados[x-1][y][z] == 'P')
@@ -1352,6 +1410,7 @@ byte pos;
         robot.moveIzq();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'N';
 
         if(contador >= 3 && distanciaDE <20)
@@ -1363,6 +1422,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaIE > 15 && orientacion == 'S' && pasados[x][y+1][z] == 'P')
@@ -1371,6 +1431,7 @@ byte pos;
         robot.moveIzq();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'E';
 
         if(contador >= 3 && distanciaDE <20)
@@ -1382,6 +1443,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else if(distanciaIE > 15 && orientacion == 'O' && pasados[x+1][y][z] == 'P')
@@ -1390,6 +1452,7 @@ byte pos;
         robot.moveIzq();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         orientacion = 'S';
 
         if(contador >= 3 && distanciaDE <20)
@@ -1401,6 +1464,7 @@ byte pos;
             delay(200);
             robot.detenerse();
             delay(100);
+            alineaRobot();
           }
       }
       else{
@@ -1408,9 +1472,11 @@ byte pos;
         robot.moveDer();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         robot.moveDer();
         robot.detenerse();
         delay(200);
+        alineaRobot();
         if(orientacion == 'N')
           orientacion = 'S';
           else if(orientacion == 'E')
@@ -1438,6 +1504,7 @@ byte pos;
           robot.moveDer();
           robot.detenerse();
           delay(200);
+          alineaRobot();
           switch(orientacion)
           {
             case 'N':
