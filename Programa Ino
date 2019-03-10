@@ -14,18 +14,18 @@
 #include <QueueArray.h>
 
 #define MAX_DISTANCE 220
-#define ECHO_PIN_E 49
 #define TRIGGER_PIN_E 48
+#define ECHO_PIN_E 49
 #define TRIGGER_PIN_A 42
 #define ECHO_PIN_A 43
-#define TRIGGER_PIN_DE   46
-#define ECHO_PIN_DE      47
+#define TRIGGER_PIN_DE   39
+#define ECHO_PIN_DE      38
 #define TRIGGER_PIN_DA 40
 #define ECHO_PIN_DA 41
 #define TRIGGER_PIN_IE   44
 #define ECHO_PIN_IE     45
-#define TRIGGER_PIN_IA 38
-#define ECHO_PIN_IA 39
+#define TRIGGER_PIN_IA 46
+#define ECHO_PIN_IA 47
 
 struct point{
   byte a, b, cost;
