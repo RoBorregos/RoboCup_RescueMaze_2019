@@ -234,4 +234,3 @@ void MotoresB::moveIzqAcomodo(){
     MotorAdeDer->setSpeed(80);
     MotorAdeDer->run(FORWARD);
 }
-
