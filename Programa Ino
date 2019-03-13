@@ -2,7 +2,7 @@
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
 
-#include <MotoresB.h>
+#include <MotoresPrueba.h>
 #include <NewPing.h>
 #include <Adafruit_VL53L0X.h>
 #include <Servo.h>
@@ -38,7 +38,7 @@ struct direcciones
   byte px, py;
 };
 
-MotoresB robot;
+MotoresPrueba robot;
 Rampa subir;
 NewPing sonarE(TRIGGER_PIN_E, ECHO_PIN_E, MAX_DISTANCE); 
 NewPing sonarA(TRIGGER_PIN_A, ECHO_PIN_A, MAX_DISTANCE); 
