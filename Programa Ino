@@ -142,7 +142,7 @@ void clear(){
           else if(pS[i][j] == true)
           {
             Serial.print("~");
-          }*/
+          }********/
         else{
       Serial.print(mapa[i][j]);}
       Serial.print("      ");
@@ -262,27 +262,38 @@ void findp(){
 
     if((mapa[BFSx][BFSy+1] < menor) && (mapa[BFSx][BFSy+1] != -1) && (visitados[BFSx][BFSy+1] == true) && BFSx >= 0 && BFSy+1 >= 0 && BFSx < 15 && BFSy+1 < 15 && (pE[BFSx][BFSy][z] == false)){
       menor = mapa[BFSx][BFSy+1];
-      moves[contador] = 'i';
-        ++contador;
-        ++BFSy;}
+      moves[contador] = 'i';}
 
     if((mapa[BFSx+1][BFSy] < menor) && (mapa[BFSx+1][BFSy] != -1) && (visitados[BFSx+1][BFSy] == true) && BFSx+1 >= 0 && BFSy >= 0 && BFSx+1 < 15 && BFSy < 15 && (pS[BFSx][BFSy][z] == false)){
       menor = mapa[BFSx+1][BFSy];
-      moves[contador] = 'f';
-          ++contador;
-          ++BFSx;}
+      moves[contador] = 'f';}
 
     if((mapa[BFSx-1][BFSy] < menor) && (mapa[BFSx-1][BFSy] != -1) && (visitados[BFSx-1][BFSy] == true) && BFSx-1 >= 0 && BFSy >= 0 && BFSx-1 < 15 && BFSy < 15 && (pN[BFSx][BFSy][z] == false)){
       menor = mapa[BFSx-1][BFSy];
-      moves[contador] = 'a';
-            ++contador;
-            --BFSx;}
+      moves[contador] = 'a';}
 
     if((mapa[BFSx][BFSy-1] < menor) && (mapa[BFSx][BFSy-1] != -1) && (visitados[BFSx][BFSy-1] == true) && BFSx >= 0 && BFSy-1 >= 0 && BFSx < 15 && BFSy-1 < 15 && (pO[BFSx][BFSy][z] == false)){
       menor = mapa[BFSx][BFSy-1];
-      moves[contador] = 'd';
-              ++contador;
-              --BFSy;}
+      moves[contador] = 'd';}
+
+    if(moves[contador] == 'i')
+      {
+        BFSy++;
+      }
+      else if(moves[contador] == 'f')
+        {
+          BFSx++;
+        }
+        else if(moves[contador] == 'a')
+          {
+            BFSx--;
+          }
+          else if(moves[contador] == 'd')
+            {
+              BFSy--;
+            }
+
+     contador++;
 
       lcd2.clear();
   }
@@ -290,6 +301,7 @@ void findp(){
   lcd2.display();
   lcd2.print("CONTADOR = ");
   lcd2.print(contador);
+  delay(2000);
   lcd2.clear();
   
     char movesOf[contador];
@@ -1029,7 +1041,7 @@ void setup() {
   lcd2.display();
   lcd2.print("DISTANCIAS INICIALES");
   
-  pasados[7][7][0] = 'V';
+  pasados[x][y][z] = 'V';
 
    distanciaDE = distanciaDerechaEnfrente();
    distanciaIE = distanciaIzquierdaEnfrente();
@@ -1062,6 +1074,12 @@ void setup() {
         pasados[x+1][y][z] = 'P';
       }
 
+  if(distanciaDE > 15 || distanciaIE > 15 || distanciaA >15)
+    {
+      lastX = 7;
+      lastY = 7;
+    }
+
   delay(500);
 
   lcd2.clear();
@@ -1074,7 +1092,7 @@ void loop() {
 byte pos;
     byte valor = 0;
 
-    for(byte j=0; j<30; j++){
+    for(byte j=0; j<28; j++){
       lcd2.display();
     lcd2.print("ADELANTE");
     if((digitalRead(32)==LOW)&&j<80)
@@ -1327,7 +1345,7 @@ byte pos;
     {
       case 'N':
         {
-          if(pasados[x][y+1][z] == 'P' && pasados[x-1][y][z] == 'P')
+          if(pasados[x][y+1][z] == 'P' && pasados[x-1][y][z] == 'P' && distanciaDE > 15 && distanciaE > 15)
             {
               lastlastlastlastlastlastX = lastlastlastlastlastX;
               lastlastlastlastlastX = lastlastlastlastX;
@@ -1343,7 +1361,7 @@ byte pos;
               lastlastY = lastY;
               lastY = y;
             }
-            else if(pasados[x][y+1][z] == 'P' && pasados[x][y-1][z] == 'P')
+            else if(pasados[x][y+1][z] == 'P' && pasados[x][y-1][z] == 'P' && distanciaDE > 15 && distanciaIE > 15)
             {
               lastlastlastlastlastlastX = lastlastlastlastlastX;
               lastlastlastlastlastX = lastlastlastlastX;
@@ -1359,7 +1377,7 @@ byte pos;
               lastlastY = lastY;
               lastY = y;
             }
-            else if(pasados[x-1][y][z] == 'P' && pasados[x][y-1][z] == 'P')
+            else if(pasados[x-1][y][z] == 'P' && pasados[x][y-1][z] == 'P' && distanciaE > 15 && distanciaIE > 15)
             {
               lastlastlastlastlastlastX = lastlastlastlastlastX;
               lastlastlastlastlastX = lastlastlastlastX;
@@ -1378,7 +1396,7 @@ byte pos;
         } break;
         case 'E':
           {
-            if(pasados[x+1][y][z] == 'P' && pasados[x][y+1][z] == 'P')
+            if(pasados[x+1][y][z] == 'P' && pasados[x][y+1][z] == 'P' && distanciaDE > 15 && distanciaE > 15)
               {
                 lastlastlastlastlastlastX = lastlastlastlastlastX;
               lastlastlastlastlastX = lastlastlastlastX;
@@ -1394,7 +1412,7 @@ byte pos;
               lastlastY = lastY;
               lastY = y;
               }
-              else if(pasados[x+1][y][z] == 'P' && pasados[x-1][y][z] == 'P')
+              else if(pasados[x+1][y][z] == 'P' && pasados[x-1][y][z] == 'P' && distanciaDE > 15 && distanciaIE > 15)
               {
                 lastlastlastlastlastlastX = lastlastlastlastlastX;
               lastlastlastlastlastX = lastlastlastlastX;
@@ -1410,7 +1428,7 @@ byte pos;
               lastlastY = lastY;
               lastY = y;
               }
-              else if(pasados[x][y+1][z] == 'P' && pasados[x-1][y][z] == 'P')
+              else if(pasados[x][y+1][z] == 'P' && pasados[x-1][y][z] == 'P' && distanciaE > 15 && distanciaIE > 15)
               {
                 lastlastlastlastlastlastX = lastlastlastlastlastX;
               lastlastlastlastlastX = lastlastlastlastX;
@@ -1429,7 +1447,7 @@ byte pos;
           } break;
           case 'O':
             {
-              if(pasados[x-1][y][z] == 'P' && pasados[x][y-1][z] == 'P')
+              if(pasados[x-1][y][z] == 'P' && pasados[x][y-1][z] == 'P' && distanciaDE > 15 && distanciaE > 15)
                 {
                   lastlastlastlastlastlastX = lastlastlastlastlastX;
                   lastlastlastlastlastX = lastlastlastlastX;
@@ -1445,7 +1463,7 @@ byte pos;
                   lastlastY = lastY;
                   lastY = y;
                 }
-                else if(pasados[x-1][y][z] == 'P' && pasados[x+1][y][z] == 'P')
+                else if(pasados[x-1][y][z] == 'P' && pasados[x+1][y][z] == 'P' && distanciaDE > 15 && distanciaIE > 15)
                 {
                   lastlastlastlastlastX = lastlastlastlastX;
                   lastlastlastlastX = lastlastlastX;
@@ -1460,7 +1478,7 @@ byte pos;
                   lastlastY = lastY;
                   lastY = y;
                 }
-                else if(pasados[x][y-1][z] == 'P' && pasados[x+1][y][z] == 'P')
+                else if(pasados[x][y-1][z] == 'P' && pasados[x+1][y][z] == 'P' && distanciaE > 15 && distanciaIE > 15)
                 {
                   lastlastlastlastlastX = lastlastlastlastX;
                   lastlastlastlastX = lastlastlastX;
@@ -1478,7 +1496,7 @@ byte pos;
             } break;
             case 'S':
               {
-                if(pasados[x][y-1][z] == 'P' && pasados[x+1][y][z] == 'P')
+                if(pasados[x][y-1][z] == 'P' && pasados[x+1][y][z] == 'P' && distanciaDE > 15 && distanciaE > 15)
                   {
                     lastlastlastlastlastX = lastlastlastlastX;
                     lastlastlastlastX = lastlastlastX;
@@ -1493,7 +1511,7 @@ byte pos;
                     lastlastY = lastY;
                     lastY = y;
                   }
-                  else if(pasados[x][y-1][z] == 'P' && pasados[x][y+1][z] == 'P')
+                  else if(pasados[x][y-1][z] == 'P' && pasados[x][y+1][z] == 'P' && distanciaDE > 15 && distanciaIE > 15)
                   {
                     lastlastlastlastX = lastlastlastX;
                     lastlastlastX = lastlastX;
@@ -1507,7 +1525,7 @@ byte pos;
                     lastlastY = lastY;
                     lastY = y;
                   }
-                  else if(pasados[x+1][y][z] == 'P' && pasados[x][y+1][z] == 'P')
+                  else if(pasados[x+1][y][z] == 'P' && pasados[x][y+1][z] == 'P' && distanciaE > 15 && distanciaIE > 15)
                   {
                     lastlastlastlastX = lastlastlastX;
                     lastlastlastX = lastlastX;
@@ -1796,7 +1814,7 @@ byte pos;
         delay(500);
         lcd2.clear();
        lcd2.display();
-        lcd2.print("CONDICION 1");
+        lcd2.print("CONDICION 12");
         delay(1000);
         lcd2.clear();
        
@@ -1837,17 +1855,6 @@ byte pos;
                           }
                     }
               }
-
-              lcd2.display();
-              lcd2.print("objetivo X = ");
-              lcd2.print(objX);
-              delay(1000);
-              lcd2.clear();
-              lcd2.display();
-              lcd2.print("objetivo Y = ");
-              lcd2.print(objY);
-              delay(1000);
-              lcd2.clear();
               
         buscarObjetivo();
       }
