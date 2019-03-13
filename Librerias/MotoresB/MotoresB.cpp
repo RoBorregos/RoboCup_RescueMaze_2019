@@ -10,6 +10,7 @@ MotorAdeIzq = AFMS.getMotor(4);
 MotorAdeDer = AFMS.getMotor(1);
 MotorAtrasIzq = AFMS.getMotor(3);
 MotorAtrasDer = AFMS.getMotor(2);
+
 }
 
 void MotoresB::setup(){
@@ -28,11 +29,11 @@ void MotoresB::moveAdelante(){
     uint8_t i;
 
     MotorAtrasDer->setSpeed(250);
-    MotorAtrasDer->run(BACKWARD);
+    MotorAtrasDer->run(FORWARD);
     MotorAtrasIzq->setSpeed(250);
-    MotorAtrasIzq->run(BACKWARD);
+    MotorAtrasIzq->run(FORWARD);
     MotorAdeIzq->setSpeed(250);
-    MotorAdeIzq->run(FORWARD);
+    MotorAdeIzq->run(BACKWARD);
     MotorAdeDer->setSpeed(250);
     MotorAdeDer->run(BACKWARD);
 }
@@ -40,11 +41,11 @@ void MotoresB::moveAdelanteLento(){
     uint8_t i;
 
     MotorAtrasDer->setSpeed(50);
-    MotorAtrasDer->run(BACKWARD);
+    MotorAtrasDer->run(FORWARD);
     MotorAtrasIzq->setSpeed(50);
-    MotorAtrasIzq->run(BACKWARD);
+    MotorAtrasIzq->run(FORWARD);
     MotorAdeIzq->setSpeed(50);
-    MotorAdeIzq->run(FORWARD);
+    MotorAdeIzq->run(BACKWARD);
     MotorAdeDer->setSpeed(50);
     MotorAdeDer->run(BACKWARD);
 }
@@ -59,20 +60,20 @@ void MotoresB::acomodoD()
     MotorAdeIzq->setSpeed(50);
     MotorAdeIzq->run(BACKWARD);
     MotorAdeDer->setSpeed(170);
-    MotorAdeDer->run(FORWARD);
+    MotorAdeDer->run(BACKWARD);
 }
 void MotoresB::acomodoI()
 {
   uint8_t i;
 
-    MotorAtrasDer->setSpeed(50);
+  MotorAtrasDer->setSpeed(50);
     MotorAtrasDer->run(FORWARD);
     MotorAtrasIzq->setSpeed(170);
     MotorAtrasIzq->run(FORWARD);
     MotorAdeIzq->setSpeed(170);
     MotorAdeIzq->run(BACKWARD);
     MotorAdeDer->setSpeed(50);
-    MotorAdeDer->run(FORWARD);
+    MotorAdeDer->run(BACKWARD);
 }
 void MotoresB::detenerse(){
   MotorAdeIzq->run(RELEASE);
@@ -84,11 +85,11 @@ void MotoresB::moveAtras(){
 uint8_t i;
 
     MotorAtrasDer->setSpeed(250);
-    MotorAtrasDer->run(FORWARD);
+    MotorAtrasDer->run(BACKWARD);
     MotorAtrasIzq->setSpeed(250);
-    MotorAtrasIzq->run(FORWARD);
+    MotorAtrasIzq->run(BACKWARD);
     MotorAdeIzq->setSpeed(250);
-    MotorAdeIzq->run(BACKWARD);
+    MotorAdeIzq->run(FORWARD);
     MotorAdeDer->setSpeed(250);
     MotorAdeDer->run(FORWARD);
 }
@@ -96,11 +97,11 @@ void MotoresB::moveAtrasLento(){
 uint8_t i;
 
     MotorAtrasDer->setSpeed(50);
-    MotorAtrasDer->run(FORWARD);
+    MotorAtrasDer->run(BACKWARD);
     MotorAtrasIzq->setSpeed(50);
-    MotorAtrasIzq->run(FORWARD);
+    MotorAtrasIzq->run(BACKWARD);
     MotorAdeIzq->setSpeed(50);
-    MotorAdeIzq->run(BACKWARD);
+    MotorAdeIzq->run(FORWARD);
     MotorAdeDer->setSpeed(50);
     MotorAdeDer->run(FORWARD);
 }
@@ -126,7 +127,7 @@ if(med<90){
     MotorAdeIzq->setSpeed(250);
     MotorAdeIzq->run(BACKWARD);
     MotorAdeDer->setSpeed(250);
-    MotorAdeDer->run(BACKWARD);
+    MotorAdeDer->run(FORWARD);
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print("X: ");
     newMed=euler.x();
@@ -144,7 +145,7 @@ if(med<90){
     MotorAdeIzq->setSpeed(250);
     MotorAdeIzq->run(BACKWARD);
     MotorAdeDer->setSpeed(250);
-    MotorAdeDer->run(BACKWARD);
+    MotorAdeDer->run(FORWARD);
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print("X: ");
     newMed=euler.x();
@@ -181,7 +182,7 @@ double med=0, newMed=0, punto=0, newPunto=0;
     MotorAdeIzq->setSpeed(250);
     MotorAdeIzq->run(FORWARD);
     MotorAdeDer->setSpeed(250);
-    MotorAdeDer->run(FORWARD);
+    MotorAdeDer->run(BACKWARD);
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print("X: ");
     newMed=euler.x();
@@ -199,7 +200,7 @@ double med=0, newMed=0, punto=0, newPunto=0;
     MotorAdeIzq->setSpeed(250);
     MotorAdeIzq->run(FORWARD);
     MotorAdeDer->setSpeed(250);
-    MotorAdeDer->run(FORWARD);
+    MotorAdeDer->run(BACKWARD);
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print("X: ");
     newMed=euler.x();
@@ -214,23 +215,23 @@ double med=0, newMed=0, punto=0, newPunto=0;
   MotorAtrasDer->run(RELEASE);
 }
 void MotoresB::moveDerAcomodo(){
-    MotorAtrasDer->setSpeed(80);
+   MotorAtrasDer->setSpeed(80);
     MotorAtrasDer->run(FORWARD);
     MotorAtrasIzq->setSpeed(80);
     MotorAtrasIzq->run(BACKWARD);
     MotorAdeIzq->setSpeed(80);
     MotorAdeIzq->run(FORWARD);
     MotorAdeDer->setSpeed(80);
-    MotorAdeDer->run(FORWARD);
+    MotorAdeDer->run(BACKWARD);
 }
 void MotoresB::moveIzqAcomodo(){
-  MotorAtrasDer->setSpeed(80);
+    MotorAtrasDer->setSpeed(80);
     MotorAtrasDer->run(BACKWARD);
     MotorAtrasIzq->setSpeed(80);
     MotorAtrasIzq->run(FORWARD);
     MotorAdeIzq->setSpeed(80);
     MotorAdeIzq->run(BACKWARD);
     MotorAdeDer->setSpeed(80);
-    MotorAdeDer->run(BACKWARD);
+    MotorAdeDer->run(FORWARD);
 }
 
