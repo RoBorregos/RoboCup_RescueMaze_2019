@@ -1,4 +1,6 @@
- #include "MotoresPrueba.h"
+//Nueva Libreria Motores************
+
+#include "MotoresPrueba.h"
 
 double Kp=2, Ki=0, Kd=0;
 double Input=0, Output=0, Setpoint=0;
@@ -193,40 +195,54 @@ double med=0, newMed=0, punto=0, newPunto=0;
 
     if(med>=270){
 
-    punto=med+90;
+    punto=med+85;
     newPunto=(360-punto)*-1;
+    Setpoint=newPunto;
     do{
-    MotorAtrasDer->setSpeed(250);
-    MotorAtrasDer->run(FORWARD);
-    MotorAtrasIzq->setSpeed(250);
-    MotorAtrasIzq->run(BACKWARD);
-    MotorAdeIzq->setSpeed(250);
-    MotorAdeIzq->run(FORWARD);
-    MotorAdeDer->setSpeed(250);
-    MotorAdeDer->run(BACKWARD);
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print("X: ");
     newMed=euler.x();
+    Input=newMed;
     Serial.println(newMed);
     delay(BNO055_SAMPLERATE_DELAY_MS);
+    myPID.Compute();
+    Output+=100;
+    (Output>255)? Output=255: Output=Output;
+    Serial.println(Output);
+    //analogWrite(PIN_OUTPUT, Output);
+    MotorAtrasDer->setSpeed(Output);
+    MotorAtrasDer->run(FORWARD);
+    MotorAtrasIzq->setSpeed(Output);
+    MotorAtrasIzq->run(BACKWARD);
+    MotorAdeIzq->setSpeed(Output);
+    MotorAdeIzq->run(FORWARD);
+    MotorAdeDer->setSpeed(Output);
+    MotorAdeDer->run(BACKWARD);
     }while(newMed>=med || newMed<newPunto);
   }
   else{
-    punto=med+90;
+    punto=med+85;
+    Setpoint=punto;
     do{
-    MotorAtrasDer->setSpeed(250);
-    MotorAtrasDer->run(FORWARD);
-    MotorAtrasIzq->setSpeed(250);
-    MotorAtrasIzq->run(BACKWARD);
-    MotorAdeIzq->setSpeed(250);
-    MotorAdeIzq->run(FORWARD);
-    MotorAdeDer->setSpeed(250);
-    MotorAdeDer->run(BACKWARD);
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print("X: ");
     newMed=euler.x();
+    Input=newMed;
     Serial.println(newMed);
     delay(BNO055_SAMPLERATE_DELAY_MS);
+    myPID.Compute();
+    Output+=100;
+    (Output>255)? Output=255: Output=Output;
+    Serial.println(Output);
+    //analogWrite(PIN_OUTPUT, Output);
+    MotorAtrasDer->setSpeed(Output);
+    MotorAtrasDer->run(FORWARD);
+    MotorAtrasIzq->setSpeed(Output);
+    MotorAtrasIzq->run(BACKWARD);
+    MotorAdeIzq->setSpeed(Output);
+    MotorAdeIzq->run(FORWARD);
+    MotorAdeDer->setSpeed(Output);
+    MotorAdeDer->run(BACKWARD);
     }while(newMed<punto);
   }
   Serial.println("YA SALIO********");
