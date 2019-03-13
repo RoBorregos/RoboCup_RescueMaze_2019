@@ -1,31 +1,80 @@
 #include <SoftwareSerial.h>
+// software serial #1: RX = digital pin 10, TX = digital pin 11
+SoftwareSerial portOne(10, 11);
 
-SoftwareSerial mySerial(10, 11); // RX, TX
-
-void getline(char *buffer, int max_len)
-{
-  uint8_t idx = 0;
-  char c;
-  do
-  {
-    if(idx >= max_len) return;
-    while (mySerial.available() == 0) ;
-    c = mySerial.read();
-    buffer[idx++] = c;
-  }
-  while (c != '\n' && c != '\r'); 
-  if(idx >= max_len) return;
-  buffer[idx] = 0;
-}
+// software serial #2: RX = digital pin 8, TX = digital pin 9
+// on the Mega, use other pins instead, since 8 and 9 don't work on the Mega
+SoftwareSerial portTwo(8, 9);
 
 void setup() {
-Serial.begin(9600);
-mySerial.begin(9600); 
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
+  
+  // Start each software serial port
+  portOne.begin(9600);
+  portTwo.begin(9600);
 }
 
-void loop(){
-  char buffer [63+1];
-  int max_len = 63;
-  getline(buffer, max_len);
-  Serial.print(buffer);
-}
+void loop() {
+  // By default, the last intialized port is listening.
+  // when you want to listen on a port, explicitly select it:
+  portOne.listen();
+  Serial.println("Data from port one:");
+  // while there is data coming in, read it
+  // and send to the hardware serial port:
+  while (portOne.available() > 0) {
+    char inByte = portOne.read();
+    Serial.write(inByte);
+    if(inByte == '6'){
+      Serial.println();
+      Serial.println("Harmed victim from the Right Side");
+      delay(1000);
+      break;
+    }
+    if(inByte == '5'){
+      Serial.println();
+      Serial.println("Stable victim from the Right Side");
+      delay(1000);
+      break;
+    }
+    if(inByte == '4'){
+      Serial.println();
+      Serial.println("Unharmed victim from the Right Side");
+      delay(1000);
+      break;
+    }
+  }
+
+  // blank line to separate data from the two ports:
+  Serial.println();
+
+  // Now listen on the second port
+  portTwo.listen();
+  // while there is data coming in, read it
+  // and send to the hardware serial port:
+  Serial.println("Data from port two:");
+  while (portTwo.available() > 0) {
+    char inByte = portTwo.read();
+    Serial.write(inByte);
+    if(inByte == '3'){
+      Serial.println();
+      Serial.println("Harmed victim from the Left Side");
+      delay(1000);
+      break;
+    }
+    if(inByte == '2'){
+      Serial.println();
+      Serial.println("Stable victim from the Left Side");
+      delay(1000);
+       break;
+    }
+    if(inByte == '1'){
+      Serial.println();
+      Serial.println("Unharmed victim from the Left Side");
+      delay(1000);
+      break;
+    }
+  }
