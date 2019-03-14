@@ -1,4 +1,4 @@
-  //PROGRAMA INO. ROBORREGOS.
+//PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
 
@@ -1050,6 +1050,7 @@ void setup() {
   if(distanciaDE < 20)
     {
       pE[x][y][z] = true;
+      pO[x][y+1][z] = true;
     }
     else
       {
@@ -1059,6 +1060,7 @@ void setup() {
   if(distanciaIE < 20)
     {
       pO[x][y][z] = true;
+      pE[x][y-1][z] = true;
     }
     else
     {
@@ -1068,6 +1070,7 @@ void setup() {
   if(distanciaA < 20)
     {
       pS[x][y][z] = true;
+      pN[x+1][y][z] = true;
     }
     else
       {
@@ -1092,7 +1095,7 @@ void loop() {
 byte pos;
     byte valor = 0;
 
-    for(byte j=0; j<40; j++){
+    for(byte j=0; j<28; j++){
       lcd2.display();
     lcd2.print("ADELANTE");
     if((digitalRead(32)==LOW)&&j<80)
@@ -1219,17 +1222,22 @@ byte pos;
     {
       switch(orientacion)
         {
-          case 'N':
+          case 'N':{
             pE[x][y][z] = true;
-            break;
-          case 'E':
+            pO[x][y+1][z] = true;
+          }break;
+          case 'E':{
             pS[x][y][z] = true;
-            break;
-          case 'O':
+            pN[x+1][y][z] = true;
+          }break;
+          case 'O':{
             pN[x][y][z] = true;
-            break;
-          case 'S':
+            pS[x-1][y][z] = true;
+          }break;
+          case 'S':{
             pO[x][y][z] = true;
+            pE[x][y-1][z] = true;
+        } break;
         }
     }
 
@@ -1237,17 +1245,22 @@ byte pos;
     {
       switch(orientacion)
         {
-          case 'N':
+          case 'N':{
             pO[x][y][z] = true;
-            break;
-          case 'E':
+            pE[x][y-1][z] = true;
+          }break;
+          case 'E':{
             pN[x][y][z] = true;
-            break;
-          case 'O':
+            pS[x-1][y][z] = true;
+          }break;
+          case 'O':{
             pS[x][y][z] = true;
-            break;
-          case 'S':
+            pN[x+1][y][z] = true;
+          } break;
+          case 'S':{
             pE[x][y][z] = true;
+            pO[x][y+1][z] = true;
+          }break;
         }
     }
 
@@ -1255,17 +1268,22 @@ byte pos;
     {
       switch(orientacion)
         {
-          case 'N':
+          case 'N':{
             pN[x][y][z] = true;
-            break;
-          case 'E':
+            pS[x-1][y][z] = true;
+          }break;
+          case 'E':{
             pE[x][y][z] = true;
-            break;
-          case 'O':
+            pO[x][y+1][z] = true;
+          } break;
+          case 'O':{
             pO[x][y][z] = true;
-            break;
-          case 'S':
+            pE[x][y-1][z] = true;
+          }break;
+          case 'S':{
             pS[x][y][z] = true;
+            pN[x+1][y][z] = true;
+          }break;
         }
     }
 
