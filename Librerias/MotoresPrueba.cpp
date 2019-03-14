@@ -1,6 +1,4 @@
-//Nueva Libreria Motores************
-
-#include "MotoresPrueba.h"
+ #include "MotoresPrueba.h"
 
 double Kp=2, Ki=0, Kd=0;
 double Input=0, Output=0, Setpoint=0;
@@ -36,13 +34,13 @@ void MotoresPrueba::setup(){
 void MotoresPrueba::moveAdelante(){
     uint8_t i;
 
-    MotorAtrasDer->setSpeed(250);
+    MotorAtrasDer->setSpeed(230);
     MotorAtrasDer->run(FORWARD);
-    MotorAtrasIzq->setSpeed(250);
+    MotorAtrasIzq->setSpeed(255);
     MotorAtrasIzq->run(FORWARD);
-    MotorAdeIzq->setSpeed(250);
+    MotorAdeIzq->setSpeed(255);
     MotorAdeIzq->run(BACKWARD);
-    MotorAdeDer->setSpeed(250);
+    MotorAdeDer->setSpeed(230);
     MotorAdeDer->run(BACKWARD);
 }
 void MotoresPrueba::moveAdelanteLento(){
@@ -92,13 +90,13 @@ void MotoresPrueba::detenerse(){
 void MotoresPrueba::moveAtras(){
 uint8_t i;
 
-    MotorAtrasDer->setSpeed(250);
+    MotorAtrasDer->setSpeed(230);
     MotorAtrasDer->run(BACKWARD);
-    MotorAtrasIzq->setSpeed(250);
+    MotorAtrasIzq->setSpeed(255);
     MotorAtrasIzq->run(BACKWARD);
-    MotorAdeIzq->setSpeed(250);
+    MotorAdeIzq->setSpeed(255);
     MotorAdeIzq->run(FORWARD);
-    MotorAdeDer->setSpeed(250);
+    MotorAdeDer->setSpeed(230);
     MotorAdeDer->run(FORWARD);
 }
 void MotoresPrueba::moveAtrasLento(){
@@ -115,7 +113,7 @@ uint8_t i;
 }
 void MotoresPrueba::moveIzq(){
 uint8_t i;
-double med=0, newMed=0, punto=0, newPunto=0;
+double med=0, newMed=0, punto=0, newPunto=0, nOutput=0;
 
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print("X: ");
@@ -136,17 +134,17 @@ if(med<90){
     Serial.println(newMed);
     delay(BNO055_SAMPLERATE_DELAY_MS);
     myPID.Compute();
-    Output+=100;
-    (Output>255)? Output=255: Output=Output;
-    Serial.println(Output);
+    nOutput=Output+150;
+    (nOutput>=255)? nOutput=255: nOutput=nOutput;
+    Serial.println(nOutput);
     //analogWrite(PIN_OUTPUT, Output);
-    MotorAtrasDer->setSpeed(Output);
+    MotorAtrasDer->setSpeed(nOutput);
     MotorAtrasDer->run(BACKWARD);
-    MotorAtrasIzq->setSpeed(Output);
+    MotorAtrasIzq->setSpeed(nOutput);
     MotorAtrasIzq->run(FORWARD);
-    MotorAdeIzq->setSpeed(Output);
+    MotorAdeIzq->setSpeed(nOutput);
     MotorAdeIzq->run(BACKWARD);
-    MotorAdeDer->setSpeed(Output);
+    MotorAdeDer->setSpeed(nOutput);
     MotorAdeDer->run(FORWARD);
 
     }while(newMed<=med || newMed>newPunto);
@@ -162,17 +160,17 @@ if(med<90){
     Serial.println(newMed);
     delay(BNO055_SAMPLERATE_DELAY_MS);
     myPID.Compute();
-    Output+=100;
-    (Output>255)? Output=255: Output=Output;
-    Serial.println(Output);
+    nOutput=Output+150;
+    (nOutput>=255)? nOutput=255: nOutput=nOutput;
+    Serial.println(nOutput);
     //analogWrite(PIN_OUTPUT, Output);
-    MotorAtrasDer->setSpeed(Output);
+    MotorAtrasDer->setSpeed(nOutput);
     MotorAtrasDer->run(BACKWARD);
-    MotorAtrasIzq->setSpeed(Output);
+    MotorAtrasIzq->setSpeed(nOutput);
     MotorAtrasIzq->run(FORWARD);
-    MotorAdeIzq->setSpeed(Output);
+    MotorAdeIzq->setSpeed(nOutput);
     MotorAdeIzq->run(BACKWARD);
-    MotorAdeDer->setSpeed(Output);
+    MotorAdeDer->setSpeed(nOutput);
     MotorAdeDer->run(FORWARD);
     }while(newMed>punto);
   }
@@ -185,7 +183,7 @@ if(med<90){
 
 void MotoresPrueba::moveDer(){
 uint8_t i;
-double med=0, newMed=0, punto=0, newPunto=0;
+double med=0, newMed=0, punto=0, newPunto=0, nOutput=0;
 
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print("X: ");
@@ -206,17 +204,17 @@ double med=0, newMed=0, punto=0, newPunto=0;
     Serial.println(newMed);
     delay(BNO055_SAMPLERATE_DELAY_MS);
     myPID.Compute();
-    Output+=100;
-    (Output>255)? Output=255: Output=Output;
-    Serial.println(Output);
+    nOutput=Output+150;
+    (nOutput>=255)? nOutput=255: nOutput=nOutput;
+    Serial.println(nOutput);
     //analogWrite(PIN_OUTPUT, Output);
-    MotorAtrasDer->setSpeed(Output);
+    MotorAtrasDer->setSpeed(nOutput);
     MotorAtrasDer->run(FORWARD);
-    MotorAtrasIzq->setSpeed(Output);
+    MotorAtrasIzq->setSpeed(nOutput);
     MotorAtrasIzq->run(BACKWARD);
-    MotorAdeIzq->setSpeed(Output);
+    MotorAdeIzq->setSpeed(nOutput);
     MotorAdeIzq->run(FORWARD);
-    MotorAdeDer->setSpeed(Output);
+    MotorAdeDer->setSpeed(nOutput);
     MotorAdeDer->run(BACKWARD);
     }while(newMed>=med || newMed<newPunto);
   }
@@ -231,17 +229,17 @@ double med=0, newMed=0, punto=0, newPunto=0;
     Serial.println(newMed);
     delay(BNO055_SAMPLERATE_DELAY_MS);
     myPID.Compute();
-    Output+=100;
-    (Output>255)? Output=255: Output=Output;
-    Serial.println(Output);
+    nOutput=Output+150;
+    (nOutput>=255)? nOutput=255: nOutput=nOutput;
+    Serial.println(nOutput);
     //analogWrite(PIN_OUTPUT, Output);
-    MotorAtrasDer->setSpeed(Output);
+    MotorAtrasDer->setSpeed(nOutput);
     MotorAtrasDer->run(FORWARD);
-    MotorAtrasIzq->setSpeed(Output);
+    MotorAtrasIzq->setSpeed(nOutput);
     MotorAtrasIzq->run(BACKWARD);
-    MotorAdeIzq->setSpeed(Output);
+    MotorAdeIzq->setSpeed(nOutput);
     MotorAdeIzq->run(FORWARD);
-    MotorAdeDer->setSpeed(Output);
+    MotorAdeDer->setSpeed(nOutput);
     MotorAdeDer->run(BACKWARD);
     }while(newMed<punto);
   }
