@@ -1,4 +1,4 @@
- #include "MotoresPrueba.h"
+  #include "MotoresPrueba.h"
 
 double Kp=2, Ki=0, Kd=0;
 double Input=0, Output=0, Setpoint=0;
@@ -34,14 +34,16 @@ void MotoresPrueba::setup(){
 void MotoresPrueba::moveAdelante(){
     uint8_t i;
 
-    MotorAtrasDer->setSpeed(230);
+    MotorAtrasDer->setSpeed(210);
     MotorAtrasDer->run(FORWARD);
-    MotorAtrasIzq->setSpeed(255);
+    MotorAtrasIzq->setSpeed(235);
     MotorAtrasIzq->run(FORWARD);
-    MotorAdeIzq->setSpeed(255);
+    MotorAdeIzq->setSpeed(235);
     MotorAdeIzq->run(BACKWARD);
-    MotorAdeDer->setSpeed(230);
+    MotorAdeDer->setSpeed(210);
     MotorAdeDer->run(BACKWARD);
+
+
 }
 void MotoresPrueba::moveAdelanteLento(){
     uint8_t i;
@@ -90,13 +92,13 @@ void MotoresPrueba::detenerse(){
 void MotoresPrueba::moveAtras(){
 uint8_t i;
 
-    MotorAtrasDer->setSpeed(230);
+    MotorAtrasDer->setSpeed(210);
     MotorAtrasDer->run(BACKWARD);
-    MotorAtrasIzq->setSpeed(255);
+    MotorAtrasIzq->setSpeed(235);
     MotorAtrasIzq->run(BACKWARD);
-    MotorAdeIzq->setSpeed(255);
+    MotorAdeIzq->setSpeed(235);
     MotorAdeIzq->run(FORWARD);
-    MotorAdeDer->setSpeed(230);
+    MotorAdeDer->setSpeed(210);
     MotorAdeDer->run(FORWARD);
 }
 void MotoresPrueba::moveAtrasLento(){
