@@ -15,6 +15,10 @@
 #include <i2cmaster.h>
 #include <LiquidCrystal_I2C.h>
 
+#define RH_ENCODER_A 2
+#define RH_ENCODER_B 3
+#define LH_ENCODER_A 18
+#define LH_ENCODER_B 19
 #define MAX_DISTANCE 220
 #define TRIGGER_PIN_E 48
 #define ECHO_PIN_E 49
@@ -52,6 +56,8 @@ Servo myservo;
 direcciones d[15][15];
 LiquidCrystal_I2C lcd2(0x3F,16,2);
 
+volatile unsigned long leftCount = 0;
+volatile unsigned long rightCount = 0;
 byte menor = 100;
 char moves[100];
 byte BFSx;
@@ -86,8 +92,8 @@ bool pE[15][15][2];
 bool pO[15][15][2];
 bool pS[15][15][2];
 bool visitados[15][15];
-byte objX, lastX = -1, lastlastX = -1, lastlastlastX = -1, lastlastlastlastX = -1, lastlastlastlastlastX = -1, lastlastlastlastlastlastX = -1;
-byte objY, lastY = -1, lastlastY = -1, lastlastlastY = -1, lastlastlastlastY = -1, lastlastlastlastlastY = -1, lastlastlastlastlastlastY = -1,  objZ;
+byte objX,rampaX, lastX = -1, lastlastX = -1, lastlastlastX = -1, lastlastlastlastX = -1, lastlastlastlastlastX = -1, lastlastlastlastlastlastX = -1;
+byte objY, rampaY, lastY = -1, lastlastY = -1, lastlastlastY = -1, lastlastlastlastY = -1, lastlastlastlastlastY = -1, lastlastlastlastlastlastY = -1,  objZ;
 byte minisq = 0;
 
 void clear(){
@@ -489,7 +495,7 @@ void findp(){
                     delay(500);
                     alineaRobot();
                     robot.moveAdelante();
-                    delay(925);
+                    delay(810);
                     robot.detenerse();
                     delay(500);
                     alineaRobot();
@@ -502,7 +508,7 @@ void findp(){
                     delay(500);
                     alineaRobot();
                     robot.moveAdelante();
-                    delay(925);
+                    delay(810);
                     robot.detenerse();
                     delay(500);
                     alineaRobot();
@@ -515,7 +521,7 @@ void findp(){
                     delay(500);
                     alineaRobot();
                     robot.moveAdelante();
-                    delay(925);
+                    delay(810);
                     robot.detenerse();
                     delay(500);
                     alineaRobot();
@@ -524,7 +530,7 @@ void findp(){
                   case 'S':
                   {
                     robot.moveAdelante();
-                    delay(925);
+                    delay(810);
                     robot.detenerse();
                     delay(500);
                     alineaRobot();
@@ -543,7 +549,7 @@ void findp(){
                     delay(500);
                     alineaRobot();
                     robot.moveAdelante();
-                    delay(925);
+                    delay(810);
                     robot.detenerse();
                     delay(500);
                     alineaRobot();
@@ -552,7 +558,7 @@ void findp(){
                   case 'E':
                   {
                     robot.moveAdelante();
-                    delay(925);
+                    delay(810);
                     robot.detenerse();
                     delay(500);
                     alineaRobot();
@@ -569,7 +575,7 @@ void findp(){
                     delay(500);
                     alineaRobot();
                     robot.moveAdelante();
-                    delay(925);
+                    delay(810);
                     robot.detenerse();
                     delay(500);
                     alineaRobot();
@@ -582,7 +588,7 @@ void findp(){
                     delay(500);
                     alineaRobot();
                     robot.moveAdelante();
-                    delay(925);
+                    delay(810);
                     robot.detenerse();
                     delay(500);
                     alineaRobot();
@@ -601,7 +607,7 @@ void findp(){
                         delay(500);
                         alineaRobot();
                         robot.moveAdelante();
-                        delay(925);
+                        delay(810);
                         robot.detenerse();
                         delay(500);
                         alineaRobot();
@@ -618,7 +624,7 @@ void findp(){
                         delay(500);
                         alineaRobot();
                         robot.moveAdelante();
-                        delay(925);
+                        delay(810);
                         robot.detenerse();
                         delay(500);
                         alineaRobot();
@@ -627,7 +633,7 @@ void findp(){
                       case 'O':
                       {
                         robot.moveAdelante();
-                        delay(925);
+                        delay(810);
                         robot.detenerse();
                         delay(500);
                         alineaRobot();
@@ -640,7 +646,7 @@ void findp(){
                         delay(500);
                         alineaRobot();
                         robot.moveAdelante();
-                        delay(925);
+                        delay(810);
                         robot.detenerse();
                         delay(500);
                         alineaRobot();
@@ -655,7 +661,7 @@ void findp(){
                         case 'N':
                         {
                           robot.moveAdelante();
-                          delay(925);
+                          delay(810);
                           robot.detenerse();
                           delay(500);
                           alineaRobot();
@@ -668,7 +674,7 @@ void findp(){
                           delay(500);
                           alineaRobot();
                           robot.moveAdelante();
-                          delay(925);
+                          delay(810);
                           robot.detenerse();
                           delay(500);
                           alineaRobot();
@@ -681,7 +687,7 @@ void findp(){
                           delay(500);
                           alineaRobot();
                           robot.moveAdelante();
-                          delay(925);
+                          delay(810);
                           robot.detenerse();
                           delay(500);
                           alineaRobot();
@@ -698,7 +704,7 @@ void findp(){
                           delay(500);
                           alineaRobot();
                           robot.moveAdelante();
-                          delay(925);
+                          delay(810);
                           robot.detenerse();
                           delay(500);
                           alineaRobot();
@@ -707,6 +713,22 @@ void findp(){
                       }
                   }
       }}
+}
+
+void rightEncoderEvent() {
+  if (digitalRead(RH_ENCODER_A) == HIGH) {
+    if (digitalRead(RH_ENCODER_B) == LOW) {
+      rightCount++;
+    } else {
+      rightCount--;
+    }
+  } else {
+    if (digitalRead(RH_ENCODER_B) == LOW) {
+      rightCount--;
+    } else {
+      rightCount++;
+    }
+  }
 }
 
 int distanciaEnfrente()
@@ -1001,6 +1023,12 @@ void setup() {
   pinMode(29, INPUT_PULLUP);
   pinMode(32, INPUT_PULLUP);
   pinMode(22, OUTPUT);
+  pinMode(LH_ENCODER_A, INPUT);
+  pinMode(LH_ENCODER_B, INPUT);
+  pinMode(RH_ENCODER_A, INPUT);
+  pinMode(RH_ENCODER_B, INPUT);
+ 
+  attachInterrupt(1,rightEncoderEvent, CHANGE);
 
   lcd2.display();
   lcd2.print("INICIANDO MAPA");
@@ -1094,26 +1122,24 @@ void loop() {
 
 byte pos;
     byte valor = 0;
+    rightCount=0;
 
-    for(byte j=0; j<28; j++){
-      lcd2.display();
+
+    lcd2.display();
     lcd2.print("ADELANTE");
-    if((digitalRead(32)==LOW)&&j<80)
+    while(rightCount<1900){
+    if((digitalRead(32)==LOW))
     {
       robot.acomodoI();
       delay(280);
       robot.detenerse();
-      j=j-15;
     }
-    else if((digitalRead(29)==LOW)&&j<80){
+    else if((digitalRead(29)==LOW)){
       robot.acomodoD();
       delay(280);
       robot.detenerse();
-      j=j-15;
     }
     robot.moveAdelante();
-    delay(1);
-    lcd2.clear();
      
     /*if(mlx.readObjectTempC() > 27 && pasado == false){
       pasado = true;
@@ -1121,7 +1147,9 @@ byte pos;
       victimas[x][y][z] == true;
       hayVictima();
 }*/
-    }
+  }
+
+  lcd2.clear();
 
    // pasado = false;
 
@@ -1131,7 +1159,8 @@ byte pos;
   if(z == 1)
   z = 0;
   else
-  z = 1;}
+  z = 1;
+  }
   
   robot.detenerse();
   delay(50);
@@ -1163,13 +1192,34 @@ byte pos;
        break;  
     }
 
+    if(valor == 1 && z == 1)
+    {
+      rampaX = x;
+      rampaY = y;
+    }
+
     lcd2.display();
     lcd2.print("x = ");
     lcd2.print(x);
     lcd2.print(" y = ");
     lcd2.print(y);
+    lcd2.print(" z = ");
+    lcd2.print(z);
+    
     
    pasados[x][y][z] = 'V';
+
+   if(valor == 1)
+   {
+    if(z == 1)
+    {
+      pasados[x][y][0] = 'I';
+    }
+    else if(z == 0)
+    {
+      pasados[x][y][1] = 'I';
+    }
+   }
 
    delay(500);
    lcd2.clear();
@@ -1870,6 +1920,12 @@ byte pos;
                             objX = 7;
                             objY = 7;
                             objZ = 0;
+
+                            if(z > objZ)
+                            {
+                              objX = rampaX;
+                              objY = rampaY;
+                            }
                           }
                     }
               }
