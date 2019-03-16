@@ -1,4 +1,4 @@
-//PROGRAMA INO. ROBORREGOS.
+ //PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
 //Version 1.01
@@ -10,7 +10,6 @@
 #include <Wire.h>
 #include <Rampa.h>
 #include <Adafruit_TCS34725.h>
-#include <Adafruit_MLX90614.h>
 #include <StackArray.h>
 #include <QueueArray.h>
 #include <i2cmaster.h>
@@ -52,7 +51,6 @@ NewPing sonarDA(TRIGGER_PIN_DA, ECHO_PIN_DA, MAX_DISTANCE);
 NewPing sonarIE(TRIGGER_PIN_IE, ECHO_PIN_IE, MAX_DISTANCE);  
 NewPing sonarIA(TRIGGER_PIN_IA, ECHO_PIN_IA, MAX_DISTANCE);  
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_700MS, TCS34725_GAIN_1X);
-Adafruit_MLX90614 mlx = Adafruit_MLX90614();
 Servo myservo;
 direcciones d[15][15];
 LiquidCrystal_I2C lcd2(0x3F,16,2);
@@ -97,6 +95,11 @@ byte objX,rampaX, lastX = -1, lastlastX = -1, lastlastlastX = -1, lastlastlastla
 byte objY, rampaY, lastY = -1, lastlastY = -1, lastlastlastY = -1, lastlastlastlastY = -1, lastlastlastlastlastY = -1, lastlastlastlastlastlastY = -1,  objZ;
 byte minisq = 0;
 byte contAlg = 0;
+int conter;
+int device1Address = 0x55<<1;    
+int device2Address = 0x2A<<1; 
+float celcius1 = 0;  
+float celcius2 = 0;   
 
 void clear(){
   lcd2.display();
@@ -915,6 +918,39 @@ delay(500);
 
 lcd2.clear();*/
 }
+float temperatureCelcius(int address) {
+  int dev = address;
+  int data_low = 0;
+  int data_high = 0;
+  int pec = 0;
+
+  // Write
+  i2c_start_wait(dev+I2C_WRITE);
+  i2c_write(0x07);
+
+  // Read
+  i2c_rep_start(dev+I2C_READ);
+  data_low = i2c_readAck();       // Read 1 byte and then send ack.
+  data_high = i2c_readAck();      // Read 1 byte and then send ack.
+  pec = i2c_readNak();
+  i2c_stop();
+
+  // This converts high and low bytes together and processes temperature, 
+  // MSB is a error bit and is ignored for temps.
+  double tempFactor = 0.02;       // 0.02 degrees per LSB (measurement 
+                                  // resolution of the MLX90614).
+  double tempData = 0x0000;       // Zero out the data
+  int frac;                       // Data past the decimal point
+
+  // This masks off the error bit of the high byte, then moves it left 
+  // 8 bits and adds the low byte.
+  tempData = (double)(((data_high & 0x007F) << 8) + data_low);
+  tempData = (tempData * tempFactor)-0.01;
+  float celcius = tempData - 273.15;
+  
+  // Returns temperature un Celcius.
+  return celcius;
+}
 
 void setup() {
   Serial.begin(9600);
@@ -1061,12 +1097,8 @@ byte pos;
   z = 1;
   }
      
-    /*if(mlx.readObjectTempC() > 27 && pasado == false){
-      pasado = true;
-      robot.detenerse();
-      victimas[x][y][z] == true;
-      hayVictima();
-}*/
+   celcius1 = temperatureCelcius(device1Address); 
+  celcius2 = temperatureCelcius(device2Address); 
   }
   
 
