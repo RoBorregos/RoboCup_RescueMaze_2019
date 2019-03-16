@@ -828,24 +828,136 @@ bool isBlack()
 }
 
 
-void hayVictima()
+void unaVictimaDerecha()
 {
   lcd2.display();
-  lcd2.print("VICTIMA DETECTADA");
-  byte pos;
-    digitalWrite(22, HIGH);
-    delay(5000);
-  for (pos = 117; pos <= 200; pos += 1) { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    myservo.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(5);                       // waits 15ms for the servo to reach the position
+  lcd2.print("VICTIMA DERECHA");
+  
+  digitalWrite(22, HIGH);
+  delay(6000);
+
+  for(int i = 90; i <= 180; i++)
+  {
+    myservo.write(i);
+    delay(5);
   }
-  for (pos = 200; pos >= 117; pos -= 1) { // goes from 180 degrees to 0 degrees
-    myservo.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(5);                       // waits 15ms for the servo to reach the position
+
+  for(int i = 180; i >= 90; i--)
+  {
+    myservo.write(i);
+    delay(5);
   }
+    
   digitalWrite(22, LOW);
   lcd2.clear();
+
+  return;
+}
+
+void unaVictimaIzquierda()
+{
+  lcd2.display();
+  lcd2.print("VICTIMA IZQUIERDA");
+  
+  digitalWrite(22, HIGH);
+  delay(6000);
+
+  for(int i = 90; i >= 0; i--)
+  {
+    myservo.write(i);
+    delay(5);
+  }
+
+  for(int i = 0; i <= 90; i++)
+  {
+    myservo.write(i);
+    delay(5);
+  }
+    
+  digitalWrite(22, LOW);
+  lcd2.clear();
+
+  return;
+}
+
+void dosVictimasDerecha()
+{
+  lcd2.display();
+  lcd2.print("VICTIMAS DERECHA");
+  
+  digitalWrite(22, HIGH);
+  delay(6000);
+
+  for(int i = 90; i <= 180; i++)
+  {
+    myservo.write(i);
+    delay(5);
+  }
+
+  for(int i = 180; i >= 90; i--)
+  {
+    myservo.write(i);
+    delay(5);
+  }
+
+  delay(500);
+  
+  for(int i = 90; i <= 180; i++)
+  {
+    myservo.write(i);
+    delay(5);
+  }
+
+  for(int i = 180; i >= 90; i--)
+  {
+    myservo.write(i);
+    delay(5);
+  }
+    
+  digitalWrite(22, LOW);
+  lcd2.clear();
+
+  return;
+}
+
+void dosVictimasIzquierda()
+{
+  lcd2.display();
+  lcd2.print("VICTIMAS IZQUIERDA");
+  
+  digitalWrite(22, HIGH);
+  delay(6000);
+
+  for(int i = 90; i >= 0; i--)
+  {
+    myservo.write(i);
+    delay(5);
+  }
+
+  for(int i = 0; i <= 90; i++)
+  {
+    myservo.write(i);
+    delay(5);
+  }
+
+  delay(500);
+  
+  for(int i = 90; i >= 0; i--)
+  {
+    myservo.write(i);
+    delay(5);
+  }
+
+  for(int i = 0; i <= 90; i++)
+  {
+    myservo.write(i);
+    delay(5);
+  }
+    
+  digitalWrite(22, LOW);
+  lcd2.clear();
+
+  return;
 }
 
 void buscarObjetivo()
@@ -965,10 +1077,12 @@ void setup() {
   lcd2.print("INICIANDO");
   delay(500);
   lcd2.clear();
- /* myservo.attach(37);
-  myservo.write(117);*/
+  
+  myservo.attach(32);
+  myservo.write(117);
+  
   pinMode(29, INPUT_PULLUP);
-  pinMode(32, INPUT_PULLUP);
+  pinMode(30, INPUT_PULLUP);
   pinMode(22, OUTPUT);
   pinMode(LH_ENCODER_A, INPUT);
   pinMode(LH_ENCODER_B, INPUT);
@@ -1007,11 +1121,11 @@ void setup() {
   delay(500);
   lcd2.clear();
 
- /* if (!tcs.begin()) 
-  {
-    Serial.println("Error al iniciar TCS34725");
-    while (1) delay(1000);
-  } **/
+  if (!tcs.begin()) 
+    {
+      Serial.println("Error al iniciar TCS34725");
+      while (1) delay(1000);
+    } 
 
   lcd2.display();
   lcd2.print("DISTANCIAS INICIALES");
@@ -1087,24 +1201,44 @@ byte pos;
       delay(280);
       robot.detenerse();
     }
+    
     robot.moveAdelante();
+    
     valor = subir.detectaRampa();
-  if(valor != 0){
-  delay(250);
-  if(z == 1)
-  z = 0;
-  else
-  z = 1;
-  }
+    if(valor != 0)
+    {
+      delay(250);
+      if(z == 1)
+      z = 0;
+      else
+      z = 1;
+    }
      
    celcius1 = temperatureCelcius(device1Address); 
-  celcius2 = temperatureCelcius(device2Address); 
+   celcius2 = temperatureCelcius(device2Address); 
+
+   if(celcius1 > 27 && pasado == false)
+   {
+     robot.detenerse();
+     delay(300);
+     unaVictimaDerecha();
+     pasado = true;
+   }
+
+   if(celcius2 > 27 && pasado == false)
+   {
+    robot.detenerse();
+    delay(300);
+    unaVictimaIzquierda();
+    pasado = true;
+   }
+   
   }
   
 
   lcd2.clear();
 
-   // pasado = false;
+   pasado = false;
 
    
   
