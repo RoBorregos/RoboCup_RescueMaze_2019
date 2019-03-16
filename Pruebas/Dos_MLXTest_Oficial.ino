@@ -9,7 +9,7 @@ LiquidCrystal_I2C lcd(0x3F,16,2);
 
 int conter;
 
-int device1Address = 0x11<<1;   // 0x50 is the assigned address for I²C 
+int device1Address = 0x55<<1;   // 0x50 is the assigned address for I²C 
                                 // communication for sensor 1.
                                 // Shift the address 1 bit right, the 
                                 // I²Cmaster library only needs the 7 most 
