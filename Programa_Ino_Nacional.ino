@@ -1868,7 +1868,6 @@ distanciaA=distanciaAtras();
             delay(500);
             contador  = 0;
             robot.moveAdelante();
-            robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
