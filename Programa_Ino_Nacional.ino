@@ -96,6 +96,7 @@ bool visitados[15][15];
 byte objX,rampaX, lastX = -1, lastlastX = -1, lastlastlastX = -1, lastlastlastlastX = -1, lastlastlastlastlastX = -1, lastlastlastlastlastlastX = -1;
 byte objY, rampaY, lastY = -1, lastlastY = -1, lastlastlastY = -1, lastlastlastlastY = -1, lastlastlastlastlastY = -1, lastlastlastlastlastlastY = -1,  objZ;
 byte minisq = 0;
+byte contAlg = 0;
 
 void clear(){
   lcd2.display();
@@ -328,30 +329,18 @@ void findp(){
               {
                 case 'N':
                 {
-                  robot.moveDer();
-                  robot.detenerse();
-                  delay(500);
-                  alineaRobot();
-                  robot.moveDer();
-                  robot.detenerse();
-                  delay(500);
-                  alineaRobot();
+                  derechaAlg();
+                  derechaAlg();
                   orientacion = 'S';
                 } break;
                 case 'E':
                 {
-                  robot.moveDer();
-                  robot.detenerse();
-                  delay(500);
-                  alineaRobot();
+                  derechaAlg();
                   orientacion = 'S';
                 } break;
                 case 'O':
                 {
-                  robot.moveIzq();
-                  robot.detenerse();
-                  delay(500);
-                  alineaRobot();
+                  izquierdaAlg();
                   orientacion = 'S';
                 } break;
                 case 'S':
@@ -367,10 +356,7 @@ void findp(){
               {
                 case 'N':
                 {
-                  robot.moveDer();
-                  robot.detenerse();
-                  delay(500);
-                  alineaRobot();
+                  derechaAlg();
                   orientacion = 'E';
                 } break;
                 case 'E':
@@ -380,22 +366,13 @@ void findp(){
                 } break;
                 case 'O':
                 {
-                  robot.moveDer();
-                  robot.detenerse();
-                  delay(500);
-                  alineaRobot();
-                  robot.moveDer();
-                  robot.detenerse();
-                  delay(500);
-                  alineaRobot();
+                  derechaAlg();
+                  derechaAlg();
                   orientacion = 'E';
                 } break;
                 case 'S':
                 {
-                  robot.moveIzq();
-                  robot.detenerse();
-                  delay(500);
-                  alineaRobot();
+                  izquierdaAlg();
                   orientacion = 'E';
                 } break;
               }
@@ -406,22 +383,13 @@ void findp(){
                   {
                     case 'N':
                     {
-                      robot.moveIzq();
-                      robot.detenerse();
-                      delay(500);
-                      alineaRobot();
+                      izquierdaAlg();
                       orientacion = 'O';
                     } break;
                     case 'E':
                     {
-                      robot.moveDer();
-                      robot.detenerse();
-                      delay(500);
-                      alineaRobot();
-                      robot.moveDer();
-                      robot.detenerse();
-                      delay(500);
-                      alineaRobot();
+                      derechaAlg();
+                      derechaAlg();
                       orientacion = 'O';
                     } break;
                     case 'O':
@@ -431,10 +399,7 @@ void findp(){
                     } break;
                     case 'S':
                     {
-                      robot.moveDer();
-                      robot.detenerse();
-                      delay(500);
-                      alineaRobot();
+                      derechaAlg();
                       orientacion = 'O';
                     } break;
                   }
@@ -450,30 +415,18 @@ void findp(){
                       } break;
                       case 'E':
                       {
-                        robot.moveIzq();
-                        robot.detenerse();
-                        delay(500);
-                        alineaRobot();
+                        izquierdaAlg();
                         orientacion = 'N';
                       } break;
                       case 'O':
                       {
-                        robot.moveDer();
-                        robot.detenerse();
-                        delay(500);
-                        alineaRobot();
+                        derechaAlg();
                         orientacion = 'N';
                       } break;
                       case 'S':
                       {
-                        robot.moveDer();
-                        robot.detenerse();
-                        delay(500);
-                        alineaRobot();
-                        robot.moveDer();
-                        robot.detenerse();
-                        delay(500);
-                        alineaRobot();
+                        derechaAlg();
+                        derechaAlg();
                         orientacion = 'N';
                       } break;
                     }
@@ -487,54 +440,26 @@ void findp(){
                 {
                   case 'N':
                   {
-                    robot.moveDer();
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
-                    robot.moveDer();
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
-                    robot.moveAdelante();
-                    delay(810);
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
+                    derechaAlg();
+                    derechaAlg();
+                    adelanteAlg();
                     orientacion = 'S';
                   } break;
                   case 'E':
                   {
-                    robot.moveDer();
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
-                    robot.moveAdelante();
-                    delay(810);
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
+                    derechaAlg();
+                    adelanteAlg();
                     orientacion = 'S';
                   } break;
                   case 'O':
                   {
-                    robot.moveIzq();
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
-                    robot.moveAdelante();
-                    delay(810);
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
+                    izquierdaAlg();
+                    adelanteAlg();
                     orientacion = 'S';
                   } break;
                   case 'S':
                   {
-                    robot.moveAdelante();
-                    delay(810);
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
+                    adelanteAlg();
                     orientacion = 'S';
                   } break;
                 }
@@ -545,54 +470,26 @@ void findp(){
                 {
                   case 'N':
                   {
-                    robot.moveDer();
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
-                    robot.moveAdelante();
-                    delay(810);
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
+                    derechaAlg();
+                    adelanteAlg();
                     orientacion = 'E';
                   } break;
                   case 'E':
                   {
-                    robot.moveAdelante();
-                    delay(810);
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
+                    adelanteAlg();
                     orientacion = 'E';
                   } break;
                   case 'O':
                   {
-                    robot.moveDer();
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
-                    robot.moveDer();
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
-                    robot.moveAdelante();
-                    delay(810);
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
+                    derechaAlg();
+                    derechaAlg();
+                    adelanteAlg();
                     orientacion = 'E';
                   } break;
                   case 'S':
                   {
-                    robot.moveIzq();
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
-                    robot.moveAdelante();
-                    delay(810);
-                    robot.detenerse();
-                    delay(500);
-                    alineaRobot();
+                    izquierdaAlg();
+                    adelanteAlg();
                     orientacion = 'E';
                   } break;
                 }
@@ -603,54 +500,26 @@ void findp(){
                     {
                       case 'N':
                       {
-                        robot.moveIzq();
-                        robot.detenerse();
-                        delay(500);
-                        alineaRobot();
-                        robot.moveAdelante();
-                        delay(810);
-                        robot.detenerse();
-                        delay(500);
-                        alineaRobot();
+                        izquierdaAlg();
+                        adelanteAlg();
                         orientacion = 'O';
                       } break;
                       case 'E':
                       {
-                        robot.moveDer();
-                        robot.detenerse();
-                        delay(500);
-                        alineaRobot();
-                        robot.moveDer();
-                        robot.detenerse();
-                        delay(500);
-                        alineaRobot();
-                        robot.moveAdelante();
-                        delay(810);
-                        robot.detenerse();
-                        delay(500);
-                        alineaRobot();
+                        derechaAlg();
+                        derechaAlg();
+                        adelanteAlg();
                         orientacion = 'O';
                       } break;
                       case 'O':
                       {
-                        robot.moveAdelante();
-                        delay(810);
-                        robot.detenerse();
-                        delay(500);
-                        alineaRobot();
+                        adelanteAlg();
                         orientacion = 'O';
                       } break;
                       case 'S':
                       {
-                        robot.moveDer();
-                        robot.detenerse();
-                        delay(500);
-                        alineaRobot();
-                        robot.moveAdelante();
-                        delay(810);
-                        robot.detenerse();
-                        delay(500);
-                        alineaRobot();
+                        derechaAlg();
+                        adelanteAlg();
                         orientacion = 'O';
                       } break;
                     }
@@ -661,59 +530,100 @@ void findp(){
                       {
                         case 'N':
                         {
-                          robot.moveAdelante();
-                          delay(810);
-                          robot.detenerse();
-                          delay(500);
-                          alineaRobot();
+                          adelanteAlg();
                           orientacion = 'N';
                         } break;
                         case 'E':
                         {
-                          robot.moveIzq();
-                          robot.detenerse();
-                          delay(500);
-                          alineaRobot();
-                          robot.moveAdelante();
-                          delay(810);
-                          robot.detenerse();
-                          delay(500);
-                          alineaRobot();
+                          izquierdaAlg();
+                          adelanteAlg();
                           orientacion = 'N';
                         } break;
                         case 'O':
                         {
-                          robot.moveDer();
-                          robot.detenerse();
-                          delay(500);
-                          alineaRobot();
-                          robot.moveAdelante();
-                          delay(810);
-                          robot.detenerse();
-                          delay(500);
-                          alineaRobot();
+                          derechaAlg();
+                          adelanteAlg();
                           orientacion = 'N';
                         } break;
                         case 'S':
                         {
-                          robot.moveDer();
-                          robot.detenerse();
-                          delay(500);
-                          alineaRobot();
-                          robot.moveDer();
-                          robot.detenerse();
-                          delay(500);
-                          alineaRobot();
-                          robot.moveAdelante();
-                          delay(810);
-                          robot.detenerse();
-                          delay(500);
-                          alineaRobot();
+                          derechaAlg();
+                          derechaAlg();
+                          adelanteAlg();
                           orientacion = 'N';
                         } break;
                       }
                   }
       }}
+}
+
+void derechaAlg()
+{
+  contAlg++;  
+  robot.moveDer();
+  robot.detenerse();
+  delay(200);
+
+  distanciaA = distanciaAtras();
+
+  if(distanciaA < 20 && contAlg >= 2)
+  {
+    contAlg = 0;
+    robot.moveAtras();
+    delay(300);
+    robot.moveAdelante();
+    delay(200);
+    robot.detenerse();
+    delay(500);
+    robot.actualizaSetpoint();
+  }
+}
+
+void izquierdaAlg()
+{
+  contAlg++;
+  robot.moveIzq();
+  robot.detenerse();
+  delay(200);
+
+  distanciaA = distanciaAtras();
+
+  if(distanciaA < 20 && contAlg >= 2)
+  {
+    contAlg = 0;
+    robot.moveAtras();
+    delay(300);
+    robot.moveAdelante();
+    delay(200);
+    robot.detenerse();
+    delay(500);
+    robot.actualizaSetpoint();
+  }
+}
+
+void adelanteAlg()
+{
+  rightCount = 0;
+
+  while(rightCount < 1700)
+  {
+    if((digitalRead(30)==LOW))
+    {
+      robot.acomodoI();
+      delay(280);
+      robot.detenerse();
+    }
+    else if((digitalRead(29)==LOW)){
+      robot.acomodoD();
+      delay(280);
+      robot.detenerse();
+    }
+    
+    robot.moveAdelante();
+  }
+
+  robot.detenerse();
+  delay(200);
 }
 
 void rightEncoderEvent() {
