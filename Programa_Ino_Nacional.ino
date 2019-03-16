@@ -1,4 +1,4 @@
-//PROGRAMA INO. ROBORREGOS.
+  //PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
 
@@ -1129,7 +1129,7 @@ byte pos;
     lcd2.display();
     lcd2.print("ADELANTE");
     while(rightCount<1700){
-    if((digitalRead(32)==LOW))
+    if((digitalRead(30)==LOW))
     {
       robot.acomodoI();
       delay(280);
