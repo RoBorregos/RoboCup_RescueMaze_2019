@@ -21,18 +21,18 @@
 #define LH_ENCODER_A 18
 #define LH_ENCODER_B 19
 #define MAX_DISTANCE 220
-#define TRIGGER_PIN_E 48
-#define ECHO_PIN_E 49
-#define TRIGGER_PIN_A 40
-#define ECHO_PIN_A 41
-#define TRIGGER_PIN_DE   46
-#define ECHO_PIN_DE      47
-#define TRIGGER_PIN_DA 42
-#define ECHO_PIN_DA 43
-#define TRIGGER_PIN_IE   44
-#define ECHO_PIN_IE     45
-#define TRIGGER_PIN_IA 39
-#define ECHO_PIN_IA 38
+#define TRIGGER_PIN_E 33
+#define ECHO_PIN_E 34
+#define TRIGGER_PIN_A 43
+#define ECHO_PIN_A 44
+#define TRIGGER_PIN_DE   35
+#define ECHO_PIN_DE      36
+#define TRIGGER_PIN_DA 37
+#define ECHO_PIN_DA 38
+#define TRIGGER_PIN_IE   39
+#define ECHO_PIN_IE     40
+#define TRIGGER_PIN_IA 41
+#define ECHO_PIN_IA 42
 
 struct point{
   byte a, b, cost;
