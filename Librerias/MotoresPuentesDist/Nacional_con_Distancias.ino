@@ -568,7 +568,7 @@ void derechaAlg()
 
   distanciaA = distanciaAtras();
 
-  if(distanciaA < 20 && contAlg >= 2)
+  if(distanciaA < 20)
   {
     contAlg = 0;
     robot.moveAtras();
@@ -592,7 +592,7 @@ void izquierdaAlg()
 
   distanciaA = distanciaAtras();
 
-  if(distanciaA < 20 && contAlg >= 2)
+  if(distanciaA < 20)
   {
     contAlg = 0;
     robot.moveAtras();
@@ -1716,7 +1716,7 @@ byte pos;
         
 contador++;
         distanciaA=distanciaAtras();
-        if(contador >= 2 && distanciaA < 20)
+        if(distanciaA < 20)
           {
             contador = 0;
             robot.moveAtras();
@@ -1748,7 +1748,7 @@ contador++;
         lcd2.clear();
 contador++;
         distanciaA=distanciaAtras();
-        if(contador >= 2 && distanciaA < 20)
+        if(distanciaA < 20)
           {
             robot.moveAtras();
             delay(500);
@@ -1779,7 +1779,7 @@ contador++;
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
-        if(contador >= 2 && distanciaA <20)
+        if(distanciaA <20)
           {
             robot.moveAtras();
             delay(500);
@@ -1810,7 +1810,7 @@ distanciaA=distanciaAtras();
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
-        if(contador >= 2 && distanciaA <20)
+        if(distanciaA <20)
           {
             robot.moveAtras();
             delay(500);
@@ -1877,7 +1877,7 @@ distanciaA=distanciaAtras();
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
-        if(contador >= 2 && distanciaA <20)
+        if(distanciaA<20)
           {
             robot.moveAtras();
             delay(500);
@@ -1908,7 +1908,7 @@ distanciaA=distanciaAtras();
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
-        if(contador >= 2 && distanciaA <20)
+        if(distanciaA<20)
           {
             robot.moveAtras();
             delay(500);
@@ -1939,7 +1939,7 @@ distanciaA=distanciaAtras();
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
-        if(contador >= 2 && distanciaA <20)
+        if(distanciaA<20)
           {
             robot.moveAtras();
             delay(500);
@@ -1970,7 +1970,7 @@ distanciaA=distanciaAtras();
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
-        if(contador >= 2 && distanciaA <20)
+        if(distanciaA<20)
           {
             robot.moveAtras();
             delay(500);
