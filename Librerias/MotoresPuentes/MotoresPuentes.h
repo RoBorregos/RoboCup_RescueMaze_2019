@@ -1,4 +1,4 @@
- #ifndef MotoresPuentes_h
+  #ifndef MotoresPuentes_h
 #define MotoresPuentes_h
 
 #include "arduino.h"
@@ -28,15 +28,15 @@ public:
     void moveDerAcomodo();
     void moveIzqAcomodo();
     void actualizaSetpoint();
-    const int motorIzqAde1  = 4;
-    const int motorIzqAde2  = 5;
-    const int motorIzqAtras1  = 6;
-    const int motorIzqAtras2  = 7;
-    const int motorDerAde1  = 8;
-    const int motorDerAde2  = 9;
-    const int motorDerAtras1  = 10;
-    const int motorDerAtras2  = 11;
-
+    const int motorIzqAde1  = 9;
+    const int motorIzqAde2  = 8;
+    const int motorIzqAtras1  = 11;//l
+    const int motorIzqAtras2  = 10;//l
+    const int motorDerAde1  = 5;//L
+    const int motorDerAde2  = 4;//L
+    const int motorDerAtras1  = 7;//
+    const int motorDerAtras2  = 6;//
+    double getSetpoint(double);
    // Adafruit_BNO055 bno;
 };
 
