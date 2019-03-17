@@ -1208,7 +1208,11 @@ byte pos;
     valor = subir.detectaRampa();
     if(valor != 0)
     {
+      lcd2.clear();
+      lcd2.display();
+      lcd2.print("RAMPA DETECTADA");
       delay(250);
+      lcd2.clear();
       if(z == 1)
       z = 0;
       else
@@ -1218,7 +1222,7 @@ byte pos;
    celcius1 = temperatureCelcius(device1Address); 
    celcius2 = temperatureCelcius(device2Address); 
 
-   if(celcius1 > 37 && pasado == false)
+   if(celcius1 > 30 && pasado == false)
    {
      robot.detenerse();
      delay(300);
@@ -1226,7 +1230,7 @@ byte pos;
      pasado = true;
    }
 
-   if(celcius2 > 37 && pasado == false)
+   if(celcius2 > 30 && pasado == false)
    {
     robot.detenerse();
     delay(300);
