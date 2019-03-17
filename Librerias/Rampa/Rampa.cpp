@@ -1,102 +1,32 @@
-  #include "Rampa.h"
+ #ifndef Rampa_h
+#define Rampa_h
+
+#include "arduino.h"
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BNO055.h>
+#include <utility/imumaths.h>
+
+#include <Adafruit_MotorShield.h>
+#define BNO055_SAMPLERATE_DELAY_MS 10
+
+class Rampa {
+
+public:
+    Rampa();
+    Adafruit_BNO055 bno;
+    void setup();
+    int detectaRampa();
+    const int motorIzqAde1  = 9;
+    const int motorIzqAde2  = 8;
+    const int motorIzqAtras1  = 11;//l
+    const int motorIzqAtras2  = 10;//l
+    const int motorDerAde1  = 5;//L
+    const int motorDerAde2  = 4;//L
+    const int motorDerAtras1  = 7;//
+    const int motorDerAtras2  = 6;//
+
+};
 
 
-
-
-Rampa::Rampa(){
-bno = Adafruit_BNO055();
-}
-
-void Rampa::setup(){
-
-    if(!bno.begin())
-  {
-    /* There was a problem detecting the BNO055 ... check your connections */
-    Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
-    while(1);
-  }
-   delay(1000);
-  bno.setExtCrystalUse(true);
-}
-
-
-int Rampa::detectaRampa(){
- uint8_t i;
- int valor = 0;
-double med=0, newMed=0, punto=0, newPunto=0;
-    imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-    Serial.print(" Y: ");
-    med= euler.y();
-    Serial.println(med);
-    delay(BNO055_SAMPLERATE_DELAY_MS);
-
- if(med<-3){
-    Serial.println("Entramos");
-    do{
-            digitalWrite(motorIzqAde1, LOW);
-            analogWrite(motorIzqAde2, 220);
-            digitalWrite(motorIzqAtras1, LOW);
-            analogWrite(motorIzqAtras2, 220);
-            digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, 255);
-            digitalWrite(motorDerAtras1, LOW);
-            analogWrite(motorDerAtras2, 255);
-    imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-    Serial.print("X: ");
-    newMed=euler.y();
-    if(newMed>-1){
-        newMed=-5;
-    }
-    Serial.println(newMed);
-    delay(BNO055_SAMPLERATE_DELAY_MS);
-    }while(newMed<-3);
-    Serial.println("Salimos");
-            digitalWrite(motorIzqAde1, LOW);
-            analogWrite(motorIzqAde2, 200);
-            digitalWrite(motorIzqAtras1, LOW);
-            analogWrite(motorIzqAtras2, 200);
-            digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, 255);
-            digitalWrite(motorDerAtras1, LOW);
-            analogWrite(motorDerAtras2, 255);
-            delay(150);
-    valor++;
-    }
-    else if(med>8){
-    Serial.println("Entramos");
-
-    do{
-
-            digitalWrite(motorIzqAde1, LOW);
-            analogWrite(motorIzqAde2, 130);
-            digitalWrite(motorIzqAtras1, LOW);
-            analogWrite(motorIzqAtras2, 130);
-            digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, 160);
-            digitalWrite(motorDerAtras1, LOW);
-            analogWrite(motorDerAtras2, 160);
-    imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-    Serial.print("X: ");
-    newMed=euler.y();
-    if(newMed<4){
-        newMed=10;
-    }
-    Serial.println(newMed);
-    delay(BNO055_SAMPLERATE_DELAY_MS);
-    }while(newMed>8);
-    Serial.println("Salimos");
-            digitalWrite(motorIzqAde1, LOW);
-            analogWrite(motorIzqAde2, 200);
-            digitalWrite(motorIzqAtras1, LOW);
-            analogWrite(motorIzqAtras2, 200);
-            digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, 255);
-            digitalWrite(motorDerAtras1, LOW);
-            analogWrite(motorDerAtras2, 255);
-            delay(150);
-
-    valor++;
-    }
-
-    return valor;
-}
+#endif
