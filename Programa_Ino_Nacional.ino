@@ -1,7 +1,7 @@
-//PROGRAMA INO. ROBORREGOS.
+ //PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
-//Version 1.01
+//Version 1.2
 
 #include <MotoresPuentes.h>
 #include <NewPing.h>
@@ -573,7 +573,7 @@ void derechaAlg()
   {
     contAlg = 0;
     robot.moveAtras();
-    delay(300);
+    delay(650);
     robot.moveAdelante();
     delay(200);
     robot.detenerse();
@@ -595,7 +595,7 @@ void izquierdaAlg()
   {
     contAlg = 0;
     robot.moveAtras();
-    delay(300);
+    delay(650);
     robot.moveAdelante();
     delay(200);
     robot.detenerse();
@@ -1079,7 +1079,7 @@ void setup() {
   lcd2.clear();
   
   myservo.attach(32);
-  myservo.write(117);
+  myservo.write(90);
   
   pinMode(29, INPUT_PULLUP);
   pinMode(30, INPUT_PULLUP);
@@ -1121,11 +1121,11 @@ void setup() {
   delay(500);
   lcd2.clear();
 
-  if (!tcs.begin()) 
+  /*if (!tcs.begin()) 
     {
       Serial.println("Error al iniciar TCS34725");
       while (1) delay(1000);
-    } 
+    } */
 
   lcd2.display();
   lcd2.print("DISTANCIAS INICIALES");
@@ -1189,7 +1189,8 @@ byte pos;
 
     lcd2.display();
     lcd2.print("ADELANTE");
-    while(rightCount<1700){
+    while(rightCount<2050){
+      /*
     if((digitalRead(30)==LOW))
     {
       robot.acomodoI();
@@ -1200,7 +1201,7 @@ byte pos;
       robot.acomodoD();
       delay(280);
       robot.detenerse();
-    }
+    } */
     
     robot.moveAdelante();
     
@@ -1217,7 +1218,7 @@ byte pos;
    celcius1 = temperatureCelcius(device1Address); 
    celcius2 = temperatureCelcius(device2Address); 
 
-   if(celcius1 > 27 && pasado == false)
+   if(celcius1 > 37 && pasado == false)
    {
      robot.detenerse();
      delay(300);
@@ -1225,7 +1226,7 @@ byte pos;
      pasado = true;
    }
 
-   if(celcius2 > 27 && pasado == false)
+   if(celcius2 > 37 && pasado == false)
    {
     robot.detenerse();
     delay(300);
@@ -1713,7 +1714,7 @@ contador++;
           {
             contador = 0;
             robot.moveAtras();
-            delay(300);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
@@ -1742,7 +1743,7 @@ contador++;
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(500);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
@@ -1771,7 +1772,7 @@ distanciaA=distanciaAtras();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(500);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
@@ -1800,7 +1801,7 @@ distanciaA=distanciaAtras();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(500);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
@@ -1865,7 +1866,7 @@ distanciaA=distanciaAtras();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(500);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
@@ -1894,7 +1895,7 @@ distanciaA=distanciaAtras();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(500);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
@@ -1923,7 +1924,7 @@ distanciaA=distanciaAtras();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(500);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
@@ -1952,7 +1953,7 @@ distanciaA=distanciaAtras();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(500);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
