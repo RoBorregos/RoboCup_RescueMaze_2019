@@ -1,7 +1,7 @@
- //PROGRAMA INO. ROBORREGOS.
+//PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
-//Version 1.2
+//Version 1.3
 
 #include <MotoresPuentes.h>
 #include <NewPing.h>
@@ -2055,17 +2055,17 @@ distanciaA=distanciaAtras();
         delay(200);
         alineaRobot();
         orientacion = 'E';
-
-        if(contador >= 3 && distanciaIE <20)
+distanciaA = distanciaAtras();
+        if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(500);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-            alineaRobot();
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaDE > 15 && orientacion == 'E' && pasados[x+1][y][z] == 'P')
@@ -2076,17 +2076,17 @@ distanciaA=distanciaAtras();
         delay(200);
         alineaRobot();
         orientacion = 'S';
-
-        if(contador >= 3 && distanciaIE <20)
+distanciaA = distanciaAtras();
+        if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(500);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-            alineaRobot();
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaDE > 20 && orientacion == 'S' && pasados[x][y-1][z] == 'P')
@@ -2097,17 +2097,17 @@ distanciaA=distanciaAtras();
         delay(200);
         alineaRobot();
         orientacion = 'O';
-
-        if(contador >= 3 && distanciaIE <20)
+distanciaA = distanciaAtras();
+        if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(500);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-            alineaRobot();
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaDE > 20 && orientacion == 'O' && pasados[x-1][y][z] == 'P')
@@ -2118,17 +2118,17 @@ distanciaA=distanciaAtras();
         delay(200);
         alineaRobot();
         orientacion = 'N';
-
-        if(contador >= 3 && distanciaIE <20)
+distanciaA = distanciaAtras();
+        if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(500);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-            alineaRobot();
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaIE > 20 && orientacion == 'N' && pasados[x][y-1][z] == 'P')
@@ -2139,17 +2139,17 @@ distanciaA=distanciaAtras();
         delay(200);
         alineaRobot();
         orientacion = 'O';
-
-        if(contador >= 3 && distanciaDE <20)
+distanciaA = distanciaAtras();
+        if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(500);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-            alineaRobot();
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaIE > 20 && orientacion == 'E' && pasados[x-1][y][z] == 'P')
@@ -2160,17 +2160,17 @@ distanciaA=distanciaAtras();
         delay(200);
         alineaRobot();
         orientacion = 'N';
-
-        if(contador >= 3 && distanciaDE <20)
+distanciaA = distanciaAtras();
+        if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(300);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-            alineaRobot();
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaIE > 20 && orientacion == 'S' && pasados[x][y+1][z] == 'P')
@@ -2181,17 +2181,17 @@ distanciaA=distanciaAtras();
         delay(200);
         alineaRobot();
         orientacion = 'E';
-
-        if(contador >= 3 && distanciaDE <20)
+distanciaA = distanciaAtras();
+        if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(300);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-            alineaRobot();
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaIE > 20 && orientacion == 'O' && pasados[x+1][y][z] == 'P')
@@ -2202,17 +2202,17 @@ distanciaA=distanciaAtras();
         delay(200);
         alineaRobot();
         orientacion = 'S';
-
-        if(contador >= 3 && distanciaDE <20)
+distanciaA = distanciaAtras();
+        if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(300);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-            alineaRobot();
+            robot.actualizaSetpoint();
           }
       }
       else{
