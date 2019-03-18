@@ -1,7 +1,7 @@
-//PROGRAMA INO. ROBORREGOS.
+  //PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
-//Version 1.3
+//Version 1.4
 
 #include <MotoresPuentes.h>
 #include <NewPing.h>
@@ -652,28 +652,7 @@ int distanciaEnfrente()
   byte turns = 0;
   distancia = uSDE / US_ROUNDTRIP_CM;
   
-  if(distancia == 0)
-    {
-      delay(500);
-      distancia = uSDE / US_ROUNDTRIP_CM;
-
-      if(distancia == 0){
-        robot.moveDer();
-        robot.detenerse();
-        delay(500);
-        uSDE = sonarIE.ping_median();
-        distancia = uSDE / US_ROUNDTRIP_CM;
   
-        if(distancia == 0)
-          {
-            distancia = 40;
-          }
-          
-       robot.moveIzq();
-       robot.detenerse();
-       delay(500);}
-    }  
-
   Serial.print("Distancia Enfrente= ");
   Serial.println(distancia);
   return distancia;
@@ -703,32 +682,13 @@ int distanciaDerechaEnfrente()
   int distancia;
   byte turns = 0;
   distancia = uSDE / US_ROUNDTRIP_CM;
-  
-  if(distancia == 0)
-    {
-      delay(500);
-      distancia = uSDE / US_ROUNDTRIP_CM;
-
-      if(distancia == 0){
-        robot.moveDer();
-        robot.detenerse();
-        delay(500);
-        uSDE = sonarA.ping_median();
-        distancia = uSDE / US_ROUNDTRIP_CM;
-  
-        if(distancia == 0)
-          {
-            distancia = 40;
-          }
-          
-       robot.moveIzq();
-       robot.detenerse();
-       delay(500);}
-    } 
-
-  
   Serial.print("Distancia Derecha Enfrente= ");
   Serial.println(distancia);
+      lcd2.clear();
+      lcd2.display();
+      lcd2.print(distancia);
+      delay(1000);
+      lcd2.clear();
   return distancia;
 }
 
@@ -758,27 +718,7 @@ int distanciaIzquierdaEnfrente()
   byte turns = 0;
   distancia = uSDE / US_ROUNDTRIP_CM;
   
-  if(distancia == 0)
-    {
-      delay(500);
-      distancia = uSDE / US_ROUNDTRIP_CM;
-
-      if(distancia == 0){
-        robot.moveDer();
-        robot.detenerse();
-        delay(500);
-        uSDE = sonarE.ping_median();
-        distancia = uSDE / US_ROUNDTRIP_CM;
-  
-        if(distancia == 0)
-          {
-            distancia = 40;
-          }
-          
-       robot.moveIzq();
-       robot.detenerse();
-       delay(500);}
-    } 
+ 
 
   Serial.print("Distancia Izquierda Enfrente= ");
   Serial.println(distancia);
@@ -1284,11 +1224,11 @@ byte pos;
     }
 
     lcd2.display();
-    lcd2.print("x = ");
+    lcd2.print("x =");
     lcd2.print(x);
-    lcd2.print(" y = ");
+    lcd2.print("y =");
     lcd2.print(y);
-    lcd2.print(" z = ");
+    lcd2.print("z =");
     lcd2.print(z);
     
     
@@ -1353,7 +1293,7 @@ byte pos;
    distanciaIE = distanciaIzquierdaEnfrente();
    distanciaE = distanciaEnfrente();
 
-  if(distanciaDE < 20)
+  if(distanciaDE < 20 && distanciaDE != 0)
     {
       switch(orientacion)
         {
@@ -1376,7 +1316,7 @@ byte pos;
         }
     }
 
-  if(distanciaIE < 20)
+  if(distanciaIE < 20 && distanciaIE != 0)
     {
       switch(orientacion)
         {
@@ -1399,7 +1339,7 @@ byte pos;
         }
     }
 
-  if(distanciaE < 20)
+  if(distanciaE < 20 && distanciaE != 0)
     {
       switch(orientacion)
         {
@@ -1697,7 +1637,7 @@ byte pos;
     
     ///// CONDICION 1 ///////
     
-    if(distanciaDE > 20 && orientacion == 'N' && pasados[x][y+1][z] == 'P' && pasados[x][y+1][z] != 'V')
+    if((distanciaDE==0 || distanciaDE > 20) && orientacion == 'N' && pasados[x][y+1][z] == 'P' && pasados[x][y+1][z] != 'V')
       {
         lcd2.display();
         lcd2.print("DERECHA");
@@ -1728,7 +1668,7 @@ contador++;
           }
       }
       //////////// CONDICION 1.5 ////////////
-      else if(distanciaDE > 20 && orientacion == 'E' && pasados[x+1][y][z] == 'P' && pasados[x+1][y][z] != 'V')
+      else if((distanciaDE==0 || distanciaDE > 20) && orientacion == 'E' && pasados[x+1][y][z] == 'P' && pasados[x+1][y][z] != 'V')
       {
         lcd2.display();
         lcd2.print("DERECHA");
@@ -1757,7 +1697,7 @@ contador++;
           }
       }
       ///////////// CONDICION 2 //////////////
-      else if(distanciaDE > 20 && orientacion == 'S' && pasados[x][y-1][z] == 'P' && pasados[x][y-1][z] != 'V')
+      else if((distanciaDE==0 || distanciaDE > 20) && orientacion == 'S' && pasados[x][y-1][z] == 'P' && pasados[x][y-1][z] != 'V')
       {
         lcd2.display();
         lcd2.print("DERECHA");
@@ -1786,7 +1726,7 @@ distanciaA=distanciaAtras();
           }
       }
       //////////// CONDICION 3 ////////////
-      else if(distanciaDE > 20 && orientacion == 'O' && pasados[x-1][y][z] == 'P' && pasados[x-1][y][z] != 'V')
+      else if((distanciaDE==0 || distanciaDE > 20) && orientacion == 'O' && pasados[x-1][y][z] == 'P' && pasados[x-1][y][z] != 'V')
       {
         lcd2.display();
         lcd2.print("DERECHA");
@@ -1851,7 +1791,7 @@ distanciaA=distanciaAtras();
         ignore();
       }
       //////// CONDICION 8 ///////////
-      else if(distanciaIE > 20 && orientacion == 'N' && pasados[x][y-1][z] == 'P' && pasados[x][y-1][z] != 'V')
+      else if((distanciaIE==0 || distanciaIE > 20) && orientacion == 'N' && pasados[x][y-1][z] == 'P' && pasados[x][y-1][z] != 'V')
       {
         lcd2.display();
         lcd2.print("IZQUIERDA");
@@ -1880,7 +1820,7 @@ distanciaA=distanciaAtras();
           }
       }
       ////////////// CONDICION 9 ///////////////
-      else if(distanciaIE > 20 && orientacion == 'E' && pasados[x-1][y][z] == 'P' && pasados[x-1][y][z] != 'V')
+      else if((distanciaIE==0 || distanciaIE > 20) && orientacion == 'E' && pasados[x-1][y][z] == 'P' && pasados[x-1][y][z] != 'V')
       {
         lcd2.display();
         lcd2.print("IZQUIERDA");
@@ -1909,7 +1849,7 @@ distanciaA=distanciaAtras();
           }
       }
       ////////// CONDICION 10//////////////
-      else if(distanciaIE > 20 && orientacion == 'S' && pasados[x][y+1][z] == 'P' && pasados[x][y+1][z] != 'V')
+      else if((distanciaIE==0 || distanciaIE > 20) && orientacion == 'S' && pasados[x][y+1][z] == 'P' && pasados[x][y+1][z] != 'V')
       {
         lcd2.display();
         lcd2.print("IZQUIERDA");
@@ -1938,7 +1878,7 @@ distanciaA=distanciaAtras();
           }
       }
       ///////////// CONDICION 11 ///////////7
-      else if(distanciaIE > 20 && orientacion == 'O' && pasados[x+1][y][z] == 'P' && pasados[x+1][y][z] != 'V')
+      else if((distanciaIE==0 || distanciaIE > 20) && orientacion == 'O' && pasados[x+1][y][z] == 'P' && pasados[x+1][y][z] != 'V')
       {
         lcd2.display();
         lcd2.print("IZQUIERDA");
