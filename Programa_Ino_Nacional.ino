@@ -14,9 +14,10 @@
 #include <QueueArray.h>
 #include <i2cmaster.h>
 #include <LiquidCrystal_I2C.h>
+#include <SoftwareSerial.h>
 
-#define RH_ENCODER_A 2
-#define RH_ENCODER_B 3
+#define RH_ENCODER_A 3
+#define RH_ENCODER_B 2
 #define LH_ENCODER_A 18
 #define LH_ENCODER_B 19
 #define MAX_DISTANCE 220
@@ -24,10 +25,10 @@
 #define ECHO_PIN_E 34
 #define TRIGGER_PIN_A 43
 #define ECHO_PIN_A 44
-#define TRIGGER_PIN_DE   35
-#define ECHO_PIN_DE      36
-#define TRIGGER_PIN_DA 37
-#define ECHO_PIN_DA 38
+#define TRIGGER_PIN_DE    37
+#define ECHO_PIN_DE       38
+#define TRIGGER_PIN_DA 35
+#define ECHO_PIN_DA 36
 #define TRIGGER_PIN_IE   39
 #define ECHO_PIN_IE     40
 #define TRIGGER_PIN_IA 41
@@ -54,6 +55,8 @@ Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_700MS, TCS347
 Servo myservo;
 direcciones d[15][15];
 LiquidCrystal_I2C lcd2(0x3F,16,2);
+SoftwareSerial camDer(13, 51);
+SoftwareSerial camIzq(12, 50);
 
 volatile unsigned long leftCount = 0;
 volatile unsigned long rightCount = 0;
@@ -549,7 +552,7 @@ void findp(){
                           orientacion = 'N';
                         } break;
                         case 'S':
-                        {
+                        {                           
                           derechaAlg();
                           derechaAlg();
                           adelanteAlg();
@@ -557,8 +560,10 @@ void findp(){
                         } break;
                       }
                   }
-      }}
-}
+      }
+      robot.actualizaSetpoint();
+      delay(1000);
+}}
 
 void derechaAlg()
 {
@@ -578,7 +583,6 @@ void derechaAlg()
     delay(200);
     robot.detenerse();
     delay(500);
-    robot.actualizaSetpoint();
   }
 }
 
@@ -600,7 +604,6 @@ void izquierdaAlg()
     delay(200);
     robot.detenerse();
     delay(500);
-    robot.actualizaSetpoint();
   }
 }
 
@@ -610,17 +613,7 @@ void adelanteAlg()
 
   while(rightCount < 1700)
   {
-    if((digitalRead(30)==LOW))
-    {
-      robot.acomodoI();
-      delay(280);
-      robot.detenerse();
-    }
-    else if((digitalRead(29)==LOW)){
-      robot.acomodoD();
-      delay(280);
-      robot.detenerse();
-    }
+   
     
     robot.moveAdelante();
   }
@@ -662,14 +655,7 @@ int distanciaAtras()
 {
   int uSDE = sonarA.ping_median();
   int distancia;
-  byte turns = 0;
   distancia = uSDE / US_ROUNDTRIP_CM;
-  
-  if(distancia < 4 && turns < 3){
-  distancia = uSDE / US_ROUNDTRIP_CM;
-  turns++;}
-  else if(distancia < 4)
-  distancia = 2000;
 
   Serial.print("Distancia Atras= ");
   Serial.println(distancia);
@@ -680,15 +666,10 @@ int distanciaDerechaEnfrente()
 {
   int uSDE = sonarDE.ping_median();
   int distancia;
-  byte turns = 0;
   distancia = uSDE / US_ROUNDTRIP_CM;
   Serial.print("Distancia Derecha Enfrente= ");
   Serial.println(distancia);
-      lcd2.clear();
-      lcd2.display();
-      lcd2.print(distancia);
-      delay(1000);
-      lcd2.clear();
+  
   return distancia;
 }
 
@@ -768,93 +749,41 @@ bool isBlack()
 }
 
 
-void unaVictimaDerecha()
-{
-  lcd2.display();
-  lcd2.print("VICTIMA DERECHA");
-  
-  digitalWrite(22, HIGH);
-  delay(6000);
-
-  for(int i = 90; i <= 180; i++)
-  {
-    myservo.write(i);
-    delay(5);
-  }
-
-  for(int i = 180; i >= 90; i--)
-  {
-    myservo.write(i);
-    delay(5);
-  }
-    
-  digitalWrite(22, LOW);
-  lcd2.clear();
-
-  return;
-}
-
 void unaVictimaIzquierda()
 {
+  lcd2.clear();
   lcd2.display();
   lcd2.print("VICTIMA IZQUIERDA");
   
-  digitalWrite(22, HIGH);
+  digitalWrite(23, HIGH);
   delay(6000);
 
-  for(int i = 90; i >= 0; i--)
-  {
-    myservo.write(i);
-    delay(5);
-  }
-
-  for(int i = 0; i <= 90; i++)
-  {
-    myservo.write(i);
-    delay(5);
-  }
+  myservo.write(180);
+  delay(1000);
+  myservo.write(81);
+  delay(1000);
     
-  digitalWrite(22, LOW);
+ digitalWrite(23, LOW);
   lcd2.clear();
 
   return;
 }
 
-void dosVictimasDerecha()
+void unaVictimaDerecha()
 {
+  lcd2.clear();
   lcd2.display();
-  lcd2.print("VICTIMAS DERECHA");
+  lcd2.print("VICTIMA DERECHA");
   
-  digitalWrite(22, HIGH);
+  digitalWrite(23, HIGH);
   delay(6000);
 
-  for(int i = 90; i <= 180; i++)
-  {
-    myservo.write(i);
-    delay(5);
-  }
-
-  for(int i = 180; i >= 90; i--)
-  {
-    myservo.write(i);
-    delay(5);
-  }
-
-  delay(500);
-  
-  for(int i = 90; i <= 180; i++)
-  {
-    myservo.write(i);
-    delay(5);
-  }
-
-  for(int i = 180; i >= 90; i--)
-  {
-    myservo.write(i);
-    delay(5);
-  }
+  myservo.write(0);
+  delay(1000);
+  myservo.write(81);
+  delay(1000);
     
-  digitalWrite(22, LOW);
+  digitalWrite(23, LOW);
   lcd2.clear();
 
   return;
@@ -862,39 +791,49 @@ void dosVictimasDerecha()
 
 void dosVictimasIzquierda()
 {
+  lcd2.clear();
   lcd2.display();
   lcd2.print("VICTIMAS IZQUIERDA");
   
-  digitalWrite(22, HIGH);
+  digitalWrite(23, HIGH);
   delay(6000);
 
-  for(int i = 90; i >= 0; i--)
-  {
-    myservo.write(i);
-    delay(5);
-  }
-
-  for(int i = 0; i <= 90; i++)
-  {
-    myservo.write(i);
-    delay(5);
-  }
-
-  delay(500);
-  
-  for(int i = 90; i >= 0; i--)
-  {
-    myservo.write(i);
-    delay(5);
-  }
-
-  for(int i = 0; i <= 90; i++)
-  {
-    myservo.write(i);
-    delay(5);
-  }
+  myservo.write(180);
+  delay(1000);
+  myservo.write(81);
+  delay(1000);
+  delay(1000);
+  myservo.write(180);
+  delay(1000);
+  myservo.write(81);
+  delay(1000);
     
-  digitalWrite(22, LOW);
+  digitalWrite(23, LOW);
+  lcd2.clear();
+
+  return;
+}
+
+void dosVictimasDerecha()
+{
+  lcd2.clear();
+  lcd2.display();
+  lcd2.print("VICTIMAS DERECHA");
+  
+  digitalWrite(23, HIGH);
+  delay(6000);
+
+  myservo.write(0);
+  delay(1000);
+  myservo.write(81);
+  delay(1000);
+  delay(1000);
+  myservo.write(0);
+  delay(1000);
+  myservo.write(81);
+  delay(1000);
+    
+  digitalWrite(23, LOW);
   lcd2.clear();
 
   return;
@@ -1006,6 +945,8 @@ float temperatureCelcius(int address) {
 
 void setup() {
   Serial.begin(9600);
+  camDer.begin(9600);
+  camIzq.begin(9600);
   i2c_init();                               // Initialise the i2c bus.
   lcd2.init();
   lcd2.setBacklight(10);
@@ -1019,11 +960,11 @@ void setup() {
   lcd2.clear();
   
   myservo.attach(32);
-  myservo.write(90);
+  myservo.write(81);
   
   pinMode(29, INPUT_PULLUP);
   pinMode(30, INPUT_PULLUP);
-  pinMode(22, OUTPUT);
+  pinMode(23, OUTPUT);
   pinMode(LH_ENCODER_A, INPUT);
   pinMode(LH_ENCODER_B, INPUT);
   pinMode(RH_ENCODER_A, INPUT);
@@ -1130,18 +1071,92 @@ byte pos;
     lcd2.display();
     lcd2.print("ADELANTE");
     while(rightCount<2050){
-      /*
-    if((digitalRead(30)==LOW))
-    {
-      robot.acomodoI();
-      delay(280);
+      
+      celcius1 = temperatureCelcius(device1Address); 
+   celcius2 = temperatureCelcius(device2Address); 
+
+   if(celcius2 > 40)
+   {
+    robot.detenerse();
+     unaVictimaDerecha();
+   }
+
+   if(celcius1 > 40)
+   {
+    robot.detenerse();
+    unaVictimaIzquierda();
+   }
+
+   camDer.listen();  // ATENDER SOLO CAMARA DERECHA
+  Serial.println("Data from port one:");
+
+  while (camDer.available() > 0) {
+    char inByte = camDer.read();
+    Serial.write(inByte);
+    if(inByte == '3'){ // 6 ES PARA LAS VICTIMAS H DEL LADO DERECHO
+      Serial.println();
       robot.detenerse();
+      dosVictimasDerecha();
+      delay(2000);
+      break;
     }
-    else if((digitalRead(29)==LOW)){
-      robot.acomodoD();
-      delay(280);
+    if(inByte == '2'){ // 5 ES PARA LAS VICTIMAS S DE LADO DERECHO
+      Serial.println();
       robot.detenerse();
-    } */
+      unaVictimaDerecha();
+      delay(2000);
+      break;
+    }
+    if(inByte == '1'){ // 4 ES PARA LAS VICTIMAS U DEL LADO DERECHO
+      Serial.println();
+      robot.detenerse();
+      lcd2.clear();
+      lcd2.display();
+      lcd2.print("VICTIMA U");
+      Serial.println("VICTIMA U");
+      delay(6000);
+      lcd2.clear();
+      break;
+    }
+  }
+
+  Serial.println();
+
+  camIzq.listen();
+
+  Serial.println("Data from port two:");
+  while (camIzq.available() > 0) {
+    char inByte = camIzq.read();
+    Serial.write(inByte);
+    if(inByte == '6'){ // 3 ES PARA LAS VICTIMAS H DEL LADO IZQUIERDO
+      robot.detenerse();
+      Serial.println();
+      dosVictimasIzquierda();
+      delay(2000);
+      break;
+    }
+    if(inByte == '5'){ // 2 ES PARA LAS VICTIMAS S DEL LADO IZQUIERDO
+      robot.detenerse();
+      Serial.println();
+      unaVictimaIzquierda();
+      delay(2000);
+       break;
+    }
+    if(inByte == '4'){ // 1 ES PARA LAS VICTIMAS U DEL LADO IZQUIERDO
+      robot.detenerse();
+      Serial.println();
+      lcd2.clear();
+      lcd2.display();
+      lcd2.print("VICTIMA U");
+      Serial.println("VICTIMA U");
+      delay(6000);
+      lcd2.clear();
+      break;
+    }
+  }
+
+  // blank line to separate data from the two ports:
+  Serial.println();
     
     robot.moveAdelante();
     
@@ -1158,25 +1173,6 @@ byte pos;
       else
       z = 1;
     }
-     
-   celcius1 = temperatureCelcius(device1Address); 
-   celcius2 = temperatureCelcius(device2Address); 
-
-   if(celcius1 > 30 && pasado == false)
-   {
-     robot.detenerse();
-     delay(300);
-     unaVictimaDerecha();
-     pasado = true;
-   }
-
-   if(celcius2 > 30 && pasado == false)
-   {
-    robot.detenerse();
-    delay(300);
-    unaVictimaIzquierda();
-    pasado = true;
-   }
    
   }
   
