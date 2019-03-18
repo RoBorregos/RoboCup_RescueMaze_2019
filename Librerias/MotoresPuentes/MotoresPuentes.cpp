@@ -69,8 +69,8 @@ void MotoresPuentes::moveAdelante(){
     if(Input-Setpoint>1 || Input-Setpoint <-1){
         if(Input-Setpoint>0){
          //MOVE DERECHA
-            digitalWrite(motorIzqAde1, LOW);
-            analogWrite(motorIzqAde2, velocidadIzqAde+Output);
+            digitalWrite(motorIzqAde2, LOW);
+            analogWrite(motorIzqAde1, velocidadIzqAde+Output);
             digitalWrite(motorIzqAtras1, LOW);
             analogWrite(motorIzqAtras2, velocidadIzqAtras+Output);
             digitalWrite(motorDerAde1, LOW);
@@ -80,8 +80,8 @@ void MotoresPuentes::moveAdelante(){
         }
         else if(Input-Setpoint<0){
             //MOVE IZQUIERDA
-            digitalWrite(motorIzqAde1, LOW);
-            analogWrite(motorIzqAde2, velocidadIzqAde-Output);
+            digitalWrite(motorIzqAde2, LOW);
+            analogWrite(motorIzqAde1, velocidadIzqAde-Output);
             digitalWrite(motorIzqAtras1, LOW);
             analogWrite(motorIzqAtras2, velocidadIzqAtras-Output);
             digitalWrite(motorDerAde1, LOW);
@@ -91,8 +91,8 @@ void MotoresPuentes::moveAdelante(){
         }
     }
     else{
-            digitalWrite(motorIzqAde1, LOW);
-            analogWrite(motorIzqAde2, velocidadIzqAde);
+            digitalWrite(motorIzqAde2, LOW);
+            analogWrite(motorIzqAde1, velocidadIzqAde);
             digitalWrite(motorIzqAtras1, LOW);
             analogWrite(motorIzqAtras2, velocidadIzqAtras);
             digitalWrite(motorDerAde1, LOW);
@@ -140,8 +140,8 @@ void MotoresPuentes::acomodoD()
 {
   uint8_t i=235;
 //TODAVI NO SE SABEN LAS POSICIONES CORRECTAS.......
-digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, 50);
+digitalWrite(motorIzqAde2, LOW);
+analogWrite(motorIzqAde1, 50);
 digitalWrite(motorIzqAtras1, LOW);
 analogWrite(motorIzqAtras2, 50);
 digitalWrite(motorDerAde1, LOW);
@@ -163,8 +163,8 @@ void MotoresPuentes::acomodoI()
 {
  uint8_t i=235;
 //TODAVI NO SE SABEN LAS POSICIONES CORRECTAS.......
-digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, 170);
+digitalWrite(motorIzqAde2, LOW);
+analogWrite(motorIzqAde1, 170);
 digitalWrite(motorIzqAtras1, LOW);
 analogWrite(motorIzqAtras2, 170);
 digitalWrite(motorDerAde1, LOW);
@@ -185,6 +185,17 @@ analogWrite(motorDerAtras2, 50);
 void MotoresPuentes::detenerse(){
   uint8_t i=235;
 //TODAVI NO SE SABEN LAS POSICIONES CORRECTAS.......
+digitalWrite(motorIzqAde1, HIGH);
+digitalWrite(motorIzqAde2, HIGH);
+digitalWrite(motorIzqAtras1, HIGH);
+digitalWrite(motorIzqAtras2, HIGH);
+digitalWrite(motorDerAde1, HIGH);
+digitalWrite(motorDerAde2, HIGH);
+digitalWrite(motorDerAtras1, HIGH);
+digitalWrite(motorDerAtras2, HIGH);
+
+delay(10);
+
 digitalWrite(motorIzqAde1, LOW);
 digitalWrite(motorIzqAde2, LOW);
 digitalWrite(motorIzqAtras1, LOW);
@@ -198,8 +209,8 @@ void MotoresPuentes::moveAtras(){
 uint8_t i;
 //TODAVI NO SE SABEN LAS POSICIONES CORRECTAS.......
 
-digitalWrite(motorIzqAde2, LOW);
-analogWrite(motorIzqAde1, velocidadBaseIzqAde);
+digitalWrite(motorIzqAde1, LOW);
+analogWrite(motorIzqAde2, velocidadBaseIzqAde);
 digitalWrite(motorIzqAtras2, LOW);
 analogWrite(motorIzqAtras1, velocidadBaseIzqAtras);
 digitalWrite(motorDerAde2, LOW);
@@ -220,8 +231,8 @@ analogWrite(motorDerAtras1, velocidadBaseDerAtras);
 void MotoresPuentes::moveAtrasLento(){
  uint8_t i=235;
 //TODAVI NO SE SABEN LAS POSICIONES CORRECTAS.......
-digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, 50);
+digitalWrite(motorIzqAde2, LOW);
+analogWrite(motorIzqAde1, 50);
 digitalWrite(motorIzqAtras1, LOW);
 analogWrite(motorIzqAtras2, 50);
 digitalWrite(motorDerAde1, LOW);
@@ -268,8 +279,8 @@ if(med<90){
     //analogWrite(PIN_OUTPUT, Output);
 
 //TODAVI NO SE SABEN LAS POSICIONES CORRECTAS.......
-digitalWrite(motorIzqAde2, LOW);
-analogWrite(motorIzqAde1, nOutput);
+digitalWrite(motorIzqAde1, LOW);
+analogWrite(motorIzqAde2, nOutput);
 digitalWrite(motorIzqAtras2, LOW);
 analogWrite(motorIzqAtras1, nOutput);
 digitalWrite(motorDerAde1, LOW);
@@ -303,8 +314,8 @@ analogWrite(motorDerAtras2, nOutput);
     (nOutput>=255)? nOutput=255: nOutput=nOutput;
     Serial.println(nOutput);
     //analogWrite(PIN_OUTPUT, Output);
-    digitalWrite(motorIzqAde2, LOW);
-    analogWrite(motorIzqAde1, nOutput);
+    digitalWrite(motorIzqAde1, LOW);
+    analogWrite(motorIzqAde2, nOutput);
     digitalWrite(motorIzqAtras2, LOW);
     analogWrite(motorIzqAtras1, nOutput);
     digitalWrite(motorDerAde1, LOW);
@@ -324,8 +335,8 @@ analogWrite(motorDerAtras2, nOutput);
     }while(newMed>punto);
   }
   Serial.println("YA SALIO********");
-  digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, LOW);
+  digitalWrite(motorIzqAde2, LOW);
+analogWrite(motorIzqAde1, LOW);
 digitalWrite(motorIzqAtras1, LOW);
 analogWrite(motorIzqAtras2, LOW);
 digitalWrite(motorDerAde1, LOW);
@@ -361,8 +372,8 @@ double med=0, newMed=0, punto=0, newPunto=0, nOutput=0;
     (nOutput>=255)? nOutput=255: nOutput=nOutput;
     Serial.println(nOutput);
     //analogWrite(PIN_OUTPUT, Output);
-    digitalWrite(motorIzqAde1, LOW);
-    analogWrite(motorIzqAde2, nOutput);
+    digitalWrite(motorIzqAde2, LOW);
+    analogWrite(motorIzqAde1, nOutput);
     digitalWrite(motorIzqAtras1, LOW);
     analogWrite(motorIzqAtras2, nOutput);
     digitalWrite(motorDerAde2, LOW);
@@ -396,8 +407,8 @@ double med=0, newMed=0, punto=0, newPunto=0, nOutput=0;
     (nOutput>=255)? nOutput=255: nOutput=nOutput;
     Serial.println(nOutput);
     //analogWrite(PIN_OUTPUT, Output);
-    digitalWrite(motorIzqAde1, LOW);
-    analogWrite(motorIzqAde2, nOutput);
+    digitalWrite(motorIzqAde2, LOW);
+    analogWrite(motorIzqAde1, nOutput);
     digitalWrite(motorIzqAtras1, LOW);
     analogWrite(motorIzqAtras2, nOutput);
     digitalWrite(motorDerAde2, LOW);
@@ -429,8 +440,8 @@ analogWrite(motorDerAtras2, LOW);
 void MotoresPuentes::moveDerAcomodo(){
     uint8_t i=235;
 //TODAVI NO SE SABEN LAS POSICIONES CORRECTAS.......
-digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, 80);
+digitalWrite(motorIzqAde2, LOW);
+analogWrite(motorIzqAde1, 80);
 digitalWrite(motorIzqAtras1, LOW);
 analogWrite(motorIzqAtras2, 80);
 digitalWrite(motorDerAde1, LOW);
@@ -451,8 +462,8 @@ analogWrite(motorDerAtras2, 80);
 void MotoresPuentes::moveIzqAcomodo(){
     uint8_t i=235;
 //TODAVI NO SE SABEN LAS POSICIONES CORRECTAS.......
-digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, 80);
+digitalWrite(motorIzqAde2, LOW);
+analogWrite(motorIzqAde1, 80);
 digitalWrite(motorIzqAtras1, LOW);
 analogWrite(motorIzqAtras2, 80);
 digitalWrite(motorDerAde1, LOW);
