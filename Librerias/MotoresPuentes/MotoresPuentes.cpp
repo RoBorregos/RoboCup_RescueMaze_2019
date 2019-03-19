@@ -10,10 +10,10 @@ PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, REVERSE);
 PID myPID2(&Input2, &Output2, &Setpoint2, Kp2, Ki2, Kd2, DIRECT);
 PID myPID3(&Input3, &Output3, &Setpoint3, Kp3, Ki3, Kd3, REVERSE);
 
-double velocidadBaseIzqAde=200;
-double velocidadBaseIzqAtras=200;
-double velocidadBaseDerAde=250;
-double velocidadBaseDerAtras=250;
+double velocidadBaseIzqAde=227;
+double velocidadBaseIzqAtras=233;
+double velocidadBaseDerAde=248;
+double velocidadBaseDerAtras=249;
 
 //CAMBIAR EL DRIRECT Y REVERSE EN LAS VUELTAS YA QUE UNAS LAS DA LENTO DEBIDO A QUE TIENE UN REVERSE Y DIRECT AL REVES
 
@@ -276,7 +276,7 @@ objective+= interval;
 
 if(med<90){
 
-    punto=med-82;
+    punto=med-78;
     newPunto=360+punto;
     Setpoint2=newPunto;
     do{
@@ -295,13 +295,13 @@ if(med<90){
     Serial.println(nOutput);
 
 digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, nOutput);
+analogWrite(motorIzqAde2, 226);
 digitalWrite(motorIzqAtras2, LOW);
-analogWrite(motorIzqAtras1, nOutput);
+analogWrite(motorIzqAtras1, 226);
 digitalWrite(motorDerAde1, LOW);
-analogWrite(motorDerAde2, nOutput);
+analogWrite(motorDerAde2, 250);
 digitalWrite(motorDerAtras1, LOW);
-analogWrite(motorDerAtras2, nOutput);
+analogWrite(motorDerAtras2, 250);
     }
     else if(currentMillis >= objective){
     if(balance<3){
@@ -345,7 +345,7 @@ analogWrite(motorDerAtras2, nOutput);
     }while(newMed<=med || newMed>newPunto);
   }
   else{
-    punto=med-82;
+    punto=med-78;
     Setpoint=punto;
     do{
     currentMillis = millis();
@@ -362,13 +362,13 @@ analogWrite(motorDerAtras2, nOutput);
     Serial.println(nOutput);
 
 digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, nOutput);
+analogWrite(motorIzqAde2, 226);
 digitalWrite(motorIzqAtras2, LOW);
-analogWrite(motorIzqAtras1, nOutput);
+analogWrite(motorIzqAtras1, 226);
 digitalWrite(motorDerAde1, LOW);
-analogWrite(motorDerAde2, nOutput);
+analogWrite(motorDerAde2, 250);
 digitalWrite(motorDerAtras1, LOW);
-analogWrite(motorDerAtras2, nOutput);
+analogWrite(motorDerAtras2, 250);
     }
     else if(currentMillis >= objective){
      if(balance<3){
@@ -442,7 +442,7 @@ objective+= interval;
 
     if(med>=270){
 
-    punto=med+82;
+    punto=med+78;
     newPunto=(360-punto)*-1;
     Setpoint=newPunto;
     do{
@@ -461,13 +461,13 @@ objective+= interval;
     Serial.println(nOutput);
 
 digitalWrite(motorIzqAde2, LOW);
-analogWrite(motorIzqAde1, nOutput);
+analogWrite(motorIzqAde1, 250);
 digitalWrite(motorIzqAtras1, LOW);
-analogWrite(motorIzqAtras2, nOutput);
+analogWrite(motorIzqAtras2, 250);
 digitalWrite(motorDerAde2, LOW);
-analogWrite(motorDerAde1, nOutput);
+analogWrite(motorDerAde1, 226);
 digitalWrite(motorDerAtras2, LOW);
-analogWrite(motorDerAtras1, nOutput);
+analogWrite(motorDerAtras1, 226);
     }
     else if(currentMillis >= objective){
     if(balance<3){
@@ -510,7 +510,7 @@ delay(200);
     }while(newMed>=med || newMed<newPunto);
   }
   else{
-    punto=med+82;
+    punto=med+78;
     Setpoint=punto;
     do{
     currentMillis = millis();
@@ -528,13 +528,13 @@ delay(200);
     Serial.println(nOutput);
 
 digitalWrite(motorIzqAde2, LOW);
-analogWrite(motorIzqAde1, nOutput);
+analogWrite(motorIzqAde1, 250);
 digitalWrite(motorIzqAtras1, LOW);
-analogWrite(motorIzqAtras2, nOutput);
+analogWrite(motorIzqAtras2, 250);
 digitalWrite(motorDerAde2, LOW);
-analogWrite(motorDerAde1, nOutput);
+analogWrite(motorDerAde1, 226);
 digitalWrite(motorDerAtras2, LOW);
-analogWrite(motorDerAtras1, nOutput);
+analogWrite(motorDerAtras1, 226);
     }
     else if(currentMillis >= objective){
 
