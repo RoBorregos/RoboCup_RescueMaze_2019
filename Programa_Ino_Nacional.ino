@@ -1,4 +1,4 @@
-    //PROGRAMA INO. ROBORREGOS.
+  //PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
 //Version 1.4
@@ -80,7 +80,7 @@ int distanciaDA;
 int distanciaIE;
 int distanciaIA;
 int negroRmenor=100;
-int negroRmayor=1800;
+int negroRmayor=1900;
 int negroGmenor=100;
 int negroGmayor=500;
 int negroBmenor=100;
@@ -103,6 +103,7 @@ int device1Address = 0x55<<1;
 int device2Address = 0x2A<<1; 
 float celcius1 = 0;  
 float celcius2 = 0;   
+bool plata;
 
 void clear(){
   lcd2.display();
@@ -578,9 +579,7 @@ void derechaAlg()
   {
     contAlg = 0;
     robot.moveAtras();
-    delay(750);
-    robot.actualizaSetpoint();
-    delay(10);
+    delay(650);
     robot.moveAdelante();
     delay(200);
     robot.detenerse();
@@ -601,9 +600,7 @@ void izquierdaAlg()
   {
     contAlg = 0;
     robot.moveAtras();
-    delay(750);
-    robot.actualizaSetpoint();
-    delay(10);
+    delay(650);
     robot.moveAdelante();
     delay(200);
     robot.detenerse();
@@ -615,10 +612,8 @@ void adelanteAlg()
 {
   rightCount = 0;
 
-  while(rightCount < 1700)
-  {
-   
-    
+  while(rightCount < 1900)
+  {    
     robot.moveAdelante();
   }
 
@@ -742,10 +737,25 @@ bool isBlack()
   delay(300);
   colorTemp = tcs.calculateColorTemperature(r, g, b);
   lux = tcs.calculateLux(r, g, b); 
-  if((r<=negroRmayor)){
+  if(r < 400 && g < 400 && b < 400){
     lcd2.display();
     lcd2.print("CUADRO NEGRO DETECTADO");
     lcd2.display();
+  blackTile[x][y][z] = true;
+  return true;}
+  else
+  return false;
+}
+
+bool isGray()
+{
+  int r, g, b, c, colorTemp, lux;
+  
+  tcs.getRawData(&r, &g, &b, &c);
+  delay(300);
+  colorTemp = tcs.calculateColorTemperature(r, g, b);
+  lux = tcs.calculateLux(r, g, b); 
+  if((r < 1130 && r > 400) || (g < 1130 && g > 400) || (b < 1130 && b > 400)){
   blackTile[x][y][z] = true;
   return true;}
   else
@@ -1006,16 +1016,12 @@ void setup() {
   delay(500);
   lcd2.clear();
 
-  /*if (!tcs.begin()) 
-    {
-      Serial.println("Error al iniciar TCS34725");
-      while (1) delay(1000);
-    } */
-
   lcd2.display();
   lcd2.print("DISTANCIAS INICIALES");
   
   pasados[x][y][z] = 'V';
+
+  plata = true;
 
    distanciaDE = distanciaDerechaEnfrente();
    distanciaIE = distanciaIzquierdaEnfrente();
@@ -1071,10 +1077,17 @@ byte pos;
     byte valor = 0;
     rightCount=0;
 
-
+    if(plata == true)
+    {
+      lcd2.display();
+      lcd2.print("CUADRO PLATA");
+      delay(1000);
+      lcd2.clear();
+    }
+  
     lcd2.display();
     lcd2.print("ADELANTE");
-    while(rightCount<2050){
+    while(rightCount<1900){
       
       celcius1 = temperatureCelcius(device1Address); 
    celcius2 = temperatureCelcius(device2Address); 
@@ -1163,7 +1176,8 @@ byte pos;
   Serial.println();
     
     robot.moveAdelante();
-    
+
+    if(plata == true){
     valor = subir.detectaRampa();
     if(valor != 0)
     {
@@ -1176,7 +1190,7 @@ byte pos;
       z = 0;
       else
       z = 1;
-    }
+    }}
    
   }
   
@@ -1254,7 +1268,9 @@ byte pos;
     lcd2.print(orientacion);
     delay(500);
     lcd2.clear();
-     //negro = isBlack();
+
+     plata = isGray();
+     negro = isBlack();
 
   minisq = 0;
   
@@ -1654,19 +1670,21 @@ byte pos;
         
 contador++;
         distanciaA=distanciaAtras();
+        lcd2.display();
+        lcd2.print(distanciaA);
+        delay(1000);
+        lcd2.clear();
         if(distanciaA < 20)
           {
             contador = 0;
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-            delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       //////////// CONDICION 1.5 ////////////
@@ -1686,18 +1704,21 @@ contador++;
         lcd2.clear();
 contador++;
         distanciaA=distanciaAtras();
+
+        lcd2.display();
+        lcd2.print(distanciaA);
+        delay(1000);
+        lcd2.clear();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       ///////////// CONDICION 2 //////////////
@@ -1717,18 +1738,20 @@ contador++;
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
+lcd2.display();
+        lcd2.print(distanciaA);
+        delay(1000);
+        lcd2.clear();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       //////////// CONDICION 3 ////////////
@@ -1748,18 +1771,20 @@ distanciaA=distanciaAtras();
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
+lcd2.display();
+        lcd2.print(distanciaA);
+        delay(1000);
+        lcd2.clear();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       /////////// CONDICION 4 /////////
@@ -1815,18 +1840,20 @@ distanciaA=distanciaAtras();
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
+lcd2.display();
+        lcd2.print(distanciaA);
+        delay(1000);
+        lcd2.clear();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       ////////////// CONDICION 9 ///////////////
@@ -1846,18 +1873,20 @@ distanciaA=distanciaAtras();
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
+lcd2.display();
+        lcd2.print(distanciaA);
+        delay(1000);
+        lcd2.clear();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       ////////// CONDICION 10//////////////
@@ -1877,18 +1906,20 @@ distanciaA=distanciaAtras();
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
+lcd2.display();
+        lcd2.print(distanciaA);
+        delay(1000);
+        lcd2.clear();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       ///////////// CONDICION 11 ///////////7
@@ -1908,18 +1939,20 @@ distanciaA=distanciaAtras();
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
+lcd2.display();
+        lcd2.print(distanciaA);
+        delay(1000);
+        lcd2.clear();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       ///////////// CONDICION 12 ////////////7
@@ -2019,15 +2052,13 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaDE > 15 && orientacion == 'E' && pasados[x+1][y][z] == 'P')
@@ -2042,15 +2073,13 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-            
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaDE > 20 && orientacion == 'S' && pasados[x][y-1][z] == 'P')
@@ -2065,15 +2094,13 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaDE > 20 && orientacion == 'O' && pasados[x-1][y][z] == 'P')
@@ -2088,15 +2115,13 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaIE > 20 && orientacion == 'N' && pasados[x][y-1][z] == 'P')
@@ -2111,15 +2136,13 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaIE > 20 && orientacion == 'E' && pasados[x-1][y][z] == 'P')
@@ -2134,15 +2157,13 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaIE > 20 && orientacion == 'S' && pasados[x][y+1][z] == 'P')
@@ -2157,15 +2178,13 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       else if(distanciaIE > 20 && orientacion == 'O' && pasados[x+1][y][z] == 'P')
@@ -2180,15 +2199,13 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(750);
-            robot.actualizaSetpoint();
-    delay(10);
+            delay(650);
             contador  = 0;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
             delay(500);
-             
+            robot.actualizaSetpoint();
           }
       }
       else{
