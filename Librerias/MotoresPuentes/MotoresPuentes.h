@@ -37,6 +37,7 @@ public:
     const int motorDerAtras1  = 7;//
     const int motorDerAtras2  = 6;//
     double getSetpoint(double);
+
    // Adafruit_BNO055 bno;
 };
 
