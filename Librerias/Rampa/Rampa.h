@@ -1,4 +1,4 @@
-#ifndef Rampa_h
+ #ifndef Rampa_h
 #define Rampa_h
 
 #include "arduino.h"
@@ -14,15 +14,17 @@ class Rampa {
 
 public:
     Rampa();
-    Adafruit_DCMotor *MotorAdeIzq;
-    Adafruit_DCMotor *MotorAdeDer;
-    Adafruit_DCMotor *MotorAtrasIzq;
-    Adafruit_DCMotor *MotorAtrasDer;
-    Adafruit_MotorShield AFMS;
     Adafruit_BNO055 bno;
-    int detectaRampa();
     void setup();
-
+    int detectaRampa();
+    const int motorIzqAde1  = 8;
+    const int motorIzqAde2  = 9;
+    const int motorIzqAtras1  = 11;//l
+    const int motorIzqAtras2  = 10;//l
+    const int motorDerAde1  = 5;//L
+    const int motorDerAde2  = 4;//L
+    const int motorDerAtras1  = 7;//
+    const int motorDerAtras2  = 6;//
 
 };
 
