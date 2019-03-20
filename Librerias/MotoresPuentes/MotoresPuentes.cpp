@@ -776,3 +776,58 @@ analogWrite(motorDerAtras2, 80);
     MotorAdeDer->run(FORWARD);
     */
 }
+
+void MotoresPuentes::acomodarseChoqueIzquierda1()
+{
+    digitalWrite(motorIzqAde2, 200);
+    analogWrite(motorIzqAde1, LOW);
+    digitalWrite(motorIzqAtras1, 200);
+    analogWrite(motorIzqAtras2, LOW);
+    digitalWrite(motorDerAde1, LOW);
+    analogWrite(motorDerAde2, LOW);
+    digitalWrite(motorDerAtras1, LOW);
+    analogWrite(motorDerAtras2, LOW);
+
+    delay(350);
+}
+
+void MotoresPuentes::acomodarseChoqueIzquierda2()
+{
+    digitalWrite(motorIzqAde2, LOW);
+    analogWrite(motorIzqAde1, LOW);
+    digitalWrite(motorIzqAtras1, LOW);
+    analogWrite(motorIzqAtras2, LOW);
+    digitalWrite(motorDerAde1, 200);
+    analogWrite(motorDerAde2, LOW);
+    digitalWrite(motorDerAtras1, 200);
+    analogWrite(motorDerAtras2, LOW);
+
+    delay(300);
+}
+
+void MotoresPuentes::acomodarseChoqueDerecha1()
+{
+    digitalWrite(motorIzqAde2, LOW);
+    analogWrite(motorIzqAde1, LOW);
+    digitalWrite(motorIzqAtras1, LOW);
+    analogWrite(motorIzqAtras2, LOW);
+    digitalWrite(motorDerAde1, 200);
+    analogWrite(motorDerAde2 , LOW);
+    digitalWrite(motorDerAtras1, 200);
+    analogWrite(motorDerAtras2, LOW);
+
+    delay(350);
+}
+void MotoresPuentes::acomodarseChoqueDerecha2()
+{
+    digitalWrite(motorIzqAde2, 200);
+    analogWrite(motorIzqAde1, LOW);
+    digitalWrite(motorIzqAtras1, 200);
+    analogWrite(motorIzqAtras2, LOW);
+    digitalWrite(motorDerAde1, LOW);
+    analogWrite(motorDerAde2 , LOW);
+    digitalWrite(motorDerAtras1, LOW);
+    analogWrite(motorDerAtras2, LOW);
+
+    delay(350);
+}
