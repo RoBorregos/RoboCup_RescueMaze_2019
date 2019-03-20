@@ -623,7 +623,42 @@ void adelanteAlg()
   rightCount = 0;
 
   while(rightCount < 1900)
-  {    
+  { 
+    if(digitalRead(30) == LOW && rightCount < 1600)
+   {
+    auxEncoder = rightCount;
+    robot.detenerse();
+    delay(10);
+    robot.acomodarseChoqueIzquierda1();
+    robot.detenerse();
+    delay(30);
+    robot.acomodarseChoqueIzquierda2();
+    robot.detenerse();
+    delay(50);
+    robot.moveAdelante();
+    delay(280);
+    robot.detenerse();
+    delay(100);
+    rightCount = auxEncoder;
+   }
+
+   if(digitalRead(29) == LOW && rightCount < 1600)
+   {
+    auxEncoder = rightCount;
+    robot.detenerse();
+    delay(10);
+    robot.acomodarseChoqueDerecha1();
+    robot.detenerse();
+    delay(30);
+    robot.acomodarseChoqueDerecha2();
+    robot.detenerse();
+    delay(50);
+    robot.moveAdelante();
+    delay(280);
+    robot.detenerse();
+    delay(100);
+    rightCount = auxEncoder;
+   }
     robot.moveAdelante();
   }
 
@@ -1128,6 +1163,42 @@ byte pos;
     lcd2.display();
     lcd2.print("ADELANTE");
     while(rightCount<1900){
+      
+   if(digitalRead(30) == LOW && rightCount < 1600)
+   {
+    auxEncoder = rightCount;
+    robot.detenerse();
+    delay(10);
+    robot.acomodarseChoqueIzquierda1();
+    robot.detenerse();
+    delay(30);
+    robot.acomodarseChoqueIzquierda2();
+    robot.detenerse();
+    delay(50);
+    robot.moveAdelante();
+    delay(280);
+    robot.detenerse();
+    delay(100);
+    rightCount = auxEncoder;
+   }
+
+   if(digitalRead(29) == LOW && rightCount < 1600)
+   {
+    auxEncoder = rightCount;
+    robot.detenerse();
+    delay(10);
+    robot.acomodarseChoqueDerecha1();
+    robot.detenerse();
+    delay(30);
+    robot.acomodarseChoqueDerecha2();
+    robot.detenerse();
+    delay(50);
+    robot.moveAdelante();
+    delay(280);
+    robot.detenerse();
+    delay(100);
+    rightCount = auxEncoder;
+   }
       
    celcius1 = temperatureCelcius(device1Address); 
    celcius2 = temperatureCelcius(device2Address); 
