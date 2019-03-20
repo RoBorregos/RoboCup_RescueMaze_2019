@@ -1,19 +1,20 @@
     #include "MotoresPuentes.h"
 
-double Kp=2, Ki=0, Kd=0;
+double Kp=9, Ki=0, Kd=0;
 double Input=0, Output=0, Setpoint=0;
-double Kp2=2, Ki2=0, Kd2=0;
-double Input2=0, Output2=0, Setpoint2=6;
+double Kp2=9, Ki2=0, Kd2=0;
+double Input2=0, Output2=0, Setpoint2=0;
 double Kp3=2, Ki3=0, Kd3=0;
 double Input3=0, Output3=0, Setpoint3=0;
-PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, REVERSE);
-PID myPID2(&Input2, &Output2, &Setpoint2, Kp2, Ki2, Kd2, DIRECT);
+PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
+PID myPID2(&Input2, &Output2, &Setpoint, Kp2, Ki2, Kd2, REVERSE);
 PID myPID3(&Input3, &Output3, &Setpoint3, Kp3, Ki3, Kd3, REVERSE);
+LiquidCrystal_I2C lcd(0x3F,16,2);
 
-double velocidadBaseIzqAde=230;
-double velocidadBaseIzqAtras=230;
-double velocidadBaseDerAde=250;
-double velocidadBaseDerAtras=250;
+double velocidadBaseIzqAde=120;
+double velocidadBaseIzqAtras=120;
+double velocidadBaseDerAde=140;
+double velocidadBaseDerAtras=140;
 
 //CAMBIAR EL DRIRECT Y REVERSE EN LAS VUELTAS YA QUE UNAS LAS DA LENTO DEBIDO A QUE TIENE UN REVERSE Y DIRECT AL REVES
 
@@ -33,10 +34,10 @@ void MotoresPuentes::setup(){
   }
    delay(1000);
   bno.setExtCrystalUse(true);
-  Input;
-  Setpoint;
+
   //turn the PID on
   myPID.SetMode(AUTOMATIC);
+  myPID2.SetMode(AUTOMATIC);
   pinMode(motorIzqAde1, OUTPUT);
   pinMode(motorIzqAde2, OUTPUT);
   pinMode(motorIzqAtras1, OUTPUT);
@@ -45,14 +46,19 @@ void MotoresPuentes::setup(){
   pinMode(motorDerAde2, OUTPUT);
   pinMode(motorDerAtras1, OUTPUT);
   pinMode(motorDerAtras2, OUTPUT);
+   lcd.init();
+  lcd.backlight();
+  lcd.clear();
+  lcd.setCursor(0,0);
 }
 void MotoresPuentes::actualizaSetpoint(){
     double med=0;
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-    Serial.print("X: ");
+    //Serial.print("X: ");
     med=euler.x();
     Setpoint=med;
-    Serial.println(med);
+    //Setpoint = Setpoint -90 >0 ? Setpoint-90 : 360+ (Setpoint-90);
+    //Serial.println(med);
     delay(BNO055_SAMPLERATE_DELAY_MS);
 }
 void MotoresPuentes::moveAdelante(){
@@ -64,35 +70,56 @@ void MotoresPuentes::moveAdelante(){
     velocidadDerAtras=velocidadBaseDerAtras;
 //TODAVI NO SE SABEN LAS POSICIONES CORRECTAS.......
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-    Serial.print("X: ");
+
     med=euler.x();
-    Serial.println(Setpoint);
+
     delay(BNO055_SAMPLERATE_DELAY_MS);
+     /*
+    if((Setpoint>=0 && Setpoint<100) && (Input>300)){
+        Input-=360;
+        Input2-=360;
+    }
+    if((Input>=0 && Input<100) && (Setpoint>300)){
+        Input+=360;
+        Input2+=360;
+    }
+    */
+
+    bool flag = false;
+    if((med > Setpoint && med-180 < Setpoint)||(med < Setpoint && med+180 < Setpoint)){
+       flag = true;
+     }
+     if(flag && med < Setpoint)
+       med += 360;
+     else if (!flag && med > Setpoint)
+       med -= 360;
+    Input2=med;
     Input=med;
+
     myPID.Compute();
+    myPID2.Compute();
     if(Input-Setpoint>1 || Input-Setpoint <-1){
-        if(Input-Setpoint>0){
-         //MOVE DERECHA
             digitalWrite(motorIzqAde2, LOW);
-            analogWrite(motorIzqAde1, velocidadIzqAde+Output);
+            analogWrite(motorIzqAde1, velocidadIzqAde-Output2+Output);
             digitalWrite(motorIzqAtras1, LOW);
-            analogWrite(motorIzqAtras2, velocidadIzqAtras+Output);
+            analogWrite(motorIzqAtras2, velocidadIzqAtras-Output2+Output);
             digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, velocidadDerAde-Output);
+            analogWrite(motorDerAde2, velocidadDerAde+Output2-Output);
             digitalWrite(motorDerAtras1, LOW);
-            analogWrite(motorDerAtras2, velocidadDerAtras-Output);
-        }
-        else if(Input-Setpoint<0){
-            //MOVE IZQUIERDA
-            digitalWrite(motorIzqAde2, LOW);
-            analogWrite(motorIzqAde1, velocidadIzqAde-Output);
-            digitalWrite(motorIzqAtras1, LOW);
-            analogWrite(motorIzqAtras2, velocidadIzqAtras-Output);
-            digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, velocidadDerAde+Output);
-            digitalWrite(motorDerAtras1, LOW);
-            analogWrite(motorDerAtras2, velocidadDerAtras+Output);
-        }
+            analogWrite(motorDerAtras2, velocidadDerAtras+Output2-Output);
+            Serial.print(Output);
+            Serial.print(" ");
+            Serial.print(Output2);
+            Serial.print(" ");
+            Serial.print(Setpoint);
+            Serial.print(" ");
+            Serial.println(Input);
+
+
+
+
+
+
     }
     else{
             digitalWrite(motorIzqAde2, LOW);
@@ -103,6 +130,8 @@ void MotoresPuentes::moveAdelante(){
             analogWrite(motorDerAde2, velocidadDerAde);
             digitalWrite(motorDerAtras1, LOW);
             analogWrite(motorDerAtras2, velocidadDerAtras);
+
+
     }
 /*
     MotorAtrasDer->setSpeed(210);
@@ -298,13 +327,13 @@ if(med<90){
     Serial.println(nOutput);
 
 digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, nOutput);
+analogWrite(motorIzqAde2, 220);
 digitalWrite(motorIzqAtras2, LOW);
-analogWrite(motorIzqAtras1, nOutput);
+analogWrite(motorIzqAtras1, 220);
 digitalWrite(motorDerAde1, LOW);
-analogWrite(motorDerAde2, nOutput);
+analogWrite(motorDerAde2, 255);
 digitalWrite(motorDerAtras1, LOW);
-analogWrite(motorDerAtras2, nOutput);
+analogWrite(motorDerAtras2, 255);
     }
     else if(currentMillis >= objective){
     if(balance<2){
@@ -392,13 +421,13 @@ caster++;
     Serial.println(nOutput);
 
 digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, nOutput);
+analogWrite(motorIzqAde2, 220);
 digitalWrite(motorIzqAtras2, LOW);
-analogWrite(motorIzqAtras1, nOutput);
+analogWrite(motorIzqAtras1, 220);
 digitalWrite(motorDerAde1, LOW);
-analogWrite(motorDerAde2, nOutput);
+analogWrite(motorDerAde2, 255);
 digitalWrite(motorDerAtras1, LOW);
-analogWrite(motorDerAtras2, nOutput);
+analogWrite(motorDerAtras2, 255);
     }
     else if(currentMillis >= objective){
      if(balance<2){
@@ -519,13 +548,13 @@ objective+= interval;
     Serial.println(nOutput);
 
 digitalWrite(motorIzqAde2, LOW);
-analogWrite(motorIzqAde1, nOutput);
+analogWrite(motorIzqAde1, 220);
 digitalWrite(motorIzqAtras1, LOW);
-analogWrite(motorIzqAtras2, nOutput);
+analogWrite(motorIzqAtras2, 220);
 digitalWrite(motorDerAde2, LOW);
-analogWrite(motorDerAde1, nOutput);
+analogWrite(motorDerAde1, 255);
 digitalWrite(motorDerAtras2, LOW);
-analogWrite(motorDerAtras1, nOutput);
+analogWrite(motorDerAtras1, 255);
     }
     else if(currentMillis >= objective){
     if(balance<2){
@@ -614,13 +643,13 @@ analogWrite(motorDerAtras1, 255);
     Serial.println(nOutput);
 
 digitalWrite(motorIzqAde2, LOW);
-analogWrite(motorIzqAde1, nOutput);
+analogWrite(motorIzqAde1, 220);
 digitalWrite(motorIzqAtras1, LOW);
-analogWrite(motorIzqAtras2, nOutput);
+analogWrite(motorIzqAtras2, 220);
 digitalWrite(motorDerAde2, LOW);
-analogWrite(motorDerAde1, nOutput);
+analogWrite(motorDerAde1, 255);
 digitalWrite(motorDerAtras2, LOW);
-analogWrite(motorDerAtras1, nOutput);
+analogWrite(motorDerAtras1, 255);
     }
     else if(currentMillis >= objective){
 
