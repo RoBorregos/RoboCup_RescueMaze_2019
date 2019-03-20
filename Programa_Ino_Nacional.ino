@@ -573,7 +573,7 @@ void findp(){
                   }
       }
       robot.actualizaSetpoint();
-      delay(1000);
+      delay(300);
 }}
 
 void derechaAlg()
@@ -744,7 +744,6 @@ bool isBlack()
   int r, g, b, c, colorTemp, lux;
   
   tcs.getRawData(&r, &g, &b, &c);
-  delay(100);
   colorTemp = tcs.calculateColorTemperature(r, g, b);
   lux = tcs.calculateLux(r, g, b); 
   if(r < 400 && g < 400 && b < 400){
@@ -762,7 +761,6 @@ bool isGray()
   int r, g, b, c, colorTemp, lux;
   
   tcs.getRawData(&r, &g, &b, &c);
-  delay(100);
   colorTemp = tcs.calculateColorTemperature(r, g, b);
   lux = tcs.calculateLux(r, g, b); 
   if((r < 1100 && r > 400) || (g < 1100 && g > 400) || (b < 1100 && b > 400)){
@@ -1126,14 +1124,6 @@ void loop() {
 byte pos;
     byte valor = 0;
     rightCount=0;
-
-    if(plata == true)
-    {
-      lcd2.display();
-      lcd2.print("CUADRO PLATA");
-      delay(500);
-      lcd2.clear();
-    }
   
     lcd2.display();
     lcd2.print("ADELANTE");
@@ -1263,7 +1253,7 @@ byte pos;
    
   
   robot.detenerse();
-  delay(50);
+  delay(10);
   alineaRobot();
   distanciaE = distanciaEnfrente();
 
@@ -1696,7 +1686,7 @@ byte pos;
         lcd2.print("DERECHA");
         robot.moveDer();
         robot.detenerse();
-        delay(200);
+        delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'E';
@@ -1712,7 +1702,7 @@ contador++;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(300);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -1723,7 +1713,7 @@ contador++;
         lcd2.print("DERECHA");
         robot.moveDer();
         robot.detenerse();
-        delay(200);
+        delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'S';
@@ -1738,7 +1728,7 @@ contador++;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(300);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -1749,7 +1739,7 @@ contador++;
         lcd2.print("DERECHA");
         robot.moveDer();
         robot.detenerse();
-        delay(200);
+        delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'O';
@@ -1763,7 +1753,7 @@ distanciaA=distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(300);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -1774,7 +1764,7 @@ distanciaA=distanciaAtras();
         lcd2.print("DERECHA");
         robot.moveDer();
         robot.detenerse();
-        delay(200);
+        delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'N';
@@ -1788,7 +1778,7 @@ distanciaA=distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(300);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -1819,7 +1809,7 @@ distanciaA=distanciaAtras();
         lcd2.print("IZQUIERDA");
         robot.moveIzq();
         robot.detenerse();
-        delay(200);
+        delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'O';
@@ -1833,7 +1823,7 @@ distanciaA=distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(300);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -1844,7 +1834,7 @@ distanciaA=distanciaAtras();
         lcd2.print("IZQUIERDA");
         robot.moveIzq();
         robot.detenerse();
-        delay(200);
+        delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'N';
@@ -1858,7 +1848,7 @@ distanciaA=distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(300);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -1869,7 +1859,7 @@ distanciaA=distanciaAtras();
         lcd2.print("IZQUIERDA");
         robot.moveIzq();
         robot.detenerse();
-        delay(200);
+        delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'E';
@@ -1883,7 +1873,7 @@ distanciaA=distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(300);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -1894,7 +1884,7 @@ distanciaA=distanciaAtras();
         lcd2.print("IZQUIERDA");
         robot.moveIzq();
         robot.detenerse();
-        delay(200);
+        delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'S';
@@ -1908,7 +1898,7 @@ distanciaA=distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(300);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -1967,7 +1957,7 @@ distanciaA=distanciaAtras();
       robot.moveAtras();
       delay(890);
       robot.detenerse();
-      delay(200);
+      delay(10);
 
       switch(orientacion)
        {
@@ -1993,7 +1983,7 @@ distanciaA=distanciaAtras();
         contador++;
         robot.moveDer();
         robot.detenerse();
-        delay(200);
+        delay(10);
         alineaRobot();
         orientacion = 'E';
 distanciaA = distanciaAtras();
@@ -2005,7 +1995,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -2014,7 +2004,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveDer();
         robot.detenerse();
-        delay(200);
+        delay(10);
         alineaRobot();
         orientacion = 'S';
 distanciaA = distanciaAtras();
@@ -2026,7 +2016,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -2035,7 +2025,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveDer();
         robot.detenerse();
-        delay(200);
+        delay(10);
         alineaRobot();
         orientacion = 'O';
 distanciaA = distanciaAtras();
@@ -2047,7 +2037,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -2056,7 +2046,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveDer();
         robot.detenerse();
-        delay(200);
+        delay(10);
         alineaRobot();
         orientacion = 'N';
 distanciaA = distanciaAtras();
@@ -2068,7 +2058,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -2077,7 +2067,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveIzq();
         robot.detenerse();
-        delay(200);
+        delay(10);
         alineaRobot();
         orientacion = 'O';
 distanciaA = distanciaAtras();
@@ -2089,7 +2079,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -2098,7 +2088,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveIzq();
         robot.detenerse();
-        delay(200);
+        delay(10);
         alineaRobot();
         orientacion = 'N';
 distanciaA = distanciaAtras();
@@ -2110,7 +2100,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -2119,7 +2109,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveIzq();
         robot.detenerse();
-        delay(200);
+        delay(10);
         alineaRobot();
         orientacion = 'E';
 distanciaA = distanciaAtras();
@@ -2131,7 +2121,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -2140,7 +2130,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveIzq();
         robot.detenerse();
-        delay(200);
+        delay(10);
         alineaRobot();
         orientacion = 'S';
 distanciaA = distanciaAtras();
@@ -2152,7 +2142,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(10);
             robot.actualizaSetpoint();
           }
       }
@@ -2160,11 +2150,11 @@ distanciaA = distanciaAtras();
         contador = contador +2;;
         robot.moveDer();
         robot.detenerse();
-        delay(200);
+        delay(10);
         alineaRobot();
         robot.moveDer();
         robot.detenerse();
-        delay(200);
+        delay(10);
         alineaRobot();
         if(orientacion == 'N')
           orientacion = 'S';
@@ -2192,7 +2182,7 @@ distanciaA = distanciaAtras();
            }
           robot.moveDer();
           robot.detenerse();
-          delay(200);
+          delay(10);
           alineaRobot();
           switch(orientacion)
           {
