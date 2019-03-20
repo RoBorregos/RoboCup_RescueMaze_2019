@@ -1,4 +1,4 @@
-  #include "Rampa.h"
+    #include "Rampa.h"
 
 
 
@@ -30,17 +30,17 @@ double med=0, newMed=0, punto=0, newPunto=0;
     Serial.println(med);
     delay(BNO055_SAMPLERATE_DELAY_MS);
 
- if(med<-5){
+ if(med<-15){
     Serial.println("Entramos");
     do{
             digitalWrite(motorIzqAde1, LOW);
-            analogWrite(motorIzqAde2, 235);
+            analogWrite(motorIzqAde2, 200);
             digitalWrite(motorIzqAtras1, LOW);
-            analogWrite(motorIzqAtras2, 235);
+            analogWrite(motorIzqAtras2, 200);
             digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, 220);
+            analogWrite(motorDerAde2, 240);
             digitalWrite(motorDerAtras1, LOW);
-            analogWrite(motorDerAtras2, 220);
+            analogWrite(motorDerAtras2, 240);
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print("X: ");
     newMed=euler.y();
@@ -49,7 +49,7 @@ double med=0, newMed=0, punto=0, newPunto=0;
     }
     Serial.println(newMed);
     delay(BNO055_SAMPLERATE_DELAY_MS);
-    }while(newMed<-5);
+    }while(newMed<-3);
     Serial.println("Salimos");
             digitalWrite(motorIzqAde1, LOW);
             analogWrite(motorIzqAde2, 200);
@@ -62,7 +62,7 @@ double med=0, newMed=0, punto=0, newPunto=0;
             delay(150);
     valor++;
     }
-    else if(med>10){
+    else if(med>15){
     Serial.println("Entramos");
 
     do{
@@ -72,9 +72,9 @@ double med=0, newMed=0, punto=0, newPunto=0;
             digitalWrite(motorIzqAtras1, LOW);
             analogWrite(motorIzqAtras2, 130);
             digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, 160);
+            analogWrite(motorDerAde2, 145);
             digitalWrite(motorDerAtras1, LOW);
-            analogWrite(motorDerAtras2, 160);
+            analogWrite(motorDerAtras2, 145);
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print("X: ");
     newMed=euler.y();
@@ -83,7 +83,7 @@ double med=0, newMed=0, punto=0, newPunto=0;
     }
     Serial.println(newMed);
     delay(BNO055_SAMPLERATE_DELAY_MS);
-    }while(newMed>10);
+    }while(newMed>8);
     Serial.println("Salimos");
             digitalWrite(motorIzqAde1, LOW);
             analogWrite(motorIzqAde2, 200);
