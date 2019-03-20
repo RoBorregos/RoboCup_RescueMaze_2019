@@ -1,8 +1,8 @@
-    #include "MotoresPuentes.h"
+      #include "MotoresPuentes.h"
 
-double Kp=9, Ki=0, Kd=0;
+double Kp=8, Ki=0, Kd=0;
 double Input=0, Output=0, Setpoint=0;
-double Kp2=9, Ki2=0, Kd2=0;
+double Kp2=8, Ki2=0, Kd2=0;
 double Input2=0, Output2=0, Setpoint2=0;
 double Kp3=2, Ki3=0, Kd3=0;
 double Input3=0, Output3=0, Setpoint3=0;
@@ -11,10 +11,10 @@ PID myPID2(&Input2, &Output2, &Setpoint, Kp2, Ki2, Kd2, REVERSE);
 PID myPID3(&Input3, &Output3, &Setpoint3, Kp3, Ki3, Kd3, REVERSE);
 LiquidCrystal_I2C lcd(0x3F,16,2);
 
-double velocidadBaseIzqAde=120;
-double velocidadBaseIzqAtras=120;
-double velocidadBaseDerAde=140;
-double velocidadBaseDerAtras=140;
+double velocidadBaseIzqAde=175;
+double velocidadBaseIzqAtras=175;
+double velocidadBaseDerAde=200;
+double velocidadBaseDerAtras=200;
 
 //CAMBIAR EL DRIRECT Y REVERSE EN LAS VUELTAS YA QUE UNAS LAS DA LENTO DEBIDO A QUE TIENE UN REVERSE Y DIRECT AL REVES
 
