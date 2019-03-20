@@ -7,6 +7,7 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
+#include <LiquidCrystal_I2C.h>
 
 
 #define BNO055_SAMPLERATE_DELAY_MS 10
