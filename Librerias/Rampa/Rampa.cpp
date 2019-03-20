@@ -30,7 +30,7 @@ double med=0, newMed=0, punto=0, newPunto=0;
     Serial.println(med);
     delay(BNO055_SAMPLERATE_DELAY_MS);
 
- if(med<-3){
+ if(med<-5){
     Serial.println("Entramos");
     do{
             digitalWrite(motorIzqAde1, LOW);
@@ -49,7 +49,7 @@ double med=0, newMed=0, punto=0, newPunto=0;
     }
     Serial.println(newMed);
     delay(BNO055_SAMPLERATE_DELAY_MS);
-    }while(newMed<-3);
+    }while(newMed<-5);
     Serial.println("Salimos");
             digitalWrite(motorIzqAde1, LOW);
             analogWrite(motorIzqAde2, 200);
@@ -62,7 +62,7 @@ double med=0, newMed=0, punto=0, newPunto=0;
             delay(150);
     valor++;
     }
-    else if(med>8){
+    else if(med>10){
     Serial.println("Entramos");
 
     do{
@@ -83,7 +83,7 @@ double med=0, newMed=0, punto=0, newPunto=0;
     }
     Serial.println(newMed);
     delay(BNO055_SAMPLERATE_DELAY_MS);
-    }while(newMed>8);
+    }while(newMed>10);
     Serial.println("Salimos");
             digitalWrite(motorIzqAde1, LOW);
             analogWrite(motorIzqAde2, 200);
