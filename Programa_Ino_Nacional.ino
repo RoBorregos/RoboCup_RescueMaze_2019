@@ -1,7 +1,7 @@
 //PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
-//Version 1.7
+//Version 1.9
 
 #include <MotoresPuentes.h>
 #include <NewPing.h>
@@ -622,7 +622,7 @@ void adelanteAlg()
   rightCount = 0;
 
   robot.actualizaSetpoint();
-  while(rightCount < 1500)
+  while(rightCount < 1400)
   { 
     if(digitalRead(30) == LOW && rightCount < 1400)
    {
@@ -1232,7 +1232,7 @@ byte pos;
     
     lcd2.display();
     lcd2.print("ADELANTE");
-    while(rightCount<1500){
+    while(rightCount<1400){
       
    if(digitalRead(30) == LOW && rightCount < 1400)
    {
