@@ -778,7 +778,7 @@ void unaVictimaIzquierda()
   lcd2.display();
   lcd2.print("VICTIMA IZQUIERDA");
   
- for(int i = 0; i < 30; i ++)
+ for(int i = 0; i < 15; i ++)
  {
   digitalWrite(23, HIGH);
   delay(300);
@@ -788,8 +788,12 @@ void unaVictimaIzquierda()
 
   myservo.write(180);
   delay(1000);
-  myservo.write(81);
+  myservo.write(40);
   delay(1000);
+  myservo.write(120);
+  delay(1000);
+  myservo.write(79);
+  delay(500);
     
   lcd2.clear();
 
@@ -802,7 +806,7 @@ void unaVictimaDerecha()
   lcd2.display();
   lcd2.print("VICTIMA DERECHA");
   
-  for(int i = 0; i < 30; i ++)
+  for(int i = 0; i < 15; i ++)
  {
   digitalWrite(23, HIGH);
   delay(300);
@@ -812,8 +816,12 @@ void unaVictimaDerecha()
 
   myservo.write(0);
   delay(1000);
-  myservo.write(81);
+  myservo.write(120);
   delay(1000);
+  myservo.write(40);
+  delay(1000);
+  myservo.write(79);
+  delay(500);
     
   lcd2.clear();
 
@@ -826,7 +834,7 @@ void dosVictimasIzquierda()
   lcd2.display();
   lcd2.print("VICTIMAS IZQUIERDA");
   
-  for(int i = 0; i < 30; i ++)
+  for(int i = 0; i < 15; i ++)
  {
   digitalWrite(23, HIGH);
   delay(300);
@@ -836,13 +844,21 @@ void dosVictimasIzquierda()
 
   myservo.write(180);
   delay(1000);
-  myservo.write(81);
+  myservo.write(40);
   delay(1000);
+  myservo.write(120);
+  delay(1000);
+  myservo.write(79);
+  delay(500);
   delay(1000);
   myservo.write(180);
   delay(1000);
-  myservo.write(81);
+  myservo.write(40);
   delay(1000);
+  myservo.write(120);
+  delay(1000);
+  myservo.write(79);
+  delay(500);
     
   lcd2.clear();
 
@@ -855,7 +871,7 @@ void dosVictimasDerecha()
   lcd2.display();
   lcd2.print("VICTIMAS DERECHA");
   
-  for(int i = 0; i < 30; i ++)
+  for(int i = 0; i < 15; i ++)
  {
   digitalWrite(23, HIGH);
   delay(300);
@@ -865,13 +881,21 @@ void dosVictimasDerecha()
 
   myservo.write(0);
   delay(1000);
-  myservo.write(81);
+  myservo.write(120);
   delay(1000);
+  myservo.write(40);
+  delay(1000);
+  myservo.write(79);
+  delay(500);
   delay(1000);
   myservo.write(0);
   delay(1000);
-  myservo.write(81);
+  myservo.write(120);
   delay(1000);
+  myservo.write(40);
+  delay(1000);
+  myservo.write(79);
+  delay(500);
     
   lcd2.clear();
 
@@ -984,8 +1008,9 @@ float temperatureCelcius(int address) {
 
 void setup() {
   Serial.begin(9600);
-  camDer.begin(9600);
-  camIzq.begin(9600);
+  Serial.begin(115200);
+  camDer.begin(115200);
+  camIzq.begin(115200);
   i2c_init();                               // Initialise the i2c bus.
   lcd2.init();
   lcd2.setBacklight(10);
@@ -1170,14 +1195,16 @@ byte pos;
   while (camIzq.available() > 0) {
     char inByte = camIzq.read();
     Serial.write(inByte);
-    if(inByte == '9')
+    if(inByte == '9' || inByte == '8')
     {
       robot.detenerse();
+      delay(3000);
       Serial.println();
       camIzq.listen();
       Serial.println("Data from port two:");
       char inByte = camIzq.read();
       Serial.write(inByte);
+      delay(500);
     }
     if(inByte == '6'){ // 3 ES PARA LAS VICTIMAS H DEL LADO IZQUIERDO
       robot.detenerse();
