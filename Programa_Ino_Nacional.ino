@@ -132,55 +132,55 @@ void clear(){
     for(byte j = 0; j < 15; j++){
       if(pasados[i][j][z] == 'V' && blackTile[i][j][z] == false)
         mapa[i][j] = 0;
-        Serial.print("pasados");
-        Serial.print("[");
-        Serial.print(i);
-        Serial.print("][");
-        Serial.print(j);
-        Serial.print("][");
-        Serial.print(z);
-        Serial.print("] = ");
-        Serial.print(pasados[i][j][z]);
-        Serial.print("  Cuadro negro = ");
-        Serial.println(blackTile[i][j][z]);
+        //Serial.print("pasados");
+        //Serial.print("[");
+        //Serial.print(i);
+        //Serial.print("][");
+        //Serial.print(j);
+        //Serial.print("][");
+        //Serial.print(z);
+        //Serial.print("] = ");
+        //Serial.print(pasados[i][j][z]);
+        //Serial.print("  Cuadro negro = ");
+        //Serial.println(blackTile[i][j][z]);
         
     }}
 
-    Serial.print("z = ");
-    Serial.println(z);
+    //Serial.print("z = ");
+    //Serial.println(z);
 
     mapa[objX][objY] = 99;
     mapa[x][y] = 0;
 
-    for(byte i=0; i<15; i++){
+   /* for(byte i=0; i<15; i++){
     for(byte j=0;j<15;j++){
       if(mapa[i][j] == -1)
         {
-          Serial.print("#");
+          //Serial.print("#");
         }
         /*else if(pE[i][j] == true)
           {
-            Serial.print("/");
+            //Serial.print("/");
           }
           else if(pO[i][j] == true)
           {
-            Serial.print("|");
+            //Serial.print("|");
           }
           else if(pN[i][j] == true)
           {
-            Serial.print("-");
+            //Serial.print("-");
           }
           else if(pS[i][j] == true)
           {
-            Serial.print("~");
-          }********/
+            //Serial.print("~");
+          }*******
         else{
-      Serial.print(mapa[i][j]);}
-      Serial.print("      ");
+      //Serial.print(mapa[i][j]);}
+      //Serial.print("      ");
     }
-    Serial.println("");
-  }
-  Serial.println(" ");
+    //Serial.println("");
+  }*/
+  //Serial.println(" ");
 }
 
 void bfs(){
@@ -249,35 +249,35 @@ void bfs(){
 
   }
 
-  for(byte i=0; i<15; i++){
+  /*for(byte i=0; i<15; i++){
     for(byte j=0;j<15;j++){
       if(mapa[i][j] == -1)
         {
-          Serial.print("#");
+          //Serial.print("#");
         }
         /*else if(pE[i][j] == true)
           {
-            Serial.print("/");
+            //Serial.print("/");
           }
           else if(pO[i][j] == true)
           {
-            Serial.print("|");
+            //Serial.print("|");
           }
           else if(pN[i][j] == true)
           {
-            Serial.print("-");
+            //Serial.print("-");
           }
           else if(pS[i][j] == true)
           {
-            Serial.print("~");
-          }*/
+            //Serial.print("~");
+          }
         else{
-      Serial.print(mapa[i][j]);}
-      Serial.print("      ");
+      //Serial.print(mapa[i][j]);}
+      //Serial.print("      ");
     }
-    Serial.println("");
-  }
-  Serial.println(" ");
+    //Serial.println("");
+  }*/
+  //Serial.println(" ");
 
 
 }
@@ -655,8 +655,8 @@ int distanciaEnfrente()
   distancia = uSDE / US_ROUNDTRIP_CM;
   
   
-  Serial.print("Distancia Enfrente= ");
-  Serial.println(distancia);
+  //Serial.print("Distancia Enfrente= ");
+  //Serial.println(distancia);
   return distancia;
 }
 
@@ -666,8 +666,8 @@ int distanciaAtras()
   int distancia;
   distancia = uSDE / US_ROUNDTRIP_CM;
 
-  Serial.print("Distancia Atras= ");
-  Serial.println(distancia);
+  //Serial.print("Distancia Atras= ");
+  //Serial.println(distancia);
   return distancia;
 }
 
@@ -676,8 +676,8 @@ int distanciaDerechaEnfrente()
   int uSDE = sonarDE.ping_median();
   int distancia;
   distancia = uSDE / US_ROUNDTRIP_CM;
-  Serial.print("Distancia Derecha Enfrente= ");
-  Serial.println(distancia);
+  //Serial.print("Distancia Derecha Enfrente= ");
+  //Serial.println(distancia);
   
   return distancia;
 }
@@ -696,8 +696,8 @@ int distanciaDerechaAtras()
   distancia = 2000;
 
 
-  Serial.print("Distancia Derecha Atras= ");
-  Serial.println(distancia);
+  //Serial.print("Distancia Derecha Atras= ");
+  //Serial.println(distancia);
   return distancia;
 }
 
@@ -710,8 +710,8 @@ int distanciaIzquierdaEnfrente()
   
  
 
-  Serial.print("Distancia Izquierda Enfrente= ");
-  Serial.println(distancia);
+  //Serial.print("Distancia Izquierda Enfrente= ");
+  //Serial.println(distancia);
   return distancia;
 }
 
@@ -728,9 +728,9 @@ int distanciaIzquierdaAtras()
   else if(distancia < 4)
   distancia = 2000;
 
-  Serial.print("Distancia Izquierda Atras= ");
-  Serial.println(distancia);
-  Serial.println("*****");
+  //Serial.print("Distancia Izquierda Atras= ");
+  //Serial.println(distancia);
+  //Serial.println("*****");
   return distancia;
 }
 
@@ -744,7 +744,7 @@ bool isBlack()
   int r, g, b, c, colorTemp, lux;
   
   tcs.getRawData(&r, &g, &b, &c);
-  delay(300);
+  delay(100);
   colorTemp = tcs.calculateColorTemperature(r, g, b);
   lux = tcs.calculateLux(r, g, b); 
   if(r < 400 && g < 400 && b < 400){
@@ -762,7 +762,7 @@ bool isGray()
   int r, g, b, c, colorTemp, lux;
   
   tcs.getRawData(&r, &g, &b, &c);
-  delay(300);
+  delay(100);
   colorTemp = tcs.calculateColorTemperature(r, g, b);
   lux = tcs.calculateLux(r, g, b); 
   if((r < 1100 && r > 400) || (g < 1100 && g > 400) || (b < 1100 && b > 400)){
@@ -943,7 +943,7 @@ void alineaRobot(){
     distanciaIE=distanciaIzquierdaEnfrente();
     distanciaIA=distanciaIzquierdaAtras();
     if((distanciaDE!=distanciaDA||distanciaIE!=distanciaIA)&&((distanciaDE<20 && distanciaDA<20)||(distanciaIE<20 && distanciaIA<20))){
-  Serial.println("Desalineado******************");
+  //Serial.println("Desalineado******************");
   if(distanciaDE>distanciaDA && distanciaIE<distanciaIA){
     while(distanciaDE>distanciaDA && distanciaIE<distanciaIA){
        robot.moveDerAcomodo();
@@ -1139,59 +1139,59 @@ byte pos;
     lcd2.print("ADELANTE");
     while(rightCount<1900){
       
-      celcius1 = temperatureCelcius(device1Address); 
+   celcius1 = temperatureCelcius(device1Address); 
    celcius2 = temperatureCelcius(device2Address); 
 
-   if(celcius2 > 40)
+   if(celcius2 > 27)
    {
     robot.detenerse();
      unaVictimaDerecha();
    }
 
-   if(celcius1 > 40)
+   if(celcius1 > 27)
    {
     robot.detenerse();
     unaVictimaIzquierda();
    }
 
    camDer.listen();  // ATENDER SOLO CAMARA DERECHA
-  Serial.println("Data from port one:");
+  //Serial.println("Data from port one:");
 
   while (camDer.available() > 0) {
     char inByte = camDer.read();
     Serial.write(inByte);
     if(inByte == '3'){ // 6 ES PARA LAS VICTIMAS H DEL LADO DERECHO
-      Serial.println();
+      //Serial.println();
       robot.detenerse();
       dosVictimasDerecha();
       delay(2000);
       break;
     }
     if(inByte == '2'){ // 5 ES PARA LAS VICTIMAS S DE LADO DERECHO
-      Serial.println();
+      //Serial.println();
       robot.detenerse();
       unaVictimaDerecha();
       delay(2000);
       break;
     }
     if(inByte == '1'){ // 4 ES PARA LAS VICTIMAS U DEL LADO DERECHO
-      Serial.println();
+      //Serial.println();
       robot.detenerse();
       lcd2.clear();
       lcd2.display();
       lcd2.print("VICTIMA U");
-      Serial.println("VICTIMA U");
+      //Serial.println("VICTIMA U");
       delay(6000);
       lcd2.clear();
       break;
     }
   }
 
-  Serial.println();
+  //Serial.println();
 
   camIzq.listen();
 
-  Serial.println("Data from port two:");
+  //Serial.println("Data from port two:");
   while (camIzq.available() > 0) {
     char inByte = camIzq.read();
     Serial.write(inByte);
@@ -1199,34 +1199,34 @@ byte pos;
     {
       robot.detenerse();
       delay(3000);
-      Serial.println();
+      //Serial.println();
       camIzq.listen();
-      Serial.println("Data from port two:");
+      //Serial.println("Data from port two:");
       char inByte = camIzq.read();
       Serial.write(inByte);
       delay(500);
     }
     if(inByte == '6'){ // 3 ES PARA LAS VICTIMAS H DEL LADO IZQUIERDO
       robot.detenerse();
-      Serial.println();
+      //Serial.println();
       dosVictimasIzquierda();
       delay(2000);
       break;
     }
     if(inByte == '5'){ // 2 ES PARA LAS VICTIMAS S DEL LADO IZQUIERDO
       robot.detenerse();
-      Serial.println();
+      //Serial.println();
       unaVictimaIzquierda();
       delay(2000);
        break;
     }
     if(inByte == '4'){ // 1 ES PARA LAS VICTIMAS U DEL LADO IZQUIERDO
       robot.detenerse();
-      Serial.println();
+      //Serial.println();
       lcd2.clear();
       lcd2.display();
       lcd2.print("VICTIMA U");
-      Serial.println("VICTIMA U");
+      //Serial.println("VICTIMA U");
       delay(6000);
       lcd2.clear();
       break;
@@ -1234,7 +1234,7 @@ byte pos;
   }
 
   // blank line to separate data from the two ports:
-  Serial.println();
+  //Serial.println();
     
     robot.moveAdelante();
 
@@ -1296,16 +1296,7 @@ byte pos;
     {
       rampaX = x;
       rampaY = y;
-    }
-
-    lcd2.display();
-    lcd2.print("x =");
-    lcd2.print(x);
-    lcd2.print("y =");
-    lcd2.print(y);
-    lcd2.print("z =");
-    lcd2.print(z);
-    
+    }    
     
    pasados[x][y][z] = 'V';
 
@@ -1321,20 +1312,12 @@ byte pos;
     }
    }
 
-   delay(500);
-   lcd2.clear();
-
-    lcd2.display();
-    lcd2.print("ORIENTACION = ");
-    lcd2.print(orientacion);
-    delay(500);
-    lcd2.clear();
-
      plata = isGray();
      negro = isBlack();
 
   minisq = 0;
-  
+
+  if(x == 7 && y == 7 && z == 0){
      for(byte i = 0; i < 15; i++)
       {
         for(byte j = 0; j < 15; j++)
@@ -1349,13 +1332,13 @@ byte pos;
           }
       }
 
-      if(x == 7 && y == 7 && z == 0 && minisq == 0)
+      if(minisq ==0)
         {
           for(int i = 1; i > 0; i++){
           lcd2.display();
           lcd2.print("FIN DE RONDA");
           delay(3000); }        
-        }
+        }}
 
   if(negro == false)
   {
@@ -1713,21 +1696,13 @@ byte pos;
         lcd2.print("DERECHA");
         robot.moveDer();
         robot.detenerse();
-        delay(1000);
+        delay(200);
         lcd2.clear();
         alineaRobot();
         orientacion = 'E';
-        lcd2.display();
-        lcd2.print("CONDICION 1");
-        delay(100);
-        lcd2.clear();
         
 contador++;
         distanciaA=distanciaAtras();
-        lcd2.display();
-        lcd2.print(distanciaA);
-        delay(100);
-        lcd2.clear();
         if(distanciaA < 20)
           {
             contador = 0;
@@ -1737,7 +1712,7 @@ contador++;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(300);
             robot.actualizaSetpoint();
           }
       }
@@ -1752,16 +1727,8 @@ contador++;
         lcd2.clear();
         alineaRobot();
         orientacion = 'S';
-        lcd2.display();
-        lcd2.print("CONDICION 1.5");
-        delay(100);
-        lcd2.clear();
 contador++;
         distanciaA=distanciaAtras();
-
-        lcd2.display();
-        lcd2.print(distanciaA);
-        delay(100);
         lcd2.clear();
         if(distanciaA < 20)
           {
@@ -1771,7 +1738,7 @@ contador++;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(300);
             robot.actualizaSetpoint();
           }
       }
@@ -1786,16 +1753,8 @@ contador++;
         lcd2.clear();
         alineaRobot();
         orientacion = 'O';
-        lcd2.display();
-        lcd2.print("CONDICION 2");
-        delay(100);
-        lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
-lcd2.display();
-        lcd2.print(distanciaA);
-        delay(100);
-        lcd2.clear();
         if(distanciaA < 20)
           {
             robot.moveAtras();
@@ -1804,7 +1763,7 @@ lcd2.display();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(300);
             robot.actualizaSetpoint();
           }
       }
@@ -1819,16 +1778,8 @@ lcd2.display();
         lcd2.clear();
         alineaRobot();
         orientacion = 'N';
-        lcd2.display();
-        lcd2.print("CONDICION 3");
-        delay(100);
-        lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
-lcd2.display();
-        lcd2.print(distanciaA);
-        delay(100);
-        lcd2.clear();
         if(distanciaA < 20)
           {
             robot.moveAtras();
@@ -1837,44 +1788,28 @@ lcd2.display();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(300);
             robot.actualizaSetpoint();
           }
       }
       /////////// CONDICION 4 /////////
       else if(distanciaE > 20 && orientacion == 'N' && pasados[x-1][y][z] == 'P' && pasados[x-1][y][z] != 'V')
       {
-        lcd2.display();
-        lcd2.print("CONDICION 4");
-        delay(100);
-        lcd2.clear();
         ignore();
       }
       /////////// CONDICION 5 ///////////////
       else if(distanciaE > 20 && orientacion == 'E' && pasados[x][y+1][z] == 'P' && pasados[x][y+1][z] != 'V')
       {
-        lcd2.display();
-        lcd2.print("CONDICION 5");
-        delay(100);
-        lcd2.clear();
         ignore();
       }
       ///////// CONDICION 6 //////////
       else if(distanciaE > 20 && orientacion == 'S' && pasados[x+1][y][z] == 'P' && pasados[x+1][y][z] != 'V')
       {
-        lcd2.display();
-        lcd2.print("CONDICION 6");
-        delay(100);
-        lcd2.clear();
         ignore();
       }
       ////////// CONDICION 7 /////////////
       else if(distanciaE > 20 && orientacion == 'O' && pasados[x][y-1][z] == 'P' && pasados[x][y-1][z] != 'V')
       {
-        lcd2.display();
-        lcd2.print("CONDICION 7");
-        delay(100);
-        lcd2.clear();
         ignore();
       }
       //////// CONDICION 8 ///////////
@@ -1888,16 +1823,8 @@ lcd2.display();
         lcd2.clear();
         alineaRobot();
         orientacion = 'O';
-        lcd2.display();
-        lcd2.print("CONDICION 8");
-        delay(100);
-        lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
-lcd2.display();
-        lcd2.print(distanciaA);
-        delay(100);
-        lcd2.clear();
         if(distanciaA < 20)
           {
             robot.moveAtras();
@@ -1906,7 +1833,7 @@ lcd2.display();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(300);
             robot.actualizaSetpoint();
           }
       }
@@ -1921,16 +1848,8 @@ lcd2.display();
         lcd2.clear();
         alineaRobot();
         orientacion = 'N';
-        lcd2.display();
-        lcd2.print("CONDICION 9");
-        delay(100);
-        lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
-lcd2.display();
-        lcd2.print(distanciaA);
-        delay(100);
-        lcd2.clear();
         if(distanciaA < 20)
           {
             robot.moveAtras();
@@ -1939,7 +1858,7 @@ lcd2.display();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(300);
             robot.actualizaSetpoint();
           }
       }
@@ -1954,16 +1873,8 @@ lcd2.display();
         lcd2.clear();
         alineaRobot();
         orientacion = 'E';
-        lcd2.display();
-        lcd2.print("CONDICION 10");
-        delay(100);
-        lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
-lcd2.display();
-        lcd2.print(distanciaA);
-        delay(100);
-        lcd2.clear();
         if(distanciaA < 20)
           {
             robot.moveAtras();
@@ -1972,7 +1883,7 @@ lcd2.display();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(300);
             robot.actualizaSetpoint();
           }
       }
@@ -1987,16 +1898,8 @@ lcd2.display();
         lcd2.clear();
         alineaRobot();
         orientacion = 'S';
-        lcd2.display();
-        lcd2.print("CONDICION 11");
-        delay(100);
-        lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
-lcd2.display();
-        lcd2.print(distanciaA);
-        delay(100);
-        lcd2.clear();
         if(distanciaA < 20)
           {
             robot.moveAtras();
@@ -2005,22 +1908,13 @@ lcd2.display();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(500);
+            delay(300);
             robot.actualizaSetpoint();
           }
       }
       ///////////// CONDICION 12 ////////////7
       else
-      {
-        lcd2.display();
-        lcd2.print("UNAVAILABLE SQAURES");
-        delay(500);
-        lcd2.clear();
-       lcd2.display();
-        lcd2.print("CONDICION 12");
-        delay(100);
-        lcd2.clear();
-       
+      {       
                 for(int i = 0; i < 15; i++){
                   for(int j = 0; j < 15; j++)
                     {
