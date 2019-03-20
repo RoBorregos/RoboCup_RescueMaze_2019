@@ -132,9 +132,25 @@ void clear(){
     for(byte j = 0; j < 15; j++){
       if(pasados[i][j][z] == 'V' && blackTile[i][j][z] == false)
         mapa[i][j] = 0;
+        Serial.print("pasados");
+        Serial.print("[");
+        Serial.print(i);
+        Serial.print("][");
+        Serial.print(j);
+        Serial.print("][");
+        Serial.print(z);
+        Serial.print("] = ");
+        Serial.print(pasados[i][j][z]);
+        Serial.print("  Cuadro negro = ");
+        Serial.println(blackTile[i][j][z]);
+        
     }}
 
+    Serial.print("z = ");
+    Serial.println(z);
+
     mapa[objX][objY] = 99;
+    mapa[x][y] = 0;
 
     for(byte i=0; i<15; i++){
     for(byte j=0;j<15;j++){
@@ -312,12 +328,6 @@ void findp(){
 
       lcd2.clear();
   }
-
-  lcd2.display();
-  lcd2.print("CONTADOR = ");
-  lcd2.print(contador);
-  delay(2000);
-  lcd2.clear();
   
     char movesOf[contador];
     
@@ -755,8 +765,7 @@ bool isGray()
   delay(300);
   colorTemp = tcs.calculateColorTemperature(r, g, b);
   lux = tcs.calculateLux(r, g, b); 
-  if((r < 1130 && r > 400) || (g < 1130 && g > 400) || (b < 1130 && b > 400)){
-  blackTile[x][y][z] = true;
+  if((r < 1100 && r > 400) || (g < 1100 && g > 400) || (b < 1100 && b > 400)){
   return true;}
   else
   return false;
@@ -769,15 +778,19 @@ void unaVictimaIzquierda()
   lcd2.display();
   lcd2.print("VICTIMA IZQUIERDA");
   
+ for(int i = 0; i < 30; i ++)
+ {
   digitalWrite(23, HIGH);
-  delay(6000);
+  delay(300);
+  digitalWrite(23, LOW);
+  delay(300);
+ }
 
   myservo.write(180);
   delay(1000);
   myservo.write(81);
   delay(1000);
     
- digitalWrite(23, LOW);
   lcd2.clear();
 
   return;
@@ -789,15 +802,19 @@ void unaVictimaDerecha()
   lcd2.display();
   lcd2.print("VICTIMA DERECHA");
   
+  for(int i = 0; i < 30; i ++)
+ {
   digitalWrite(23, HIGH);
-  delay(6000);
+  delay(300);
+  digitalWrite(23, LOW);
+  delay(300);
+ }
 
   myservo.write(0);
   delay(1000);
   myservo.write(81);
   delay(1000);
     
-  digitalWrite(23, LOW);
   lcd2.clear();
 
   return;
@@ -809,8 +826,13 @@ void dosVictimasIzquierda()
   lcd2.display();
   lcd2.print("VICTIMAS IZQUIERDA");
   
+  for(int i = 0; i < 30; i ++)
+ {
   digitalWrite(23, HIGH);
-  delay(6000);
+  delay(300);
+  digitalWrite(23, LOW);
+  delay(300);
+ }
 
   myservo.write(180);
   delay(1000);
@@ -822,7 +844,6 @@ void dosVictimasIzquierda()
   myservo.write(81);
   delay(1000);
     
-  digitalWrite(23, LOW);
   lcd2.clear();
 
   return;
@@ -834,8 +855,13 @@ void dosVictimasDerecha()
   lcd2.display();
   lcd2.print("VICTIMAS DERECHA");
   
+  for(int i = 0; i < 30; i ++)
+ {
   digitalWrite(23, HIGH);
-  delay(6000);
+  delay(300);
+  digitalWrite(23, LOW);
+  delay(300);
+ }
 
   myservo.write(0);
   delay(1000);
@@ -847,7 +873,6 @@ void dosVictimasDerecha()
   myservo.write(81);
   delay(1000);
     
-  digitalWrite(23, LOW);
   lcd2.clear();
 
   return;
@@ -1081,7 +1106,7 @@ byte pos;
     {
       lcd2.display();
       lcd2.print("CUADRO PLATA");
-      delay(1000);
+      delay(500);
       lcd2.clear();
     }
   
@@ -1145,6 +1170,15 @@ byte pos;
   while (camIzq.available() > 0) {
     char inByte = camIzq.read();
     Serial.write(inByte);
+    if(inByte == '9')
+    {
+      robot.detenerse();
+      Serial.println();
+      camIzq.listen();
+      Serial.println("Data from port two:");
+      char inByte = camIzq.read();
+      Serial.write(inByte);
+    }
     if(inByte == '6'){ // 3 ES PARA LAS VICTIMAS H DEL LADO IZQUIERDO
       robot.detenerse();
       Serial.println();
@@ -1290,17 +1324,10 @@ byte pos;
 
       if(x == 7 && y == 7 && z == 0 && minisq == 0)
         {
+          for(int i = 1; i > 0; i++){
           lcd2.display();
           lcd2.print("FIN DE RONDA");
-          delay(3000);
-          lcd2.clear();
-          lcd2.display();
-          lcd2.print("ROBORREGOS CHARLIE");
-          delay(8000);
-          delay(8000);
-          delay(8000);
-          lcd2.clear();
-          
+          delay(3000); }        
         }
 
   if(negro == false)
@@ -1665,14 +1692,14 @@ byte pos;
         orientacion = 'E';
         lcd2.display();
         lcd2.print("CONDICION 1");
-        delay(1000);
+        delay(100);
         lcd2.clear();
         
 contador++;
         distanciaA=distanciaAtras();
         lcd2.display();
         lcd2.print(distanciaA);
-        delay(1000);
+        delay(100);
         lcd2.clear();
         if(distanciaA < 20)
           {
@@ -1700,14 +1727,14 @@ contador++;
         orientacion = 'S';
         lcd2.display();
         lcd2.print("CONDICION 1.5");
-        delay(1000);
+        delay(100);
         lcd2.clear();
 contador++;
         distanciaA=distanciaAtras();
 
         lcd2.display();
         lcd2.print(distanciaA);
-        delay(1000);
+        delay(100);
         lcd2.clear();
         if(distanciaA < 20)
           {
@@ -1734,13 +1761,13 @@ contador++;
         orientacion = 'O';
         lcd2.display();
         lcd2.print("CONDICION 2");
-        delay(1000);
+        delay(100);
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
 lcd2.display();
         lcd2.print(distanciaA);
-        delay(1000);
+        delay(100);
         lcd2.clear();
         if(distanciaA < 20)
           {
@@ -1767,13 +1794,13 @@ lcd2.display();
         orientacion = 'N';
         lcd2.display();
         lcd2.print("CONDICION 3");
-        delay(1000);
+        delay(100);
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
 lcd2.display();
         lcd2.print(distanciaA);
-        delay(1000);
+        delay(100);
         lcd2.clear();
         if(distanciaA < 20)
           {
@@ -1792,7 +1819,7 @@ lcd2.display();
       {
         lcd2.display();
         lcd2.print("CONDICION 4");
-        delay(1000);
+        delay(100);
         lcd2.clear();
         ignore();
       }
@@ -1801,7 +1828,7 @@ lcd2.display();
       {
         lcd2.display();
         lcd2.print("CONDICION 5");
-        delay(1000);
+        delay(100);
         lcd2.clear();
         ignore();
       }
@@ -1810,7 +1837,7 @@ lcd2.display();
       {
         lcd2.display();
         lcd2.print("CONDICION 6");
-        delay(1000);
+        delay(100);
         lcd2.clear();
         ignore();
       }
@@ -1819,7 +1846,7 @@ lcd2.display();
       {
         lcd2.display();
         lcd2.print("CONDICION 7");
-        delay(1000);
+        delay(100);
         lcd2.clear();
         ignore();
       }
@@ -1836,13 +1863,13 @@ lcd2.display();
         orientacion = 'O';
         lcd2.display();
         lcd2.print("CONDICION 8");
-        delay(1000);
+        delay(100);
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
 lcd2.display();
         lcd2.print(distanciaA);
-        delay(1000);
+        delay(100);
         lcd2.clear();
         if(distanciaA < 20)
           {
@@ -1869,13 +1896,13 @@ lcd2.display();
         orientacion = 'N';
         lcd2.display();
         lcd2.print("CONDICION 9");
-        delay(1000);
+        delay(100);
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
 lcd2.display();
         lcd2.print(distanciaA);
-        delay(1000);
+        delay(100);
         lcd2.clear();
         if(distanciaA < 20)
           {
@@ -1902,13 +1929,13 @@ lcd2.display();
         orientacion = 'E';
         lcd2.display();
         lcd2.print("CONDICION 10");
-        delay(1000);
+        delay(100);
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
 lcd2.display();
         lcd2.print(distanciaA);
-        delay(1000);
+        delay(100);
         lcd2.clear();
         if(distanciaA < 20)
           {
@@ -1935,13 +1962,13 @@ lcd2.display();
         orientacion = 'S';
         lcd2.display();
         lcd2.print("CONDICION 11");
-        delay(1000);
+        delay(100);
         lcd2.clear();
 contador++;
 distanciaA=distanciaAtras();
 lcd2.display();
         lcd2.print(distanciaA);
-        delay(1000);
+        delay(100);
         lcd2.clear();
         if(distanciaA < 20)
           {
@@ -1964,7 +1991,7 @@ lcd2.display();
         lcd2.clear();
        lcd2.display();
         lcd2.print("CONDICION 12");
-        delay(1000);
+        delay(100);
         lcd2.clear();
        
                 for(int i = 0; i < 15; i++){
