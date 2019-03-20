@@ -28,6 +28,10 @@ public:
     void acomodoD();
     void moveDerAcomodo();
     void moveIzqAcomodo();
+    void acomodarseChoqueIzquierda1();
+    void acomodarseChoqueIzquierda2();
+    void acomodarseChoqueDerecha1();
+    void acomodarseChoqueDerecha2();
     void actualizaSetpoint();
     const int motorIzqAde1  = 9;
     const int motorIzqAde2  = 8;
