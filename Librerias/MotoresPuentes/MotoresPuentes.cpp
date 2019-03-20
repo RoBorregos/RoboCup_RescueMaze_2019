@@ -10,10 +10,10 @@ PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, REVERSE);
 PID myPID2(&Input2, &Output2, &Setpoint2, Kp2, Ki2, Kd2, DIRECT);
 PID myPID3(&Input3, &Output3, &Setpoint3, Kp3, Ki3, Kd3, REVERSE);
 
-double velocidadBaseIzqAde=227;
-double velocidadBaseIzqAtras=233;
-double velocidadBaseDerAde=248;
-double velocidadBaseDerAtras=249;
+double velocidadBaseIzqAde=230;
+double velocidadBaseIzqAtras=230;
+double velocidadBaseDerAde=250;
+double velocidadBaseDerAtras=250;
 
 //CAMBIAR EL DRIRECT Y REVERSE EN LAS VUELTAS YA QUE UNAS LAS DA LENTO DEBIDO A QUE TIENE UN REVERSE Y DIRECT AL REVES
 
@@ -214,13 +214,13 @@ uint8_t i;
 //TODAVI NO SE SABEN LAS POSICIONES CORRECTAS.......
 
 digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, velocidadBaseIzqAde);
+analogWrite(motorIzqAde2, 230);
 digitalWrite(motorIzqAtras2, LOW);
-analogWrite(motorIzqAtras1, velocidadBaseIzqAtras);
+analogWrite(motorIzqAtras1, 230);
 digitalWrite(motorDerAde2, LOW);
-analogWrite(motorDerAde1, velocidadBaseDerAde);
+analogWrite(motorDerAde1, 255);
 digitalWrite(motorDerAtras2, LOW);
-analogWrite(motorDerAtras1, velocidadBaseDerAtras);
+analogWrite(motorDerAtras1, 255);
 /*
     MotorAtrasDer->setSpeed(210);
     MotorAtrasDer->run(BACKWARD);
@@ -276,9 +276,12 @@ objective+= interval;
 
 if(med<90){
 
-    punto=med-78;
+    punto=med-84;
     newPunto=360+punto;
     Setpoint2=newPunto;
+
+
+
     do{
     currentMillis = millis();
     if(currentMillis < objective){
@@ -290,21 +293,21 @@ if(med<90){
     delay(BNO055_SAMPLERATE_DELAY_MS);
     myPID2.Compute();
 
-    nOutput=Output2+150;
+    nOutput=Output2+200;
     (nOutput>=255)? nOutput=255: nOutput=nOutput;
     Serial.println(nOutput);
 
 digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, 226);
+analogWrite(motorIzqAde2, nOutput);
 digitalWrite(motorIzqAtras2, LOW);
-analogWrite(motorIzqAtras1, 226);
+analogWrite(motorIzqAtras1, nOutput);
 digitalWrite(motorDerAde1, LOW);
-analogWrite(motorDerAde2, 250);
+analogWrite(motorDerAde2, nOutput);
 digitalWrite(motorDerAtras1, LOW);
-analogWrite(motorDerAtras2, 250);
+analogWrite(motorDerAtras2, nOutput);
     }
     else if(currentMillis >= objective){
-    if(balance<3){
+    if(balance<2){
     digitalWrite(motorIzqAde2, LOW);
     analogWrite(motorIzqAde1, 255);
     digitalWrite(motorIzqAtras1, LOW);
@@ -314,6 +317,11 @@ analogWrite(motorDerAtras2, 250);
     digitalWrite(motorDerAtras2, LOW);
     analogWrite(motorDerAtras1, 255);
     delay(200);
+    imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
+    Serial.print("X: ");
+    newMed=euler.x();
+    Serial.println(newMed);
+    delay(BNO055_SAMPLERATE_DELAY_MS);
             digitalWrite(motorIzqAde2, LOW);
             analogWrite(motorIzqAde1, 255);
             digitalWrite(motorIzqAtras1, LOW);
@@ -323,8 +331,30 @@ analogWrite(motorDerAtras2, 250);
             digitalWrite(motorDerAtras1, LOW);
             analogWrite(motorDerAtras2, 255);
             delay(150);
+            caster++;
             balance++;
 
+    }
+    else if(caster>=2 && caster<4){
+    digitalWrite(motorIzqAde1, LOW);
+    analogWrite(motorIzqAde2, 255);
+    digitalWrite(motorIzqAtras2, LOW);
+    analogWrite(motorIzqAtras1, 255);
+    digitalWrite(motorDerAde1, LOW);
+    analogWrite(motorDerAde2, 255);
+    digitalWrite(motorDerAtras1, LOW);
+    analogWrite(motorDerAtras2, 255);
+    delay(150);
+            digitalWrite(motorIzqAde2, LOW);
+            analogWrite(motorIzqAde1, 255);
+            digitalWrite(motorIzqAtras1, LOW);
+            analogWrite(motorIzqAtras2, 255);
+            digitalWrite(motorDerAde1, LOW);
+            analogWrite(motorDerAde2, 255);
+            digitalWrite(motorDerAtras1, LOW);
+            analogWrite(motorDerAtras2, 255);
+delay(150);
+caster++;
     }
     else{
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
@@ -342,10 +372,10 @@ analogWrite(motorDerAtras2, 250);
     analogWrite(motorDerAtras2, 255);
     }
     }
-    }while(newMed<=med || newMed>newPunto);
+    }while(newMed<=med+180 || newMed>newPunto);
   }
   else{
-    punto=med-78;
+    punto=med-84;
     Setpoint=punto;
     do{
     currentMillis = millis();
@@ -362,16 +392,16 @@ analogWrite(motorDerAtras2, 250);
     Serial.println(nOutput);
 
 digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, 226);
+analogWrite(motorIzqAde2, nOutput);
 digitalWrite(motorIzqAtras2, LOW);
-analogWrite(motorIzqAtras1, 226);
+analogWrite(motorIzqAtras1, nOutput);
 digitalWrite(motorDerAde1, LOW);
-analogWrite(motorDerAde2, 250);
+analogWrite(motorDerAde2, nOutput);
 digitalWrite(motorDerAtras1, LOW);
-analogWrite(motorDerAtras2, 250);
+analogWrite(motorDerAtras2, nOutput);
     }
     else if(currentMillis >= objective){
-     if(balance<3){
+     if(balance<2){
     digitalWrite(motorIzqAde2, LOW);
     analogWrite(motorIzqAde1, 255);
     digitalWrite(motorIzqAtras1, LOW);
@@ -381,6 +411,11 @@ analogWrite(motorDerAtras2, 250);
     digitalWrite(motorDerAtras2, LOW);
     analogWrite(motorDerAtras1, 255);
     delay(200);
+    imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
+    Serial.print("X: ");
+    newMed=euler.x();
+    Serial.println(newMed);
+    delay(BNO055_SAMPLERATE_DELAY_MS);
     digitalWrite(motorIzqAde2, LOW);
             analogWrite(motorIzqAde1, 255);
             digitalWrite(motorIzqAtras1, LOW);
@@ -391,6 +426,29 @@ analogWrite(motorDerAtras2, 250);
             analogWrite(motorDerAtras2, 255);
             delay(150);
             balance++;
+            caster++;
+
+    }
+     else if(caster>=2 && caster<4){
+    digitalWrite(motorIzqAde1, LOW);
+    analogWrite(motorIzqAde2, 255);
+    digitalWrite(motorIzqAtras2, LOW);
+    analogWrite(motorIzqAtras1, 255);
+    digitalWrite(motorDerAde1, LOW);
+    analogWrite(motorDerAde2, 255);
+    digitalWrite(motorDerAtras1, LOW);
+    analogWrite(motorDerAtras2, 255);
+    delay(150);
+            digitalWrite(motorIzqAde2, LOW);
+            analogWrite(motorIzqAde1, 255);
+            digitalWrite(motorIzqAtras1, LOW);
+            analogWrite(motorIzqAtras2, 255);
+            digitalWrite(motorDerAde1, LOW);
+            analogWrite(motorDerAde2, 255);
+            digitalWrite(motorDerAtras1, LOW);
+            analogWrite(motorDerAtras2, 255);
+delay(150);
+caster++;
     }
     else{
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
@@ -442,7 +500,7 @@ objective+= interval;
 
     if(med>=270){
 
-    punto=med+78;
+    punto=med+84;
     newPunto=(360-punto)*-1;
     Setpoint=newPunto;
     do{
@@ -461,26 +519,31 @@ objective+= interval;
     Serial.println(nOutput);
 
 digitalWrite(motorIzqAde2, LOW);
-analogWrite(motorIzqAde1, 250);
+analogWrite(motorIzqAde1, nOutput);
 digitalWrite(motorIzqAtras1, LOW);
-analogWrite(motorIzqAtras2, 250);
+analogWrite(motorIzqAtras2, nOutput);
 digitalWrite(motorDerAde2, LOW);
-analogWrite(motorDerAde1, 226);
+analogWrite(motorDerAde1, nOutput);
 digitalWrite(motorDerAtras2, LOW);
-analogWrite(motorDerAtras1, 226);
+analogWrite(motorDerAtras1, nOutput);
     }
     else if(currentMillis >= objective){
-    if(balance<3){
-            digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, 255);
-digitalWrite(motorIzqAtras2, LOW);
-analogWrite(motorIzqAtras1, 255);
-digitalWrite(motorDerAde1, LOW);
-analogWrite(motorDerAde2, 255);
-digitalWrite(motorDerAtras1, LOW);
-analogWrite(motorDerAtras2, 255);
-delay(200);
-            digitalWrite(motorIzqAde2, LOW);
+    if(balance<2){
+    digitalWrite(motorIzqAde1, LOW);
+    analogWrite(motorIzqAde2, 255);
+    digitalWrite(motorIzqAtras2, LOW);
+    analogWrite(motorIzqAtras1, 255);
+    digitalWrite(motorDerAde1, LOW);
+    analogWrite(motorDerAde2, 255);
+    digitalWrite(motorDerAtras1, LOW);
+    analogWrite(motorDerAtras2, 255);
+    delay(200);
+    imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
+    Serial.print("X: ");
+    newMed=euler.x();
+    Serial.println(newMed);
+    delay(BNO055_SAMPLERATE_DELAY_MS);
+    digitalWrite(motorIzqAde2, LOW);
             analogWrite(motorIzqAde1, 255);
             digitalWrite(motorIzqAtras1, LOW);
             analogWrite(motorIzqAtras2, 255);
@@ -488,8 +551,31 @@ delay(200);
             analogWrite(motorDerAde2, 255);
             digitalWrite(motorDerAtras1, LOW);
             analogWrite(motorDerAtras2, 255);
-            delay(200);
+            delay(150);
             balance++;
+            caster++;
+
+    }
+     else if(caster>=2 && caster<4){
+    digitalWrite(motorIzqAde1, LOW);
+    analogWrite(motorIzqAde2, 255);
+    digitalWrite(motorIzqAtras2, LOW);
+    analogWrite(motorIzqAtras1, 255);
+    digitalWrite(motorDerAde1, LOW);
+    analogWrite(motorDerAde2, 255);
+    digitalWrite(motorDerAtras1, LOW);
+    analogWrite(motorDerAtras2, 255);
+    delay(150);
+digitalWrite(motorIzqAde2, LOW);
+analogWrite(motorIzqAde1, 255);
+digitalWrite(motorIzqAtras1, LOW);
+analogWrite(motorIzqAtras2, 255);
+digitalWrite(motorDerAde2, LOW);
+analogWrite(motorDerAde1, 255);
+digitalWrite(motorDerAtras2, LOW);
+analogWrite(motorDerAtras1, 255);
+delay(150);
+caster++;
     }
     else{
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
@@ -498,19 +584,19 @@ delay(200);
     Serial.println(newMed);
     delay(BNO055_SAMPLERATE_DELAY_MS);
     digitalWrite(motorIzqAde2, LOW);
-    analogWrite(motorIzqAde1, 255);
-    digitalWrite(motorIzqAtras1, LOW);
-    analogWrite(motorIzqAtras2, 255);
-    digitalWrite(motorDerAde2, LOW);
-    analogWrite(motorDerAde1, 255);
-    digitalWrite(motorDerAtras2, LOW);
-    analogWrite(motorDerAtras1, 255);
+analogWrite(motorIzqAde1, 255);
+digitalWrite(motorIzqAtras1, LOW);
+analogWrite(motorIzqAtras2, 255);
+digitalWrite(motorDerAde2, LOW);
+analogWrite(motorDerAde1, 255);
+digitalWrite(motorDerAtras2, LOW);
+analogWrite(motorDerAtras1, 255);
     }
     }
     }while(newMed>=med || newMed<newPunto);
   }
   else{
-    punto=med+78;
+    punto=med+84;
     Setpoint=punto;
     do{
     currentMillis = millis();
@@ -523,33 +609,38 @@ delay(200);
     delay(BNO055_SAMPLERATE_DELAY_MS);
     myPID2.Compute();
 
-    nOutput=Output2+150;
+    nOutput=Output2+200;
     (nOutput>=255)? nOutput=255: nOutput=nOutput;
     Serial.println(nOutput);
 
 digitalWrite(motorIzqAde2, LOW);
-analogWrite(motorIzqAde1, 250);
+analogWrite(motorIzqAde1, nOutput);
 digitalWrite(motorIzqAtras1, LOW);
-analogWrite(motorIzqAtras2, 250);
+analogWrite(motorIzqAtras2, nOutput);
 digitalWrite(motorDerAde2, LOW);
-analogWrite(motorDerAde1, 226);
+analogWrite(motorDerAde1, nOutput);
 digitalWrite(motorDerAtras2, LOW);
-analogWrite(motorDerAtras1, 226);
+analogWrite(motorDerAtras1, nOutput);
     }
     else if(currentMillis >= objective){
 
 
-    if(balance<3){
-             digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, 255);
-digitalWrite(motorIzqAtras2, LOW);
-analogWrite(motorIzqAtras1, 255);
-digitalWrite(motorDerAde1, LOW);
-analogWrite(motorDerAde2, 255);
-digitalWrite(motorDerAtras1, LOW);
-analogWrite(motorDerAtras2, 255);
-delay(200);
-            digitalWrite(motorIzqAde2, LOW);
+   if(balance<2){
+    digitalWrite(motorIzqAde1, LOW);
+    analogWrite(motorIzqAde2, 255);
+    digitalWrite(motorIzqAtras2, LOW);
+    analogWrite(motorIzqAtras1, 255);
+    digitalWrite(motorDerAde1, LOW);
+    analogWrite(motorDerAde2, 255);
+    digitalWrite(motorDerAtras1, LOW);
+    analogWrite(motorDerAtras2, 255);
+    delay(200);
+    imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
+    Serial.print("X: ");
+    newMed=euler.x();
+    Serial.println(newMed);
+    delay(BNO055_SAMPLERATE_DELAY_MS);
+    digitalWrite(motorIzqAde2, LOW);
             analogWrite(motorIzqAde1, 255);
             digitalWrite(motorIzqAtras1, LOW);
             analogWrite(motorIzqAtras2, 255);
@@ -557,8 +648,31 @@ delay(200);
             analogWrite(motorDerAde2, 255);
             digitalWrite(motorDerAtras1, LOW);
             analogWrite(motorDerAtras2, 255);
-            delay(200);
+            delay(150);
             balance++;
+            caster++;
+
+    }
+     else if(caster>=2 && caster<4){
+    digitalWrite(motorIzqAde1, LOW);
+    analogWrite(motorIzqAde2, 255);
+    digitalWrite(motorIzqAtras2, LOW);
+    analogWrite(motorIzqAtras1, 255);
+    digitalWrite(motorDerAde1, LOW);
+    analogWrite(motorDerAde2, 255);
+    digitalWrite(motorDerAtras1, LOW);
+    analogWrite(motorDerAtras2, 255);
+    delay(150);
+            digitalWrite(motorIzqAde2, LOW);
+analogWrite(motorIzqAde1, 255);
+digitalWrite(motorIzqAtras1, LOW);
+analogWrite(motorIzqAtras2, 255);
+digitalWrite(motorDerAde2, LOW);
+analogWrite(motorDerAde1, 255);
+digitalWrite(motorDerAtras2, LOW);
+analogWrite(motorDerAtras1, 255);
+delay(150);
+caster++;
     }
     else{
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
@@ -567,13 +681,13 @@ delay(200);
     Serial.println(newMed);
     delay(BNO055_SAMPLERATE_DELAY_MS);
     digitalWrite(motorIzqAde2, LOW);
-    analogWrite(motorIzqAde1, 255);
-    digitalWrite(motorIzqAtras1, LOW);
-    analogWrite(motorIzqAtras2, 255);
-    digitalWrite(motorDerAde2, LOW);
-    analogWrite(motorDerAde1, 255);
-    digitalWrite(motorDerAtras2, LOW);
-    analogWrite(motorDerAtras1, 255);
+analogWrite(motorIzqAde1, 255);
+digitalWrite(motorIzqAtras1, LOW);
+analogWrite(motorIzqAtras2, 255);
+digitalWrite(motorDerAde2, LOW);
+analogWrite(motorDerAde1, 255);
+digitalWrite(motorDerAtras2, LOW);
+analogWrite(motorDerAtras1, 255);
     }
 
     }
