@@ -1,7 +1,7 @@
-    //PROGRAMA INO. ROBORREGOS.
+//PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
-//Version 1.5
+//Version 1.7
 
 #include <MotoresPuentes.h>
 #include <NewPing.h>
@@ -590,7 +590,7 @@ void derechaAlg()
   {
     contAlg = 0;
     robot.moveAtras();
-    delay(650);
+    delay(775);
     robot.actualizaSetpoint();
     robot.moveAdelante();
     delay(200);
@@ -613,7 +613,7 @@ void izquierdaAlg()
   {
     contAlg = 0;
     robot.moveAtras();
-    delay(650);
+    delay(775);
     robot.actualizaSetpoint();
     robot.moveAdelante();
     delay(200);
@@ -1773,7 +1773,7 @@ contador++;
           {
             contador = 0;
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -1801,7 +1801,7 @@ contador++;
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -1828,7 +1828,7 @@ distanciaA=distanciaAtras();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -1855,7 +1855,7 @@ distanciaA=distanciaAtras();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -1902,7 +1902,7 @@ distanciaA=distanciaAtras();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -1929,7 +1929,7 @@ distanciaA=distanciaAtras();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -1956,7 +1956,7 @@ distanciaA=distanciaAtras();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -1983,7 +1983,7 @@ distanciaA=distanciaAtras();
         if(distanciaA < 20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -2082,7 +2082,7 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -2105,7 +2105,7 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -2128,7 +2128,7 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -2151,7 +2151,7 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -2174,7 +2174,7 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -2197,7 +2197,7 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -2220,7 +2220,7 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
@@ -2243,7 +2243,7 @@ distanciaA = distanciaAtras();
         if(distanciaA <20)
           {
             robot.moveAtras();
-            delay(650);
+            delay(775);
             robot.actualizaSetpoint();
             contador  = 0;
             robot.moveAdelante();
