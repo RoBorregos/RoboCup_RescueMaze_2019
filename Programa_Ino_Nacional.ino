@@ -620,7 +620,7 @@ void adelanteAlg()
   rightCount = 0;
 
   robot.actualizaSetpoint();
-  while(rightCount < 1600)
+  while(rightCount < 1750)
   { 
     if(digitalRead(30) == LOW && rightCount < 1400)
    {
@@ -841,17 +841,17 @@ void unaVictimaIzquierda()
   lcd2.clear();
   lcd2.display();
   lcd2.print("VICTIMA IZQ");
+
+ robot.moveIzq();
+ robot.detenerse();
   
- for(int i = 0; i < 15; i ++)
+ for(int i = 0; i < 16; i ++)
  {
   digitalWrite(23, HIGH);
   delay(300);
   digitalWrite(23, LOW);
   delay(300);
  }
-
- robot.moveIzq();
- robot.detenerse();
 
   myservo.write(180);
   delay(1000);
@@ -876,17 +876,17 @@ void unaVictimaDerecha()
   lcd2.clear();
   lcd2.display();
   lcd2.print("VICTIMA DERECHA");
+
+  robot.moveDer();
+ robot.detenerse();
   
-  for(int i = 0; i < 15; i ++)
+  for(int i = 0; i < 16; i ++)
  {
   digitalWrite(23, HIGH);
   delay(300);
   digitalWrite(23, LOW);
   delay(300);
  }
-
- robot.moveDer();
- robot.detenerse();
 
   myservo.write(0);
   delay(1000);
@@ -912,6 +912,9 @@ void dosVictimasIzquierda()
   lcd2.clear();
   lcd2.display();
   lcd2.print("VICTIMA IZQ H");
+
+  robot.moveIzq();
+ robot.detenerse();
   
   for(int i = 0; i < 15; i ++)
  {
@@ -920,9 +923,6 @@ void dosVictimasIzquierda()
   digitalWrite(23, LOW);
   delay(300);
  }
-
- robot.moveIzq();
- robot.detenerse();
 
   myservo.write(180);
   delay(1000);
@@ -956,17 +956,17 @@ void dosVictimasDerecha()
   lcd2.clear();
   lcd2.display();
   lcd2.print("VICTIMAS DERECHA");
+
+  robot.moveDer();
+ robot.detenerse();
   
-  for(int i = 0; i < 15; i ++)
+  for(int i = 0; i < 16; i ++)
  {
   digitalWrite(23, HIGH);
   delay(300);
   digitalWrite(23, LOW);
   delay(300);
  }
-
- robot.moveDer();
- robot.detenerse();
 
   myservo.write(0);
   delay(1000);
@@ -1219,7 +1219,7 @@ byte pos;
     
     lcd2.display();
     lcd2.print("ADELANTE");
-    while(rightCount<1600){
+    while(rightCount<1750){
 
       robot.moveAdelante();
 
@@ -1289,7 +1289,7 @@ byte pos;
     rightCount = auxEncoder;
    }
 
-   if(rightCount < 1600){
+   if(rightCount < 1750){
 
    if(pasado == false){
 
@@ -1317,6 +1317,7 @@ byte pos;
   distanciaDE = distanciaDerechaEnfrente();
   distanciaIE = distanciaIzquierdaEnfrente();
 
+   while(camara.available() > 0){
    inByte = camara.read();
     Serial.write(inByte);
     if(inByte == '6' && distanciaIE < 20 && distanciaIE != 0){ // 3 ES PARA LAS VICTIMAS H DEL LADO IZQUIERDO
@@ -1331,6 +1332,7 @@ byte pos;
       pasado = true;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
+      break;
     }
     else if(inByte == '5' && distanciaIE < 20 && distanciaIE != 0){ // 2 ES PARA LAS VICTIMAS S DEL LADO IZQUIERDO
       auxEncoder = rightCount;
@@ -1344,6 +1346,7 @@ byte pos;
       pasado = true;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
+      break;
     }
    else  if(inByte == '4' && distanciaIE < 20 && distanciaIE != 0){ // 1 ES PARA LAS VICTIMAS U DEL LADO IZQUIERDO
     auxEncoder = rightCount;
@@ -1351,7 +1354,7 @@ byte pos;
       robot.detenerse();
       lcd2.display();
       lcd2.print("VICTIMA U IZQ");
-      for(int i = 0; i < 15; i++)
+      for(int i = 0; i < 16; i++)
       {
         digitalWrite(23, HIGH);
         delay(300);
@@ -1361,6 +1364,7 @@ byte pos;
       lcd2.clear();
       pasado = true;
       rightCount = auxEncoder;
+      break;
     }
     else if(inByte == '3' && distanciaDE < 20 && distanciaDE != 0){ // 6 ES PARA LAS VICTIMAS H DEL LADO DERECHO
       auxEncoder = rightCount;
@@ -1374,6 +1378,7 @@ byte pos;
       pasado = true;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
+      break;
     }
     else if(inByte == '2' && distanciaDE < 20 && distanciaDE != 0){ // 5 ES PARA LAS VICTIMAS S DE LADO DERECHO
       auxEncoder = rightCount;
@@ -1387,6 +1392,7 @@ byte pos;
       pasado = true;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
+      break;
     }
     else if(inByte == '1' && distanciaDE < 20 && distanciaDE != 0){ // 4 ES PARA LAS VICTIMAS U DEL LADO DERECHO
       auxEncoder = rightCount;
@@ -1395,7 +1401,7 @@ byte pos;
       lcd2.display();
       lcd2.print("VICTIMA U DER");
 
-      for(int i = 0; i < 15; i++)
+      for(int i = 0; i < 16; i++)
       {
         digitalWrite(23, HIGH);
         delay(300);
@@ -1406,6 +1412,7 @@ byte pos;
       lcd2.clear();
       pasado = true;
       rightCount = auxEncoder;
+      break;
     }
     else if(inByte == '9' && distanciaIE < 20 && distanciaIE != 0)
     {
@@ -1415,6 +1422,7 @@ byte pos;
       pasado = true;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
+      break;
     }
     else if(inByte == '8' && distanciaDE < 20 && distanciaDE != 0)
     {
@@ -1424,6 +1432,10 @@ byte pos;
       pasado = true;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
+      break;
+    }else
+    {
+      break;}
     }}}}
 
   // blank line to separate data from the two ports:
