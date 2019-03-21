@@ -1,7 +1,7 @@
 //PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
-//Version 1.9
+//Version 1.7
 
 #include <MotoresPuentes.h>
 #include <NewPing.h>
@@ -568,7 +568,6 @@ void findp(){
                   }
       }
       robot.actualizaSetpoint();
-      delay(300);
 }}
 
 void derechaAlg()
@@ -576,7 +575,7 @@ void derechaAlg()
   contAlg++;  
   robot.moveDer();
   robot.detenerse();
-  delay(200);
+  //delay(10);
 
   distanciaA = distanciaAtras();
 
@@ -589,7 +588,7 @@ void derechaAlg()
     robot.moveAdelante();
     delay(200);
     robot.detenerse();
-    delay(500);
+    //delay(10);
   }
   robot.actualizaSetpoint();
 }
@@ -599,7 +598,7 @@ void izquierdaAlg()
   contAlg++;
   robot.moveIzq();
   robot.detenerse();
-  delay(200);
+  //delay(10);
 
   distanciaA = distanciaAtras();
 
@@ -612,7 +611,7 @@ void izquierdaAlg()
     robot.moveAdelante();
     delay(200);
     robot.detenerse();
-    delay(500);
+    //delay(10);
   }
   robot.actualizaSetpoint();
 }
@@ -622,25 +621,25 @@ void adelanteAlg()
   rightCount = 0;
 
   robot.actualizaSetpoint();
-  while(rightCount < 1400)
+  while(rightCount < 1630)
   { 
     if(digitalRead(30) == LOW && rightCount < 1400)
    {
     auxEncoder = rightCount;
     robot.detenerse();
-    delay(10);
+    //delay(10);
     robot.acomodarseChoqueIzquierda1();
     robot.detenerse();
-    delay(30);
+    //delay(30);
     robot.acomodarseChoqueIzquierda2();
     robot.detenerse();
-    delay(50);
+    //delay(50);
     robot.actualizaSetpoint();
-    delay(50);
+    //delay(50);
     robot.moveAdelante();
     delay(280);
     robot.detenerse();
-    delay(100);
+    //delay(10);
     rightCount = auxEncoder;
    }
 
@@ -648,26 +647,26 @@ void adelanteAlg()
    {
     auxEncoder = rightCount;
     robot.detenerse();
-    delay(10);
+    //delay(10);
     robot.acomodarseChoqueDerecha1();
     robot.detenerse();
-    delay(30);
+    //delay(30);
     robot.acomodarseChoqueDerecha2();
     robot.detenerse();
-    delay(50);
+    //delay(50);
     robot.actualizaSetpoint();
-    delay(50);
+    //delay(50);
     robot.moveAdelante();
     delay(280);
     robot.detenerse();
-    delay(100);
+    //delay(10);
     rightCount = auxEncoder;
    }
    robot.moveAdelante();
   }
 
   robot.detenerse();
-  delay(200);
+  //delay(10);
 }
 
 void rightEncoderEvent() {
@@ -826,17 +825,7 @@ bool isBlack()
   int r, g, b, c, colorTemp, lux;
   
   tcs.getRawData(&r, &g, &b, &c);
-  delay(100);
-  colorTemp = tcs.calculateColorTemperature(r, g, b);
-  lux = tcs.calculateLux(r, g, b); 
   tcs.getRawData(&r, &g, &b, &c);
-  delay(100);
-  colorTemp = tcs.calculateColorTemperature(r, g, b);
-  lux = tcs.calculateLux(r, g, b); 
-  tcs.getRawData(&r, &g, &b, &c);
-  delay(100);
-  colorTemp = tcs.calculateColorTemperature(r, g, b);
-  lux = tcs.calculateLux(r, g, b); 
   if(r < 600 && g < 600 && b < 600){
     lcd2.display();
     lcd2.print("CUADRO NEGRO DETECTADO");
@@ -914,7 +903,7 @@ void unaVictimaDerecha()
   robot.moveIzq();
   robot.detenerse();
 
-  delay(50);
+  //delay(50);
 
   return;
 }
@@ -956,7 +945,7 @@ void dosVictimasIzquierda()
 
   robot.moveDer();
   robot.detenerse();
-  delay(50);
+  //delay(50);
     
   lcd2.clear();
 
@@ -1000,7 +989,7 @@ void dosVictimasDerecha()
 
   robot.moveIzq();
   robot.detenerse();
-  delay(50);
+  //delay(50);
     
   lcd2.clear();
 
@@ -1232,25 +1221,25 @@ byte pos;
     
     lcd2.display();
     lcd2.print("ADELANTE");
-    while(rightCount<1400){
+    while(rightCount<1630){
       
    if(digitalRead(30) == LOW && rightCount < 1400)
    {
     auxEncoder = rightCount;
     robot.detenerse();
-    delay(10);
+    //delay(10);
     robot.acomodarseChoqueIzquierda1();
     robot.detenerse();
-    delay(30);
+    //delay(30);
     robot.acomodarseChoqueIzquierda2();
     robot.detenerse();
-    delay(50);
+    //delay(50);
     robot.actualizaSetpoint();
-    delay(50);
+    //delay(50);
     robot.moveAdelante();
     delay(280);
     robot.detenerse();
-    delay(100);
+    //delay(10);
     rightCount = auxEncoder;
    }
 
@@ -1258,19 +1247,19 @@ byte pos;
    {
     auxEncoder = rightCount;
     robot.detenerse();
-    delay(10);
+    //delay(10);
     robot.acomodarseChoqueDerecha1();
     robot.detenerse();
-    delay(30);
+    //delay(30);
     robot.acomodarseChoqueDerecha2();
     robot.detenerse();
-    delay(50);
+    //delay(50);
     robot.actualizaSetpoint();
-    delay(50);
+    //delay(50);
     robot.moveAdelante();
     delay(280);
     robot.detenerse();
-    delay(100);
+    //delay(10);
     rightCount = auxEncoder;
    }
 
@@ -1311,7 +1300,7 @@ byte pos;
       auxEncoder = rightCount;
       robot.detenerse();
       dosVictimasDerecha();
-      delay(2000);
+      //delay(2000);
       pasado = true;
       rightCount = auxEncoder;
       break;
@@ -1321,7 +1310,7 @@ byte pos;
       auxEncoder = rightCount;
       robot.detenerse();
       unaVictimaDerecha();
-      delay(2000);
+      //delay(2000);
       pasado = true;
       rightCount = auxEncoder;
       break;
@@ -1359,11 +1348,11 @@ if(distanciaIE < 20 && distanciaIE != 0){
     if(inByte == '9' || inByte == '8')
     {
       robot.detenerse();
-      delay(1000);
+      //delay(10);
       //Serial.println();
       lcd2.display();
       lcd2.print("MANCHA NEGRA");
-      delay(2000);
+      //delay(2000);
       lcd2.clear();
       auxEncoder = rightCount;
       unaVictimaIzquierda();
@@ -1376,7 +1365,7 @@ if(distanciaIE < 20 && distanciaIE != 0){
       //Serial.println();
       lcd2.display();
       lcd2.print("VICTIMA H");
-      delay(2000);
+      //delay(2000);
       lcd2.clear();
       auxEncoder = rightCount;
       dosVictimasIzquierda();
@@ -1389,7 +1378,7 @@ if(distanciaIE < 20 && distanciaIE != 0){
       //Serial.println();
       lcd2.display();
       lcd2.print("VICTIMA S");
-      delay(2000);
+      //delay(2000);
       lcd2.clear();
       auxEncoder = rightCount;
       unaVictimaIzquierda();
@@ -1428,7 +1417,7 @@ if(distanciaIE < 20 && distanciaIE != 0){
       lcd2.clear();
       lcd2.display();
       lcd2.print("RAMPA DETECTADA");
-      delay(250);
+      //delay(250);
       lcd2.clear();
       if(z == 1){
       z = 0;}
@@ -1448,7 +1437,9 @@ if(distanciaIE < 20 && distanciaIE != 0){
       lastY = -1;
     }
    
-  }  
+  }
+
+  
 
   lcd2.clear();
 
@@ -1457,7 +1448,7 @@ if(distanciaIE < 20 && distanciaIE != 0){
    
   
   robot.detenerse();
-  delay(10);
+  //delay(10);
   alineaRobot();
   distanciaE = distanciaEnfrente();
 
@@ -1527,10 +1518,12 @@ if(distanciaIE < 20 && distanciaIE != 0){
 
       if(minisq ==0)
         {
-          for(int i = 1; i > 0; i++){
+          int j = 0;
           lcd2.display();
           lcd2.print("FIN DE RONDA");
-          delay(3000); }        
+          for(int i = 1; i > 0; i++){
+           j++;
+           }        
         }}
 
   if(negro == false)
@@ -1889,7 +1882,7 @@ if(distanciaIE < 20 && distanciaIE != 0){
         lcd2.print("DERECHA");
         robot.moveDer();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'E';
@@ -1906,7 +1899,7 @@ contador++;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -1918,7 +1911,7 @@ contador++;
         lcd2.print("DERECHA");
         robot.moveDer();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'S';
@@ -1934,7 +1927,7 @@ contador++;
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -1946,7 +1939,7 @@ contador++;
         lcd2.print("DERECHA");
         robot.moveDer();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'O';
@@ -1961,7 +1954,7 @@ distanciaA=distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -1973,7 +1966,7 @@ distanciaA=distanciaAtras();
         lcd2.print("DERECHA");
         robot.moveDer();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'N';
@@ -1988,7 +1981,7 @@ distanciaA=distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -2024,7 +2017,7 @@ distanciaA=distanciaAtras();
         lcd2.print("IZQUIERDA");
         robot.moveIzq();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'O';
@@ -2039,7 +2032,7 @@ distanciaA=distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -2051,7 +2044,7 @@ distanciaA=distanciaAtras();
         lcd2.print("IZQUIERDA");
         robot.moveIzq();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'N';
@@ -2066,7 +2059,7 @@ distanciaA=distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -2078,7 +2071,7 @@ distanciaA=distanciaAtras();
         lcd2.print("IZQUIERDA");
         robot.moveIzq();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'E';
@@ -2093,7 +2086,7 @@ distanciaA=distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -2105,7 +2098,7 @@ distanciaA=distanciaAtras();
         lcd2.print("IZQUIERDA");
         robot.moveIzq();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         lcd2.clear();
         alineaRobot();
         orientacion = 'S';
@@ -2120,7 +2113,7 @@ distanciaA=distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -2181,7 +2174,7 @@ distanciaA=distanciaAtras();
       robot.moveAtras();
       delay(890);
       robot.detenerse();
-      delay(10);
+      //delay(10);
 
       switch(orientacion)
        {
@@ -2207,7 +2200,7 @@ distanciaA=distanciaAtras();
         contador++;
         robot.moveDer();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         alineaRobot();
         orientacion = 'E';
 distanciaA = distanciaAtras();
@@ -2220,7 +2213,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -2230,7 +2223,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveDer();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         alineaRobot();
         orientacion = 'S';
 distanciaA = distanciaAtras();
@@ -2243,7 +2236,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -2253,7 +2246,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveDer();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         alineaRobot();
         orientacion = 'O';
 distanciaA = distanciaAtras();
@@ -2266,7 +2259,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -2276,7 +2269,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveDer();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         alineaRobot();
         orientacion = 'N';
 distanciaA = distanciaAtras();
@@ -2289,7 +2282,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -2299,7 +2292,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveIzq();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         alineaRobot();
         orientacion = 'O';
 distanciaA = distanciaAtras();
@@ -2312,7 +2305,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -2322,7 +2315,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveIzq();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         alineaRobot();
         orientacion = 'N';
 distanciaA = distanciaAtras();
@@ -2335,7 +2328,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -2345,7 +2338,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveIzq();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         alineaRobot();
         orientacion = 'E';
 distanciaA = distanciaAtras();
@@ -2358,7 +2351,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -2368,7 +2361,7 @@ distanciaA = distanciaAtras();
         contador++;
         robot.moveIzq();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         alineaRobot();
         orientacion = 'S';
 distanciaA = distanciaAtras();
@@ -2381,7 +2374,7 @@ distanciaA = distanciaAtras();
             robot.moveAdelante();
             delay(200);
             robot.detenerse();
-            delay(10);
+            //delay(10);
              
           }
           robot.actualizaSetpoint();
@@ -2390,11 +2383,11 @@ distanciaA = distanciaAtras();
         contador = contador +2;;
         robot.moveDer();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         alineaRobot();
         robot.moveDer();
         robot.detenerse();
-        delay(10);
+        //delay(10);
         alineaRobot();
         if(orientacion == 'N')
           orientacion = 'S';
@@ -2425,7 +2418,7 @@ robot.actualizaSetpoint();
           robot.moveDer();
           robot.actualizaSetpoint();
           robot.detenerse();
-          delay(10);
+          //delay(10);
           alineaRobot();
           switch(orientacion)
           {
