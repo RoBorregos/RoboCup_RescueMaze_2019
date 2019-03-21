@@ -1222,6 +1222,34 @@ byte pos;
     lcd2.display();
     lcd2.print("ADELANTE");
     while(rightCount<1630){
+
+      robot.moveAdelante();
+
+      valor = subir.detectaRampa();
+    if(valor != 0)
+    {
+      lcd2.clear();
+      lcd2.display();
+      lcd2.print("RAMPA DETECTADA");
+      //delay(250);
+      lcd2.clear();
+      if(z == 1){
+      z = 0;}
+      else{
+      z = 1;}
+      lastlastlastlastlastlastX = -1;
+      lastlastlastlastlastlastY = -1;
+      lastlastlastlastlastX = -1;
+      lastlastlastlastlastY = -1;
+      lastlastlastlastX = -1;
+      lastlastlastlastY = -1;
+      lastlastlastX = -1;
+      lastlastlastY = -1;
+      lastlastX = -1;
+      lastlastY = -1;
+      lastX = -1;
+      lastY = -1;
+    }
       
    if(digitalRead(30) == LOW && rightCount < 1400)
    {
@@ -1408,34 +1436,6 @@ if(distanciaIE < 20 && distanciaIE != 0){
 
   // blank line to separate data from the two ports:
   //Serial.println();
-    
-    robot.moveAdelante();
-
-    valor = subir.detectaRampa();
-    if(valor != 0)
-    {
-      lcd2.clear();
-      lcd2.display();
-      lcd2.print("RAMPA DETECTADA");
-      //delay(250);
-      lcd2.clear();
-      if(z == 1){
-      z = 0;}
-      else{
-      z = 1;}
-      lastlastlastlastlastlastX = -1;
-      lastlastlastlastlastlastY = -1;
-      lastlastlastlastlastX = -1;
-      lastlastlastlastlastY = -1;
-      lastlastlastlastX = -1;
-      lastlastlastlastY = -1;
-      lastlastlastX = -1;
-      lastlastlastY = -1;
-      lastlastX = -1;
-      lastlastY = -1;
-      lastX = -1;
-      lastY = -1;
-    }
    
   }
 
