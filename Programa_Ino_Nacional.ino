@@ -55,8 +55,7 @@ Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_700MS, TCS347
 Servo myservo;
 direcciones d[15][15];
 LiquidCrystal_I2C lcd2(0x3F,16,2);
-SoftwareSerial camDer(13, 51);
-SoftwareSerial camIzq(12, 50);
+SoftwareSerial camara(12, 50);
 
 volatile unsigned long leftCount = 0;
 volatile unsigned long rightCount = 0;
@@ -621,7 +620,7 @@ void adelanteAlg()
   rightCount = 0;
 
   robot.actualizaSetpoint();
-  while(rightCount < 1630)
+  while(rightCount < 1600)
   { 
     if(digitalRead(30) == LOW && rightCount < 1400)
    {
@@ -843,7 +842,7 @@ void unaVictimaIzquierda()
   lcd2.display();
   lcd2.print("VICTIMA IZQ");
   
- for(int i = 0; i < 18; i ++)
+ for(int i = 0; i < 15; i ++)
  {
   digitalWrite(23, HIGH);
   delay(300);
@@ -878,7 +877,7 @@ void unaVictimaDerecha()
   lcd2.display();
   lcd2.print("VICTIMA DERECHA");
   
-  for(int i = 0; i < 18; i ++)
+  for(int i = 0; i < 15; i ++)
  {
   digitalWrite(23, HIGH);
   delay(300);
@@ -914,7 +913,7 @@ void dosVictimasIzquierda()
   lcd2.display();
   lcd2.print("VICTIMA IZQ H");
   
-  for(int i = 0; i < 18; i ++)
+  for(int i = 0; i < 15; i ++)
  {
   digitalWrite(23, HIGH);
   delay(300);
@@ -958,7 +957,7 @@ void dosVictimasDerecha()
   lcd2.display();
   lcd2.print("VICTIMAS DERECHA");
   
-  for(int i = 0; i < 18; i ++)
+  for(int i = 0; i < 15; i ++)
  {
   digitalWrite(23, HIGH);
   delay(300);
@@ -1103,8 +1102,7 @@ float temperatureCelcius(int address) {
 void setup() {
   Serial.begin(9600);
   Serial.begin(115200);
-  camDer.begin(115200);
-  camIzq.begin(115200);
+  camara.begin(115200);
   i2c_init();                               // Initialise the i2c bus.
   lcd2.init();
   lcd2.setBacklight(10);
@@ -1221,7 +1219,7 @@ byte pos;
     
     lcd2.display();
     lcd2.print("ADELANTE");
-    while(rightCount<1630){
+    while(rightCount<1600){
 
       robot.moveAdelante();
 
@@ -1291,6 +1289,8 @@ byte pos;
     rightCount = auxEncoder;
    }
 
+   if(rightCount < 1600){
+
    if(pasado == false){
 
    celcius1 = temperatureCelcius(device1Address); 
@@ -1315,135 +1315,126 @@ byte pos;
    }
 
   distanciaDE = distanciaDerechaEnfrente();
+  distanciaIE = distanciaIzquierdaEnfrente();
 
-  if(distanciaDE < 20 && distanciaDE != 0){
-   camDer.listen();  // ATENDER SOLO CAMARA DERECHA
-  //Serial.println("Data from port one:");
-
-  while (camDer.available() > 0) {
-    inByte = camDer.read();
-    Serial.println(inByte);
-    if(inByte == '3'){ // 6 ES PARA LAS VICTIMAS H DEL LADO DERECHO
-      //Serial.println();
+   inByte = camara.read();
+    Serial.write(inByte);
+    if(inByte == '6' && distanciaIE < 20 && distanciaIE != 0){ // 3 ES PARA LAS VICTIMAS H DEL LADO IZQUIERDO
       auxEncoder = rightCount;
+      Serial.println();
       robot.detenerse();
-      dosVictimasDerecha();
-      //delay(2000);
+      lcd2.display();
+      lcd2.print("VICTIMA H IZQ");
+      lcd2.clear();
+      dosVictimasIzquierda();
+      lcd2.clear();
       pasado = true;
       rightCount = auxEncoder;
-      break;
+      robot.actualizaSetpoint();
     }
-    if(inByte == '2'){ // 5 ES PARA LAS VICTIMAS S DE LADO DERECHO
-      //Serial.println();
+    else if(inByte == '5' && distanciaIE < 20 && distanciaIE != 0){ // 2 ES PARA LAS VICTIMAS S DEL LADO IZQUIERDO
+      auxEncoder = rightCount;
+      Serial.println();
+      robot.detenerse();
+      lcd2.display();
+      lcd2.print("VICTIMA S IZQ");
+      lcd2.clear();
+      unaVictimaIzquierda();
+      lcd2.clear();
+      pasado = true;
+      rightCount = auxEncoder;
+      robot.actualizaSetpoint();
+    }
+   else  if(inByte == '4' && distanciaIE < 20 && distanciaIE != 0){ // 1 ES PARA LAS VICTIMAS U DEL LADO IZQUIERDO
+    auxEncoder = rightCount;
+      Serial.println();
+      robot.detenerse();
+      lcd2.display();
+      lcd2.print("VICTIMA U IZQ");
+      for(int i = 0; i < 15; i++)
+      {
+        digitalWrite(23, HIGH);
+        delay(300);
+        digitalWrite(23, LOW);
+        delay(300);  
+      }
+      lcd2.clear();
+      pasado = true;
+      rightCount = auxEncoder;
+    }
+    else if(inByte == '3' && distanciaDE < 20 && distanciaDE != 0){ // 6 ES PARA LAS VICTIMAS H DEL LADO DERECHO
+      auxEncoder = rightCount;
+      Serial.println();
+      robot.detenerse();
+      lcd2.display();
+      lcd2.print("VICTIMA H DER");
+      lcd2.clear();
+      dosVictimasDerecha();
+      lcd2.clear();
+      pasado = true;
+      rightCount = auxEncoder;
+      robot.actualizaSetpoint();
+    }
+    else if(inByte == '2' && distanciaDE < 20 && distanciaDE != 0){ // 5 ES PARA LAS VICTIMAS S DE LADO DERECHO
+      auxEncoder = rightCount;
+      Serial.println();
+      robot.detenerse();
+      lcd2.display();
+      lcd2.print("VICTIMA S DER");
+      lcd2.clear();
+      unaVictimaDerecha();
+      lcd2.clear();
+      pasado = true;
+      rightCount = auxEncoder;
+      robot.actualizaSetpoint();
+    }
+    else if(inByte == '1' && distanciaDE < 20 && distanciaDE != 0){ // 4 ES PARA LAS VICTIMAS U DEL LADO DERECHO
+      auxEncoder = rightCount;
+      Serial.println();
+      robot.detenerse();
+      lcd2.display();
+      lcd2.print("VICTIMA U DER");
+
+      for(int i = 0; i < 15; i++)
+      {
+        digitalWrite(23, HIGH);
+        delay(300);
+        digitalWrite(23, LOW);
+        delay(300);  
+      }
+      
+      lcd2.clear();
+      pasado = true;
+      rightCount = auxEncoder;
+    }
+    else if(inByte == '9' && distanciaIE < 20 && distanciaIE != 0)
+    {
+      auxEncoder = rightCount;
+      robot.detenerse();
+      unaVictimaIzquierda();
+      pasado = true;
+      rightCount = auxEncoder;
+      robot.actualizaSetpoint();
+    }
+    else if(inByte == '8' && distanciaDE < 20 && distanciaDE != 0)
+    {
       auxEncoder = rightCount;
       robot.detenerse();
       unaVictimaDerecha();
-      //delay(2000);
       pasado = true;
       rightCount = auxEncoder;
-      break;
-    }
-    if(inByte == '1'){ // 4 ES PARA LAS VICTIMAS U DEL LADO DERECHO
-      //Serial.println();
-      robot.detenerse();
-      lcd2.clear();
-      lcd2.display();
-      lcd2.print("VICTIMA DER U");
-      for(int i = 0; i < 18; i++)
-      {
-        digitalWrite(23, HIGH);
-        delay(300);
-        digitalWrite(23, LOW);
-        delay(300);
-      }
-      lcd2.clear();
-      pasado = true;
-      break;
-    }
-  }}
-
-  //Serial.println();
-
-distanciaIE = distanciaIzquierdaEnfrente();
-
-if(distanciaIE < 20 && distanciaIE != 0){
-  camIzq.listen();
-
-  //Serial.println("Data from port two:");
-  while (camIzq.available() > 0) {
-    inByte = camIzq.read();
-    Serial.write(inByte);
-    if(inByte == '9' || inByte == '8')
-    {
-      robot.detenerse();
-      //delay(10);
-      //Serial.println();
-      lcd2.display();
-      lcd2.print("MANCHA NEGRA");
-      //delay(2000);
-      lcd2.clear();
-      auxEncoder = rightCount;
-      unaVictimaIzquierda();
-      pasado = true;
-      rightCount = auxEncoder;
-      break;
-    }
-    if(inByte == '6'){ // 3 ES PARA LAS VICTIMAS H DEL LADO IZQUIERDO
-      robot.detenerse();
-      //Serial.println();
-      lcd2.display();
-      lcd2.print("VICTIMA H");
-      //delay(2000);
-      lcd2.clear();
-      auxEncoder = rightCount;
-      dosVictimasIzquierda();
-      pasado = true;
-      rightCount = auxEncoder;
-      break;
-    }
-    if(inByte == '5'){ // 2 ES PARA LAS VICTIMAS S DEL LADO IZQUIERDO
-      robot.detenerse();
-      //Serial.println();
-      lcd2.display();
-      lcd2.print("VICTIMA S");
-      //delay(2000);
-      lcd2.clear();
-      auxEncoder = rightCount;
-      unaVictimaIzquierda();
-      pasado = true;
-      rightCount = auxEncoder;
-       break;
-    }
-    if(inByte == '4'){ // 1 ES PARA LAS VICTIMAS U DEL LADO IZQUIERDO
-      robot.detenerse();
-      //Serial.println();
-      lcd2.clear();
-      lcd2.display();
-      lcd2.print("VICTIMA IZQ U");
-      for(int i = 0; i < 18; i++)
-      {
-        digitalWrite(23, HIGH);
-        delay(300);
-        digitalWrite(23, LOW);
-        delay(300);
-      }
-      //Serial.println("VICTIMA U")
-      lcd2.clear();
-      pasado = true;
-      break;
-    }
-  }}}
+      robot.actualizaSetpoint();
+    }}}}
 
   // blank line to separate data from the two ports:
   //Serial.println();
-   
-  }
 
   
 
   lcd2.clear();
 
    pasado = false;
+   inByte = '0';
 
    
   
