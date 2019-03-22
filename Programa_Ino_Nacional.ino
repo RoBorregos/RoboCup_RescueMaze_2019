@@ -1,7 +1,7 @@
  //PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
-//Version OFICIAL 2.1
+//Version OFICIAL 2.2
 //INCLUIR LIBRERIAS CORRECTAS: MotoresPuentes | Rampa
 
 #include <MotoresPuentes.h>
@@ -346,6 +346,15 @@ void findp(){
                 case 'N':
                 {
                   derechaAlg();
+                  celcius1 = temperatureCelcius(device1Address);                 
+                   if(celcius1 > 29)
+                   {
+                    auxEncoder = rightCount;
+                    robot.detenerse();
+                    unaVictimaIzquierda();
+                    pasado = true;
+                    rightCount = auxEncoder;
+                   }
                   derechaAlg();
                   orientacion = 'S';
                 } break;
@@ -383,6 +392,15 @@ void findp(){
                 case 'O':
                 {
                   derechaAlg();
+                  celcius1 = temperatureCelcius(device1Address);                 
+                   if(celcius1 > 29)
+                   {
+                    auxEncoder = rightCount;
+                    robot.detenerse();
+                    unaVictimaIzquierda();
+                    pasado = true;
+                    rightCount = auxEncoder;
+                   }
                   derechaAlg();
                   orientacion = 'E';
                 } break;
@@ -405,6 +423,15 @@ void findp(){
                     case 'E':
                     {
                       derechaAlg();
+                      celcius1 = temperatureCelcius(device1Address);                 
+                       if(celcius1 > 29)
+                       {
+                        auxEncoder = rightCount;
+                        robot.detenerse();
+                        unaVictimaIzquierda();
+                        pasado = true;
+                        rightCount = auxEncoder;
+                       }
                       derechaAlg();
                       orientacion = 'O';
                     } break;
@@ -442,6 +469,15 @@ void findp(){
                       case 'S':
                       {
                         derechaAlg();
+                        celcius1 = temperatureCelcius(device1Address);                 
+                         if(celcius1 > 29)
+                         {
+                          auxEncoder = rightCount;
+                          robot.detenerse();
+                          unaVictimaIzquierda();
+                          pasado = true;
+                          rightCount = auxEncoder;
+                         }
                         derechaAlg();
                         orientacion = 'N';
                       } break;
@@ -457,6 +493,15 @@ void findp(){
                   case 'N':
                   {
                     derechaAlg();
+                    celcius1 = temperatureCelcius(device1Address);                 
+                   if(celcius1 > 29)
+                   {
+                    auxEncoder = rightCount;
+                    robot.detenerse();
+                    unaVictimaIzquierda();
+                    pasado = true;
+                    rightCount = auxEncoder;
+                   }
                     derechaAlg();
                     adelanteAlg();
                     orientacion = 'S';
@@ -498,6 +543,15 @@ void findp(){
                   case 'O':
                   {
                     derechaAlg();
+                    celcius1 = temperatureCelcius(device1Address);                 
+                   if(celcius1 > 29)
+                   {
+                    auxEncoder = rightCount;
+                    robot.detenerse();
+                    unaVictimaIzquierda();
+                    pasado = true;
+                    rightCount = auxEncoder;
+                   }
                     derechaAlg();
                     adelanteAlg();
                     orientacion = 'E';
@@ -523,6 +577,15 @@ void findp(){
                       case 'E':
                       {
                         derechaAlg();
+                        celcius1 = temperatureCelcius(device1Address);                 
+                         if(celcius1 > 29)
+                         {
+                          auxEncoder = rightCount;
+                          robot.detenerse();
+                          unaVictimaIzquierda();
+                          pasado = true;
+                          rightCount = auxEncoder;
+                         }
                         derechaAlg();
                         adelanteAlg();
                         orientacion = 'O';
@@ -564,6 +627,15 @@ void findp(){
                         case 'S':
                         {                           
                           derechaAlg();
+                          celcius1 = temperatureCelcius(device1Address);                 
+                           if(celcius1 > 29)
+                           {
+                            auxEncoder = rightCount;
+                            robot.detenerse();
+                            unaVictimaIzquierda();
+                            pasado = true;
+                            rightCount = auxEncoder;
+                           }
                           derechaAlg();
                           adelanteAlg();
                           orientacion = 'N';
