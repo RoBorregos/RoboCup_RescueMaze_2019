@@ -286,7 +286,7 @@ objective2+=interval+5000;
     Serial.println(med);
     delay(BNO055_SAMPLERATE_DELAY_MS);
 
-if(med<90){
+if(med<83){
 
     punto=med-83;
     newPunto=360+punto;
@@ -587,6 +587,8 @@ int locker=0;
 
 objective= millis();
 objective+= interval;
+objective2=millis();
+objective2+=interval+5000;
 
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print("X: ");
@@ -594,7 +596,7 @@ objective+= interval;
     Serial.println(med);
     delay(BNO055_SAMPLERATE_DELAY_MS);
 
-    if(med>=270){
+    if(med>=277){
 
     punto=med+83;
     newPunto=(360-punto)*-1;
