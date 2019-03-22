@@ -62,7 +62,7 @@ newMed=euler.y();
     myPID4.Compute();
     if(Input3-Setpoint3>1 || Input3-Setpoint3 <-1){
             digitalWrite(motorIzqAde1, LOW);
-            analogWrite(motorIzqAde2, 230+(Output4*3));
+            analogWrite(motorIzqAde2, 230+(Output4*2.5));
             digitalWrite(motorIzqAtras1, LOW);
             analogWrite(motorIzqAtras2, 230);
             digitalWrite(motorDerAde1, LOW);
@@ -103,7 +103,7 @@ if(newMed>-1){
             analogWrite(motorDerAde2, 255);
             digitalWrite(motorDerAtras1, LOW);
             analogWrite(motorDerAtras2, 255);
-            delay(400);
+            delay(500);
     valor++;
     }
     else if(med>8){
@@ -111,17 +111,55 @@ if(newMed>-1){
 
     do{
 
+            imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
+
+    med=euler.x();
+
+    delay(BNO055_SAMPLERATE_DELAY_MS);
+newMed=euler.y();
+
+    bool flag = false;
+    if((med > Setpoint3 && med-180 < Setpoint3)||(med < Setpoint3 && med+180 < Setpoint3)){
+       flag = true;
+     }
+     if(flag && med < Setpoint3)
+       med += 360;
+     else if (!flag && med > Setpoint3)
+       med -= 360;
+    Input3=med;
+    Input4=med;
+
+    myPID3.Compute();
+    myPID4.Compute();
+    if(Input3-Setpoint3>1 || Input3-Setpoint3 <-1){
             digitalWrite(motorIzqAde1, LOW);
-            analogWrite(motorIzqAde2, 130);
+            analogWrite(motorIzqAde2, 130+(Output4*3)-Output3);
             digitalWrite(motorIzqAtras1, LOW);
             analogWrite(motorIzqAtras2, 130);
             digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, 145);
+            analogWrite(motorDerAde2, 160);
             digitalWrite(motorDerAtras1, LOW);
-            analogWrite(motorDerAtras2, 145);
-    imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-    Serial.print("X: ");
-    newMed=euler.y();
+            analogWrite(motorDerAtras2, 160);
+            Serial.print(Output3);
+            Serial.print(" ");
+            Serial.print(Output4);
+            Serial.print(" ");
+            Serial.print(Setpoint3);
+            Serial.print(" ");
+            Serial.println(Input3);
+    }
+    else{
+            digitalWrite(motorIzqAde1, LOW);
+            analogWrite(motorIzqAde2, 240);
+            digitalWrite(motorIzqAtras1, LOW);
+            analogWrite(motorIzqAtras2, 240);
+            digitalWrite(motorDerAde1, LOW);
+            analogWrite(motorDerAde2, 220);
+            digitalWrite(motorDerAtras1, LOW);
+            analogWrite(motorDerAtras2, 220);
+
+
+    }
     if(newMed<4){
         newMed=10;
     }
