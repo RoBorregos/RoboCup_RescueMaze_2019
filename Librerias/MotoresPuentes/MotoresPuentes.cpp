@@ -1,5 +1,13 @@
  
-//LIBRERIA OFICIAL DE CONTROL
+//LIBRERIA OFICIAL DE CONTROL 2
+
+//PENDIENTES:
+//SUBIR Y BAJAR RAMPA
+//MOVEADELANTE MAS FUERTE (MAS RAPIDO)
+//BUMPERS
+//MEJORAR GIRO DE BUMPERS EN ESQUINAS (MAS RAPIDO=255), IR HACIA ADELANTE MAS TIEMPO
+//CHECAR POR QUE NO DA VUELTA HACIA LA DERECHA
+//
 
 #include "MotoresPuentes.h"
 
@@ -405,6 +413,16 @@ caster++;
     lcd.clear();
     lcd.display();
     lcd.print("END FINAL");
+    //MOVIMIENTO ATRAS
+digitalWrite(motorIzqAde1, LOW);
+analogWrite(motorIzqAde2, 255);
+digitalWrite(motorIzqAtras2, LOW);
+analogWrite(motorIzqAtras1, 255);
+digitalWrite(motorDerAde2, LOW);
+analogWrite(motorDerAde1, 255);
+digitalWrite(motorDerAtras2, LOW);
+analogWrite(motorDerAtras1, 255);
+delay(700);
     digitalWrite(motorIzqAde1, LOW);
     analogWrite(motorIzqAde2, 255);
     digitalWrite(motorIzqAtras2, LOW);
@@ -423,7 +441,7 @@ caster++;
             analogWrite(motorDerAde2, 255);
             digitalWrite(motorDerAtras1, LOW);
             analogWrite(motorDerAtras2, 255);
-            delay(800);
+            delay(1000);
             break;
     }
     }while(newMed<=med+180 || newMed>newPunto);
@@ -541,6 +559,16 @@ caster++;
     lcd.clear();
     lcd.display();
     lcd.print("END FINAL");
+    //MOVIMIENTO ATRAS
+digitalWrite(motorIzqAde1, LOW);
+analogWrite(motorIzqAde2, 255);
+digitalWrite(motorIzqAtras2, LOW);
+analogWrite(motorIzqAtras1, 255);
+digitalWrite(motorDerAde2, LOW);
+analogWrite(motorDerAde1, 255);
+digitalWrite(motorDerAtras2, LOW);
+analogWrite(motorDerAtras1, 255);
+delay(700);
     digitalWrite(motorIzqAde1, LOW);
     analogWrite(motorIzqAde2, 255);
     digitalWrite(motorIzqAtras2, LOW);
@@ -559,7 +587,7 @@ caster++;
             analogWrite(motorDerAde2, 255);
             digitalWrite(motorDerAtras1, LOW);
             analogWrite(motorDerAtras2, 255);
-            delay(800);
+            delay(1000);
             break;
     }
     }while(newMed>punto);
@@ -610,18 +638,17 @@ objective2+=interval+5000;
     if(currentMillis < objective){
     lcd.clear();
     lcd.display();
-    lcd.print("1ST PHASE");
+    lcd.print("277P");
+    lcd.print(" ");
+    lcd.print(med);
+    lcd.print(" ");
+    lcd.print(Setpoint);
+    lcd.print(" ");
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print("X: ");
     newMed=euler.x();
-    Input2=newMed;
-    Serial.println(newMed);
     delay(BNO055_SAMPLERATE_DELAY_MS);
-    myPID2.Compute();
 
-    nOutput=Output2+200;
-    (nOutput>=255)? nOutput=255: nOutput=nOutput;
-    Serial.println(nOutput);
 //MOVIMIENTO DERECHA**************************
     digitalWrite(motorIzqAde2, LOW);
     analogWrite(motorIzqAde1, 255);
@@ -715,6 +742,16 @@ caster++;
     lcd.clear();
     lcd.display();
     lcd.print("END FINAL");
+    //MOVIMIENTO ATRAS
+digitalWrite(motorIzqAde1, LOW);
+analogWrite(motorIzqAde2, 255);
+digitalWrite(motorIzqAtras2, LOW);
+analogWrite(motorIzqAtras1, 255);
+digitalWrite(motorDerAde2, LOW);
+analogWrite(motorDerAde1, 255);
+digitalWrite(motorDerAtras2, LOW);
+analogWrite(motorDerAtras1, 255);
+delay(700);
     digitalWrite(motorIzqAde2, LOW);
     analogWrite(motorIzqAde1, 255);
     digitalWrite(motorIzqAtras1, LOW);
@@ -733,10 +770,10 @@ caster++;
             analogWrite(motorDerAde2, 255);
             digitalWrite(motorDerAtras1, LOW);
             analogWrite(motorDerAtras2, 255);
-            delay(800);
+            delay(1000);
             break;
     }
-    }while(newMed>=med || newMed<newPunto);
+    }while(newMed>=med-2 || newMed<newPunto);
   }
   else{
     punto=med+83;
@@ -746,7 +783,7 @@ caster++;
     if(currentMillis < objective){
     lcd.clear();
     lcd.display();
-    lcd.print("1ST PHASE");
+    lcd.print("1ST PHASE END");
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print("X: ");
     newMed=euler.x();
@@ -851,6 +888,16 @@ caster++;
     lcd.clear();
     lcd.display();
     lcd.print("END FINAL");
+    //MOVIMIENTO ATRAS
+digitalWrite(motorIzqAde1, LOW);
+analogWrite(motorIzqAde2, 255);
+digitalWrite(motorIzqAtras2, LOW);
+analogWrite(motorIzqAtras1, 255);
+digitalWrite(motorDerAde2, LOW);
+analogWrite(motorDerAde1, 255);
+digitalWrite(motorDerAtras2, LOW);
+analogWrite(motorDerAtras1, 255);
+delay(700);
     digitalWrite(motorIzqAde2, LOW);
     analogWrite(motorIzqAde1, 255);
     digitalWrite(motorIzqAtras1, LOW);
@@ -869,7 +916,7 @@ caster++;
             analogWrite(motorDerAde2, 255);
             digitalWrite(motorDerAtras1, LOW);
             analogWrite(motorDerAtras2, 255);
-            delay(800);
+            delay(1000);
             break;
     }
     }while(newMed<punto);
