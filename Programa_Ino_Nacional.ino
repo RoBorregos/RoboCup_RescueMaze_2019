@@ -1,7 +1,7 @@
-//PROGRAMA INO. ROBORREGOS.
+ //PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
-//Version OFICIAL 2.0
+//Version OFICIAL 2.1
 //INCLUIR LIBRERIAS CORRECTAS: MotoresPuentes | Rampa
 
 #include <MotoresPuentes.h>
@@ -625,7 +625,7 @@ void adelanteAlg()
   rightCount = 0;
 
   robot.actualizaSetpoint();
-  while(rightCount < 2000)
+  while(rightCount < 2100)
   { 
     if(digitalRead(30) == LOW && rightCount < 1400)
    {
@@ -830,7 +830,7 @@ bool isBlack()
   
   tcs.getRawData(&r, &g, &b, &c);
   tcs.getRawData(&r, &g, &b, &c);
-  if(r < 600 && g < 600 && b < 600){
+  if(r < 800 && g < 800 && b < 800){
     lcd2.display();
     lcd2.print("CUADRO NEGRO DETECTADO");
     lcd2.display();
@@ -883,7 +883,6 @@ void unaVictimaDerecha()
   lcd2.print("VICTIMA DERECHA");
 
   robot.moveDer();
- robot.detenerse();
   
   for(int i = 0;  i < 12; i ++)
  {
@@ -905,7 +904,6 @@ void unaVictimaDerecha()
   lcd2.clear();
 
   robot.moveIzq();
-  robot.detenerse();
 
   //delay(50);
 
@@ -1217,23 +1215,19 @@ void setup() {
 }
 
 void loop() {
-  camara.begin(115200);
+  
 
 byte pos;
     byte valor = 0;
     rightCount=0;
+    timePassed=0;
+    objectiveA=0;
     timePassed=millis();
-      objectiveA=timePassed+7000;
-      distanciaEback=distanciaEnfrente();
-      distanciaAback=distanciaAtras();
+    objectiveA=millis()+7000;
     lcd2.display();
     lcd2.print("ADELANTE");
-    while(rightCount<2000){
-      distanciaE=distanciaEnfrente();
-      distanciaA=distanciaAtras();
-      timePassed=millis();
-      robot.moveAdelante();
-      if(timePassed<objectiveA){
+    while(rightCount<2100){
+       robot.moveAdelante();
       valor = subir.detectaRampa();
     if(valor != 0)
     {
@@ -1423,17 +1417,7 @@ byte pos;
     else
     {
       break;}
-    }*/}}
-      }
-      else{
-        robot.moveAtras();
-        delay(250);
-        robot.detenerse();
-        delay(10);
-        robot.moveAdelanteFast();
-        robot.detenerse();
-        break;
-      }
+    }*/}}   
     }
 
   // blank line to separate data from the two ports:
@@ -1445,12 +1429,34 @@ byte pos;
 
    pasado = false;
    inByte = '0';
-
-   
   
   robot.detenerse();
   //delay(10);
   alineaRobot();
+
+  if(pasado == false){
+
+   celcius1 = temperatureCelcius(device1Address); 
+   celcius2 = temperatureCelcius(device2Address); 
+
+   if(celcius2 > 28)
+   {
+    auxEncoder = rightCount;
+    robot.detenerse();
+     unaVictimaDerecha();
+     pasado = true;
+     rightCount = auxEncoder;
+   }
+
+   if(celcius1 > 28)
+   {
+    auxEncoder = rightCount;
+    robot.detenerse();
+    unaVictimaIzquierda();
+    pasado = true;
+    rightCount = auxEncoder;
+   }}
+  
   distanciaE = distanciaEnfrente();
 
   if(distanciaE > 10 && distanciaE < 20)
