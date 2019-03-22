@@ -1,4 +1,5 @@
-//LIBRERIA OFICIAL DE CONTROL 
+ 
+//LIBRERIA OFICIAL DE CONTROL
 
 #include "MotoresPuentes.h"
 
@@ -287,7 +288,7 @@ objective2+=interval+5000;
     Serial.println(med);
     delay(BNO055_SAMPLERATE_DELAY_MS);
 
-if(med<83){
+if(med<90){
 
     punto=med-83;
     newPunto=360+punto;
