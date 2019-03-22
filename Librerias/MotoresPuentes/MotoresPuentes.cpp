@@ -352,7 +352,7 @@ analogWrite(motorDerAtras2, 255);
             balance++;
 
     }
-    else if(caster>=2 && caster<6){
+    else if(caster>=2 && caster<7){
             //MOVIMIENTO IZQUIERDA
     lcd.clear();
     lcd.display();
@@ -411,7 +411,7 @@ caster++;
     analogWrite(motorDerAde2, 255);
     digitalWrite(motorDerAtras1, LOW);
     analogWrite(motorDerAtras2, 255);
-    delay(600);
+    delay(800);
     //MOVIMIENTO HACIA ADELANTE
             digitalWrite(motorIzqAde2, LOW);
             analogWrite(motorIzqAde1, 255);
@@ -487,7 +487,7 @@ analogWrite(motorDerAtras2, 255);
             balance++;
 
     }
-    else if(caster>=2 && caster<6){
+    else if(caster>=2 && caster<7){
             //MOVIMIENTO IZQUIERDA
     lcd.clear();
     lcd.display();
@@ -546,7 +546,7 @@ caster++;
     analogWrite(motorDerAde2, 255);
     digitalWrite(motorDerAtras1, LOW);
     analogWrite(motorDerAtras2, 255);
-    delay(600);
+    delay(800);
     //MOVIMIENTO HACIA ADELANTE
             digitalWrite(motorIzqAde2, LOW);
             analogWrite(motorIzqAde1, 255);
