@@ -74,6 +74,8 @@ byte y = 7;
 byte z = 0;
 int distanciaE;
 int distanciaA;
+int distanciaEback;
+int distanciaAback;
 int distanciaDE;
 int distanciaDA;
 int distanciaIE;
@@ -98,6 +100,8 @@ float celcius1 = 0;
 float celcius2 = 0;  
 int auxEncoder;
 char inByte;
+int objectiveA=0;
+long timePassed=0;
 
 void clear(){
   //lcd2.display();
@@ -1102,7 +1106,6 @@ float temperatureCelcius(int address) {
 void setup() {
   Serial.begin(9600);
   Serial.begin(115200);
-  camaraNO.begin(115200);
   camara.begin(115200);
   i2c_init();                               // Initialise the i2c bus.
   //lcd2.init();
@@ -1213,17 +1216,23 @@ void setup() {
 }
 
 void loop() {
+  camara.begin(115200);
 
 byte pos;
     byte valor = 0;
     rightCount=0;
-    
+    timePassed=millis();
+      objectiveA=timePassed+7000;
+      distanciaEback=distanciaEnfrente();
+      distanciaAback=distanciaAtras();
     //lcd2.display();
     //lcd2.print("ADELANTE");
-    while(rightCount<2000){
-
+    while(rightCount<2000 || (distanciaA<=distanciaAback+8 || distanciaE>=distanciaEback-8)){
+      distanciaE=distanciaEnfrente();
+      distanciaA=distanciaAtras();
+      timePassed=millis();
       robot.moveAdelante();
-
+      if(timePassed<objectiveA){
       valor = subir.detectaRampa();
     if(valor != 0)
     {
@@ -1297,7 +1306,7 @@ byte pos;
    celcius1 = temperatureCelcius(device1Address); 
    celcius2 = temperatureCelcius(device2Address); 
 
-   if(celcius2 > 32)
+   if(celcius2 > 29)
    {
     auxEncoder = rightCount;
     robot.detenerse();
@@ -1306,7 +1315,7 @@ byte pos;
      rightCount = auxEncoder;
    }
 
-   if(celcius1 > 32)
+   if(celcius1 > 29)
    {
     auxEncoder = rightCount;
     robot.detenerse();
@@ -1315,10 +1324,11 @@ byte pos;
     rightCount = auxEncoder;
    }
    
-   while(camara.available() > 0){
+   /*while(camara.available() > 0){
    inByte = camara.read();
     Serial.write(inByte);
     if(inByte == '6'){ // 3 ES PARA LAS VICTIMAS H DEL LADO IZQUIERDO
+      //();
       auxEncoder = rightCount;
       Serial.println();
       robot.detenerse();
@@ -1415,7 +1425,18 @@ byte pos;
     else
     {
       break;}
-    }}}}
+    }*/}}
+      }
+      else{
+        robot.moveAtras();
+        delay(250);
+        robot.detenerse();
+        delay(10);
+        robot.moveAdelanteFast();
+        robot.detenerse();
+        break;
+      }
+    }
 
   // blank line to separate data from the two ports:
   //Serial.println();
