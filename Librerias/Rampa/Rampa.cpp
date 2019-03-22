@@ -30,6 +30,8 @@ int Rampa::detectaRampa(){
  uint8_t i;
  int valor = 0;
 double med=0, newMed=0, punto=0, newPunto=0;
+double n3Output=0;
+double n4Output=0;
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     Serial.print(" Y: ");
     med= euler.y();
@@ -61,14 +63,23 @@ newMed=euler.y();
     myPID3.Compute();
     myPID4.Compute();
     if(Input3-Setpoint3>1 || Input3-Setpoint3 <-1){
+
+            n4Output=230+Output4-Output3;
+            (n4Output>=255)? n4Output=255: n4Output=n4Output;
+            (n4Output<140)? n4Output=140: n4Output=n4Output;
+            n3Output=195+Output3-Output4;
+            (n3Output>=255)? n3Output=255: n3Output=n3Output;
+            (n3Output<140)? n3Output=140: n3Output=n3Output;
+
+
             digitalWrite(motorIzqAde1, LOW);
-            analogWrite(motorIzqAde2, 230+(Output4*2.5));
+            analogWrite(motorIzqAde2, n3Output);
             digitalWrite(motorIzqAtras1, LOW);
-            analogWrite(motorIzqAtras2, 230);
+            analogWrite(motorIzqAtras2, n3Output);
             digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, 195-(Output3*.25));
+            analogWrite(motorDerAde2, n4Output);
             digitalWrite(motorDerAtras1, LOW);
-            analogWrite(motorDerAtras2, 230);
+            analogWrite(motorDerAtras2, n4Output);
             Serial.print(Output3);
             Serial.print(" ");
             Serial.print(Output4);
@@ -132,14 +143,22 @@ newMed=euler.y();
     myPID3.Compute();
     myPID4.Compute();
     if(Input3-Setpoint3>1 || Input3-Setpoint3 <-1){
+            n4Output=120+Output4-Output3;
+            (n4Output>=180)? n4Output=180: n4Output=n4Output;
+            (n4Output<110)? n4Output=110: n4Output=n4Output;
+            n3Output=140+Output3-Output4;
+            (n3Output>=180)? n3Output=180: n3Output=n3Output;
+            (n3Output<110)? n3Output=110: n3Output=n3Output;
+
+
             digitalWrite(motorIzqAde1, LOW);
-            analogWrite(motorIzqAde2, 130+(Output4*3)-Output3);
+            analogWrite(motorIzqAde2, n3Output);
             digitalWrite(motorIzqAtras1, LOW);
-            analogWrite(motorIzqAtras2, 130);
+            analogWrite(motorIzqAtras2, n3Output);
             digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, 160);
+            analogWrite(motorDerAde2, n4Output);
             digitalWrite(motorDerAtras1, LOW);
-            analogWrite(motorDerAtras2, 160);
+            analogWrite(motorDerAtras2, n4Output);
             Serial.print(Output3);
             Serial.print(" ");
             Serial.print(Output4);
