@@ -106,8 +106,10 @@ void MotoresPuentes::moveAdelante(){
     if(Input-Setpoint>1 || Input-Setpoint <-1){
             n2Output=200+Output2-Output;
             (n2Output>=255)? n2Output=255: n2Output=n2Output;
-            nOutput=180+Output-Output2*2;
+            (n2Output<140)? n2Output=140: n2Output=n2Output;
+            nOutput=180+Output-Output2;
             (nOutput>=255)? nOutput=255: nOutput=nOutput;
+            (nOutput<140)? nOutput=140: nOutput=nOutput;
 
 
 
