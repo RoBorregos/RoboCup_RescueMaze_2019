@@ -1,7 +1,7 @@
- //PROGRAMA INO. ROBORREGOS.
+//PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
-//Version OFICIAL 2.2
+//Version OFICIAL 2.3
 //INCLUIR LIBRERIAS CORRECTAS: MotoresPuentes | Rampa
 
 #include <MotoresPuentes.h>
@@ -1388,7 +1388,7 @@ byte pos;
     rightCount = auxEncoder;
    }
    
-   /*while(camara.available() > 0){
+  /* while(camara.available() > 0){
    inByte = camara.read();
     Serial.write(inByte);
     if(inByte == '6'){ // 3 ES PARA LAS VICTIMAS H DEL LADO IZQUIERDO
@@ -1405,8 +1405,8 @@ byte pos;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
       break;
-    }
-    else if(inByte == '5'){ // 2 ES PARA LAS VICTIMAS S DEL LADO IZQUIERDO
+    }*/
+    /*else if(inByte == '5'){ // 2 ES PARA LAS VICTIMAS S DEL LADO IZQUIERDO
       auxEncoder = rightCount;
       Serial.println();
       robot.detenerse();
@@ -1437,8 +1437,8 @@ byte pos;
       pasado = true;
       rightCount = auxEncoder;
       break;
-    }
-    else if(inByte == '3'){ // 6 ES PARA LAS VICTIMAS H DEL LADO DERECHO
+    }*/
+  /*  else if(inByte == '3'){ // 6 ES PARA LAS VICTIMAS H DEL LADO DERECHO
       auxEncoder = rightCount;
       Serial.println();
       robot.detenerse();
@@ -1451,8 +1451,8 @@ byte pos;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
       break;
-    }
-    else if(inByte == '2'){ // 5 ES PARA LAS VICTIMAS S DE LADO DERECHO
+    }/*
+   /* else if(inByte == '2'){ // 5 ES PARA LAS VICTIMAS S DE LADO DERECHO
       auxEncoder = rightCount;
       Serial.println();
       robot.detenerse();
@@ -1513,20 +1513,24 @@ byte pos;
 
    if(celcius2 > 28)
    {
+    distanciaDE = distanciaDerechaEnfrente();
+    if(distanciaDE < 20){
     auxEncoder = rightCount;
     robot.detenerse();
      unaVictimaDerecha();
      pasado = true;
-     rightCount = auxEncoder;
+     rightCount = auxEncoder;}
    }
 
    if(celcius1 > 28)
    {
+    distanciaIE = distanciaIzquierdaEnfrente();
+    if(distanciaIE < 20){
     auxEncoder = rightCount;
     robot.detenerse();
     unaVictimaIzquierda();
     pasado = true;
-    rightCount = auxEncoder;
+    rightCount = auxEncoder;}
    }}
   
   distanciaE = distanciaEnfrente();
