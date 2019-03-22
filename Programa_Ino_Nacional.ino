@@ -1,7 +1,8 @@
-  //PROGRAMA INO. ROBORREGOS.
+//PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
-//Version 1.7
+//Version OFICIAL 2.0
+//INCLUIR LIBRERIAS CORRECTAS: MotoresPuentes | Rampa
 
 #include <MotoresPuentes.h>
 #include <NewPing.h>
