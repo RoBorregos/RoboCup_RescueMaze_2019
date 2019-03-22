@@ -1,4 +1,4 @@
-//PROGRAMA INO. ROBORREGOS.
+ //PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
 //Version OFICIAL 2.3
@@ -347,7 +347,7 @@ void findp(){
                 {
                   derechaAlg();
                   celcius1 = temperatureCelcius(device1Address);                 
-                   if(celcius1 > 29)
+                   if(celcius1 > 34)
                    {
                     auxEncoder = rightCount;
                     robot.detenerse();
@@ -393,7 +393,7 @@ void findp(){
                 {
                   derechaAlg();
                   celcius1 = temperatureCelcius(device1Address);                 
-                   if(celcius1 > 29)
+                   if(celcius1 > 34)
                    {
                     auxEncoder = rightCount;
                     robot.detenerse();
@@ -424,7 +424,7 @@ void findp(){
                     {
                       derechaAlg();
                       celcius1 = temperatureCelcius(device1Address);                 
-                       if(celcius1 > 29)
+                       if(celcius1 > 34)
                        {
                         auxEncoder = rightCount;
                         robot.detenerse();
@@ -470,7 +470,7 @@ void findp(){
                       {
                         derechaAlg();
                         celcius1 = temperatureCelcius(device1Address);                 
-                         if(celcius1 > 29)
+                         if(celcius1 > 34)
                          {
                           auxEncoder = rightCount;
                           robot.detenerse();
@@ -494,7 +494,7 @@ void findp(){
                   {
                     derechaAlg();
                     celcius1 = temperatureCelcius(device1Address);                 
-                   if(celcius1 > 29)
+                   if(celcius1 > 34)
                    {
                     auxEncoder = rightCount;
                     robot.detenerse();
@@ -544,7 +544,7 @@ void findp(){
                   {
                     derechaAlg();
                     celcius1 = temperatureCelcius(device1Address);                 
-                   if(celcius1 > 29)
+                   if(celcius1 > 34)
                    {
                     auxEncoder = rightCount;
                     robot.detenerse();
@@ -578,7 +578,7 @@ void findp(){
                       {
                         derechaAlg();
                         celcius1 = temperatureCelcius(device1Address);                 
-                         if(celcius1 > 29)
+                         if(celcius1 > 34)
                          {
                           auxEncoder = rightCount;
                           robot.detenerse();
@@ -628,7 +628,7 @@ void findp(){
                         {                           
                           derechaAlg();
                           celcius1 = temperatureCelcius(device1Address);                 
-                           if(celcius1 > 29)
+                           if(celcius1 > 34)
                            {
                             auxEncoder = rightCount;
                             robot.detenerse();
@@ -1370,7 +1370,7 @@ byte pos;
    celcius1 = temperatureCelcius(device1Address); 
    celcius2 = temperatureCelcius(device2Address); 
 
-   if(celcius2 > 29)
+   if(celcius2 > 34)
    {
     auxEncoder = rightCount;
     robot.detenerse();
@@ -1379,7 +1379,7 @@ byte pos;
      rightCount = auxEncoder;
    }
 
-   if(celcius1 > 29)
+   if(celcius1 > 34)
    {
     auxEncoder = rightCount;
     robot.detenerse();
@@ -1388,7 +1388,7 @@ byte pos;
     rightCount = auxEncoder;
    }
    
-  /* while(camara.available() > 0){
+  while(camara.available() > 0){
    inByte = camara.read();
     Serial.write(inByte);
     if(inByte == '6'){ // 3 ES PARA LAS VICTIMAS H DEL LADO IZQUIERDO
@@ -1405,7 +1405,7 @@ byte pos;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
       break;
-    }*/
+    }
     /*else if(inByte == '5'){ // 2 ES PARA LAS VICTIMAS S DEL LADO IZQUIERDO
       auxEncoder = rightCount;
       Serial.println();
@@ -1438,7 +1438,7 @@ byte pos;
       rightCount = auxEncoder;
       break;
     }*/
-  /*  else if(inByte == '3'){ // 6 ES PARA LAS VICTIMAS H DEL LADO DERECHO
+   else if(inByte == '3'){ // 6 ES PARA LAS VICTIMAS H DEL LADO DERECHO
       auxEncoder = rightCount;
       Serial.println();
       robot.detenerse();
@@ -1451,7 +1451,7 @@ byte pos;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
       break;
-    }/*
+    }
    /* else if(inByte == '2'){ // 5 ES PARA LAS VICTIMAS S DE LADO DERECHO
       auxEncoder = rightCount;
       Serial.println();
@@ -1490,7 +1490,7 @@ byte pos;
     {
       break;}
     }*/}}   
-    }
+    }}
 
   // blank line to separate data from the two ports:
   //Serial.println();
