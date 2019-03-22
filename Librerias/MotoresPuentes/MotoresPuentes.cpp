@@ -1,9 +1,9 @@
  
 #include "MotoresPuentes.h"
 
-double Kp=10, Ki=0, Kd=0;
+double Kp=20, Ki=0, Kd=0;
 double Input=0, Output=0, Setpoint=0;
-double Kp2=10, Ki2=0, Kd2=0;
+double Kp2=15, Ki2=0, Kd2=0;
 double Input2=0, Output2=0, Setpoint2=0;
 
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
@@ -80,22 +80,15 @@ void MotoresPuentes::moveAdelante(){
     velocidadIzqAtras=velocidadBaseIzqAtras;
     velocidadDerAde=velocidadBaseDerAde;
     velocidadDerAtras=velocidadBaseDerAtras;
+    double n2Output=0;
+    double nOutput=0;
 //TODAVI NO SE SABEN LAS POSICIONES CORRECTAS.......
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
 
     med=euler.x();
 
     delay(BNO055_SAMPLERATE_DELAY_MS);
-     /*
-    if((Setpoint>=0 && Setpoint<100) && (Input>300)){
-        Input-=360;
-        Input2-=360;
-    }
-    if((Input>=0 && Input<100) && (Setpoint>300)){
-        Input+=360;
-        Input2+=360;
-    }
-    */
+
 
     bool flag = false;
     if((med > Setpoint && med-180 < Setpoint)||(med < Setpoint && med+180 < Setpoint)){
@@ -111,71 +104,45 @@ void MotoresPuentes::moveAdelante(){
     myPID.Compute();
     myPID2.Compute();
     if(Input-Setpoint>1 || Input-Setpoint <-1){
+            n2Output=200+Output2-Output;
+            (n2Output>=255)? n2Output=255: n2Output=n2Output;
+            nOutput=180+Output-Output2*2;
+            (nOutput>=255)? nOutput=255: nOutput=nOutput;
+
+
+
             digitalWrite(motorIzqAde2, LOW);
-            analogWrite(motorIzqAde1, velocidadIzqAde+Output);
+            analogWrite(motorIzqAde1, nOutput);
             digitalWrite(motorIzqAtras1, LOW);
-            analogWrite(motorIzqAtras2, velocidadIzqAtras+Output);
+            analogWrite(motorIzqAtras2, nOutput);
             digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, velocidadDerAde+Output2);
+            analogWrite(motorDerAde2, n2Output);
             digitalWrite(motorDerAtras1, LOW);
-            analogWrite(motorDerAtras2, velocidadDerAtras+Output2);
+            analogWrite(motorDerAtras2, n2Output);
             Serial.print("Angulo: ");
-            Serial.print(med);
+            Serial.print(Input);
             Serial.print(" Setpoint: ");
             Serial.print(Setpoint);
             Serial.print(" Output1: ");
-            Serial.print(Output);
+            Serial.print(nOutput);
             Serial.print(" Output2: ");
-            Serial.println(Output2);
+            Serial.println(n2Output);
 
     }
     else{
             digitalWrite(motorIzqAde2, LOW);
-            analogWrite(motorIzqAde1, velocidadIzqAde);
+            analogWrite(motorIzqAde1, 180);
             digitalWrite(motorIzqAtras1, LOW);
-            analogWrite(motorIzqAtras2, velocidadIzqAtras);
+            analogWrite(motorIzqAtras2, 180);
             digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, velocidadDerAde);
+            analogWrite(motorDerAde2, 200);
             digitalWrite(motorDerAtras1, LOW);
-            analogWrite(motorDerAtras2, velocidadDerAtras);
+            analogWrite(motorDerAtras2, 200);
 
 
     }
-/*
-    MotorAtrasDer->setSpeed(210);
-    MotorAtrasDer->run(FORWARD);
-    MotorAtrasIzq->setSpeed(235);
-    MotorAtrasIzq->run(FORWARD);
-    MotorAdeIzq->setSpeed(235);
-    MotorAdeIzq->run(BACKWARD);
-    MotorAdeDer->setSpeed(210);
-    MotorAdeDer->run(BACKWARD);
-*/
-}
-/*
-void MotoresPuentes::moveAdelanteLento(){
-    uint8_t i=235;
-//TODAVI NO SE SABEN LAS POSICIONES CORRECTAS.......
-digitalWrite(motorIzqAde1, LOW);
-analogWrite(motorIzqAde2, i);
-digitalWrite(motorIzqAtras1, LOW);
-analogWrite(motorIzqAtras2, i);
-digitalWrite(motorDerAde1, LOW);
-analogWrite(motorDerAde2, i);
-digitalWrite(motorDerAtras1, LOW);
-analogWrite(motorDerAtras2, i);
-
-    MotorAtrasDer->setSpeed(50);
-    MotorAtrasDer->run(FORWARD);
-    MotorAtrasIzq->setSpeed(50);
-    MotorAtrasIzq->run(FORWARD);
-    MotorAdeIzq->setSpeed(50);
-    MotorAdeIzq->run(BACKWARD);
-    MotorAdeDer->setSpeed(50);
-    MotorAdeDer->run(BACKWARD);
 
 }
-*/
 
 void MotoresPuentes::acomodoD()
 {
