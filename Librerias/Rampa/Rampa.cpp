@@ -37,7 +37,7 @@ double med=0, newMed=0, punto=0, newPunto=0;
     Serial.println(med);
     delay(BNO055_SAMPLERATE_DELAY_MS);
 
- if(med<-8){
+ if(med<-12){
     Serial.println("Entramos");
     do{
             imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
@@ -66,7 +66,7 @@ newMed=euler.y();
             digitalWrite(motorIzqAtras1, LOW);
             analogWrite(motorIzqAtras2, 230);
             digitalWrite(motorDerAde1, LOW);
-            analogWrite(motorDerAde2, 170-(Output3*.25));
+            analogWrite(motorDerAde2, 195-(Output3*.25));
             digitalWrite(motorDerAtras1, LOW);
             analogWrite(motorDerAtras2, 230);
             Serial.print(Output3);
@@ -93,7 +93,7 @@ newMed=euler.y();
 if(newMed>-1){
         newMed=-5;
 }
- }while(newMed<-8);
+ }while(newMed<-12);
     Serial.println("Salimos");
             digitalWrite(motorIzqAde1, LOW);
             analogWrite(motorIzqAde2, 200);
