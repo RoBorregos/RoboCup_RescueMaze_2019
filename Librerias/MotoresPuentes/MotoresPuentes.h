@@ -1,4 +1,4 @@
-  #ifndef MotoresPuentes_h
+    #ifndef MotoresPuentes_h
 #define MotoresPuentes_h
 
 #include "arduino.h"
@@ -18,6 +18,7 @@ public:
     MotoresPuentes();
     Adafruit_BNO055 bno;
     void moveAdelante();
+    void moveAdelanteFast();
     void moveAtras();
     void moveIzq();
     void moveDer();
