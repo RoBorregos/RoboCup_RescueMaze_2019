@@ -1,7 +1,7 @@
-   //PROGRAMA INO. ROBORREGOS.
+//PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
-//Version OFICIAL 2.4 FINAL DAY -
+//Version OFICIAL 2.5 FINAL DAY -
 //INCLUIR LIBRERIAS CORRECTAS: MotoresPuentes | Rampa
 
 #include <MotoresPuentes.h>
@@ -1190,7 +1190,6 @@ void setup() {
   PORTC = (1 << PORTC4) | (1 << PORTC5);    // Enable pullups.
   lcd2.display();
   lcd2.print("INICIANDO");
-  delay(500);
   lcd2.clear();
   
   myservo.attach(32);
@@ -1221,19 +1220,19 @@ void setup() {
           pS[i][j][k] = false;
         }
 
-  delay(500);
+  delay(10);
   lcd2.clear();
 
   lcd2.display();
   lcd2.print("INICIANDO MOTORES");
   robot.setup();
-  delay(500);
+  delay(10);
   lcd2.clear();
 
   lcd2.display();
   lcd2.print("INICIANDO RAMPA");
   subir.setup();
-  delay(500);
+  delay(10);
   lcd2.clear();
 
   lcd2.display();
@@ -1281,11 +1280,11 @@ void setup() {
       lastY = 7;
     }
 
-  delay(500);
+  delay(10);
 
   lcd2.clear();
 
-  delay(2000);
+  delay(1000);
   robot.actualizaSetpoint();
 }
 
@@ -1409,12 +1408,14 @@ byte pos;
       //lcd2.display();
       //lcd2.print("VICTIMA H IZQ");
       //lcd2.clear();
+      robot.moveAtras();
+      delay(100);
+      robot.detenerse();
       dosVictimasIzquierda();
       //lcd2.clear();
       pasado = true;
       rightCount = auxEncoder;
       iterator++;
-      robot.actualizaSetpoint();
       break;
     }
     else if(inByte == '5'){ // 2 ES PARA LAS VICTIMAS S DEL LADO IZQUIERDO
@@ -1424,12 +1425,13 @@ byte pos;
       //lcd2.display();
       //lcd2.print("VICTIMA S IZQ");
       //lcd2.clear();
+      robot.moveAtras();
+      delay(100);
       unaVictimaIzquierda();
       //lcd2.clear();
       pasado = true;
       rightCount = auxEncoder;
       iterator++;
-      robot.actualizaSetpoint();
       break;
     }
   /* else  if(inByte == '4' ){ // 1 ES PARA LAS VICTIMAS U DEL LADO IZQUIERDO
@@ -1458,12 +1460,13 @@ byte pos;
       //lcd2.display();
       //lcd2.print("VICTIMA H DER");
       //lcd2.clear();
+      robot.moveAtras();
+      delay(100);
       dosVictimasDerecha();
       //lcd2.clear();
       pasado = true;
       rightCount = auxEncoder;
       iterator++;
-      robot.actualizaSetpoint();
       break;
     }
    else if(inByte == '2'){ // 5 ES PARA LAS VICTIMAS S DE LADO DERECHO
@@ -1473,12 +1476,13 @@ byte pos;
       //lcd2.display();
       //lcd2.print("VICTIMA S DER");
       //lcd2.clear();
+      robot.moveAtras();
+      delay(100);
       unaVictimaDerecha();
       //lcd2.clear();
       pasado = true;
       rightCount = auxEncoder;
       iterator++;
-      robot.actualizaSetpoint();
       break;
     }
    /* else if(inByte == '1'){ // 4 ES PARA LAS VICTIMAS U DEL LADO DERECHO
@@ -1514,6 +1518,7 @@ byte pos;
     lcd2.print("CONDICION X");
     robot.moveAtras();
     delay(300);
+    robot.moveDerechaFast();
     robot.moveAdelanteFast(); 
     robot.detenerse();
     break;
