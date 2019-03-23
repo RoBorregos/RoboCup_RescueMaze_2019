@@ -1,8 +1,8 @@
   #include "Rampa.h"
  //NEW
-double Kp3=9, Ki3=0, Kd3=0;
+double Kp3=3, Ki3=0, Kd3=0;
 double Input3=0, Output3=0, Setpoint3=0;
-double Kp4=9, Ki4=0, Kd4=0;
+double Kp4=3, Ki4=0, Kd4=0;
 double Input4=0, Output4=0, Setpoint4=0;
 PID myPID3(&Input3, &Output3, &Setpoint3, Kp3, Ki3, Kd3, DIRECT);
 PID myPID4(&Input4, &Output4, &Setpoint3, Kp4, Ki4, Kd4, REVERSE);
@@ -40,16 +40,17 @@ double n4Output=0;
     Serial.println(med);
     delay(BNO055_SAMPLERATE_DELAY_MS);
 
- if(med<-12){
+ if(med<-8){
     Serial.println("Entramos");
     do{
+
             imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
 
-    med=euler.x();
+    //med=euler.x();
 
     delay(BNO055_SAMPLERATE_DELAY_MS);
 newMed=euler.y();
-
+/*
     bool flag = false;
     if((med > Setpoint3 && med-180 < Setpoint3)||(med < Setpoint3 && med+180 < Setpoint3)){
        flag = true;
@@ -65,10 +66,10 @@ newMed=euler.y();
     myPID4.Compute();
     if(Input3-Setpoint3>1 || Input3-Setpoint3 <-1){
 
-            n4Output=230+Output4-Output3;
+            n4Output=255+Output4-Output3;
             (n4Output>=255)? n4Output=255: n4Output=n4Output;
             (n4Output<140)? n4Output=140: n4Output=n4Output;
-            n3Output=195+Output3-Output4;
+            n3Output=255+Output3-Output4;
             (n3Output>=255)? n3Output=255: n3Output=n3Output;
             (n3Output<140)? n3Output=140: n3Output=n3Output;
 
@@ -101,11 +102,19 @@ newMed=euler.y();
 
 
     }
-
+*/
+            digitalWrite(motorIzqAde1, LOW);
+            analogWrite(motorIzqAde2, 255);
+            digitalWrite(motorIzqAtras1, LOW);
+            analogWrite(motorIzqAtras2, 255);
+            digitalWrite(motorDerAde1, LOW);
+            analogWrite(motorDerAde2, 255);
+            digitalWrite(motorDerAtras1, LOW);
+            analogWrite(motorDerAtras2, 255);
 if(newMed>-1){
         newMed=-5;
 }
- }while(newMed<-12);
+ }while(newMed<-8);
     Serial.println("Salimos");
             digitalWrite(motorIzqAde1, LOW);
             analogWrite(motorIzqAde2, 200);
