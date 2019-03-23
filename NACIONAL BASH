@@ -1,7 +1,8 @@
- //PROGRAMA INO. ROBORREGOS.
+   //PROGRAMA INO. ROBORREGOS.
 //RESCUE MAZE JR.
 //CREADO POR ROBORREGOS CHARLIE 2019.
-//Version 1.7
+//Version OFICIAL 2.4
+//INCLUIR LIBRERIAS CORRECTAS: MotoresPuentes | Rampa
 
 #include <MotoresPuentes.h>
 #include <NewPing.h>
@@ -55,6 +56,7 @@ Servo myservo;
 direcciones d[15][15];
 LiquidCrystal_I2C lcd2(0x3F,16,2);
 SoftwareSerial camara(12, 50);
+SoftwareSerial camaraNO(13, 51);
 
 volatile unsigned long leftCount = 0;
 volatile unsigned long rightCount = 0;
@@ -73,6 +75,8 @@ byte y = 7;
 byte z = 0;
 int distanciaE;
 int distanciaA;
+int distanciaEback;
+int distanciaAback;
 int distanciaDE;
 int distanciaDA;
 int distanciaIE;
@@ -97,6 +101,9 @@ float celcius1 = 0;
 float celcius2 = 0;  
 int auxEncoder;
 char inByte;
+long objectiveA;
+long newInterval=5000;
+unsigned long timePassed;
 
 void clear(){
   lcd2.display();
@@ -340,6 +347,15 @@ void findp(){
                 case 'N':
                 {
                   derechaAlg();
+                  celcius1 = temperatureCelcius(device1Address);                 
+                   if(celcius1 > 34)
+                   {
+                    auxEncoder = rightCount;
+                    robot.detenerse();
+                    unaVictimaIzquierda();
+                    pasado = true;
+                    rightCount = auxEncoder;
+                   }
                   derechaAlg();
                   orientacion = 'S';
                 } break;
@@ -377,6 +393,15 @@ void findp(){
                 case 'O':
                 {
                   derechaAlg();
+                  celcius1 = temperatureCelcius(device1Address);                 
+                   if(celcius1 > 34)
+                   {
+                    auxEncoder = rightCount;
+                    robot.detenerse();
+                    unaVictimaIzquierda();
+                    pasado = true;
+                    rightCount = auxEncoder;
+                   }
                   derechaAlg();
                   orientacion = 'E';
                 } break;
@@ -399,6 +424,15 @@ void findp(){
                     case 'E':
                     {
                       derechaAlg();
+                      celcius1 = temperatureCelcius(device1Address);                 
+                       if(celcius1 > 34)
+                       {
+                        auxEncoder = rightCount;
+                        robot.detenerse();
+                        unaVictimaIzquierda();
+                        pasado = true;
+                        rightCount = auxEncoder;
+                       }
                       derechaAlg();
                       orientacion = 'O';
                     } break;
@@ -436,6 +470,15 @@ void findp(){
                       case 'S':
                       {
                         derechaAlg();
+                        celcius1 = temperatureCelcius(device1Address);                 
+                         if(celcius1 > 34)
+                         {
+                          auxEncoder = rightCount;
+                          robot.detenerse();
+                          unaVictimaIzquierda();
+                          pasado = true;
+                          rightCount = auxEncoder;
+                         }
                         derechaAlg();
                         orientacion = 'N';
                       } break;
@@ -451,6 +494,15 @@ void findp(){
                   case 'N':
                   {
                     derechaAlg();
+                    celcius1 = temperatureCelcius(device1Address);                 
+                   if(celcius1 > 34)
+                   {
+                    auxEncoder = rightCount;
+                    robot.detenerse();
+                    unaVictimaIzquierda();
+                    pasado = true;
+                    rightCount = auxEncoder;
+                   }
                     derechaAlg();
                     adelanteAlg();
                     orientacion = 'S';
@@ -492,6 +544,15 @@ void findp(){
                   case 'O':
                   {
                     derechaAlg();
+                    celcius1 = temperatureCelcius(device1Address);                 
+                   if(celcius1 > 34)
+                   {
+                    auxEncoder = rightCount;
+                    robot.detenerse();
+                    unaVictimaIzquierda();
+                    pasado = true;
+                    rightCount = auxEncoder;
+                   }
                     derechaAlg();
                     adelanteAlg();
                     orientacion = 'E';
@@ -517,6 +578,15 @@ void findp(){
                       case 'E':
                       {
                         derechaAlg();
+                        celcius1 = temperatureCelcius(device1Address);                 
+                         if(celcius1 > 34)
+                         {
+                          auxEncoder = rightCount;
+                          robot.detenerse();
+                          unaVictimaIzquierda();
+                          pasado = true;
+                          rightCount = auxEncoder;
+                         }
                         derechaAlg();
                         adelanteAlg();
                         orientacion = 'O';
@@ -558,6 +628,15 @@ void findp(){
                         case 'S':
                         {                           
                           derechaAlg();
+                          celcius1 = temperatureCelcius(device1Address);                 
+                           if(celcius1 > 34)
+                           {
+                            auxEncoder = rightCount;
+                            robot.detenerse();
+                            unaVictimaIzquierda();
+                            pasado = true;
+                            rightCount = auxEncoder;
+                           }
                           derechaAlg();
                           adelanteAlg();
                           orientacion = 'N';
@@ -619,7 +698,7 @@ void adelanteAlg()
   rightCount = 0;
 
   robot.actualizaSetpoint();
-  while(rightCount < 2000)
+  while(rightCount < 2100)
   { 
     if(digitalRead(30) == LOW && rightCount < 1400)
    {
@@ -817,14 +896,14 @@ void ignore()
 {
   
 }
-
+/*
 bool isBlack()
 {
   int r, g, b, c, colorTemp, lux;
   
   tcs.getRawData(&r, &g, &b, &c);
   tcs.getRawData(&r, &g, &b, &c);
-  if(r < 600 && g < 600 && b < 600){
+  if(r < 800 && g < 800 && b < 800){
     lcd2.display();
     lcd2.print("CUADRO NEGRO DETECTADO");
     lcd2.display();
@@ -834,7 +913,7 @@ bool isBlack()
   else{
   return false;}
 }
-
+*/
 void unaVictimaIzquierda()
 {
   lcd2.clear();
@@ -877,7 +956,6 @@ void unaVictimaDerecha()
   lcd2.print("VICTIMA DERECHA");
 
   robot.moveDer();
- robot.detenerse();
   
   for(int i = 0;  i < 12; i ++)
  {
@@ -899,7 +977,6 @@ void unaVictimaDerecha()
   lcd2.clear();
 
   robot.moveIzq();
-  robot.detenerse();
 
   //delay(50);
 
@@ -1026,8 +1103,8 @@ void buscarObjetivo()
 }
 
 void alineaRobot(){
-  /*lcd2.display();
-  lcd2.print("ALINEANDO ROBOT");
+  /*//lcd2.display();
+  //lcd2.print("ALINEANDO ROBOT");
     distanciaE=distanciaEnfrente();
     distanciaA=distanciaAtras();
     distanciaDE=distanciaDerechaEnfrente();
@@ -1062,7 +1139,7 @@ void alineaRobot(){
 }
 delay(500);
 
-lcd2.clear();*/
+//lcd2.clear();*/
 }
 float temperatureCelcius(int address) {
   int dev = address;
@@ -1211,17 +1288,18 @@ void setup() {
 }
 
 void loop() {
+  
 
 byte pos;
     byte valor = 0;
     rightCount=0;
-    
+    objectiveA=millis()+newInterval;
     lcd2.display();
     lcd2.print("ADELANTE");
-    while(rightCount<2000){
-
-      robot.moveAdelante();
-
+    while(rightCount<2100){
+    timePassed=millis();  
+    if(timePassed<objectiveA){
+       robot.moveAdelante();
       valor = subir.detectaRampa();
     if(valor != 0)
     {
@@ -1259,7 +1337,6 @@ byte pos;
     robot.acomodarseChoqueIzquierda2();
     robot.detenerse();
     //delay(50);
-    robot.actualizaSetpoint();
     //delay(50);
     robot.moveAdelante();
     delay(280);
@@ -1279,7 +1356,6 @@ byte pos;
     robot.acomodarseChoqueDerecha2();
     robot.detenerse();
     //delay(50);
-    robot.actualizaSetpoint();
     //delay(50);
     robot.moveAdelante();
     delay(280);
@@ -1287,7 +1363,6 @@ byte pos;
     //delay(10);
     rightCount = auxEncoder;
    }
-
    if(rightCount < 1750){
 
    if(pasado == false){
@@ -1295,7 +1370,7 @@ byte pos;
    celcius1 = temperatureCelcius(device1Address); 
    celcius2 = temperatureCelcius(device2Address); 
 
-   if(celcius2 > 33)
+   if(celcius2 > 34)
    {
     auxEncoder = rightCount;
     robot.detenerse();
@@ -1304,7 +1379,7 @@ byte pos;
      rightCount = auxEncoder;
    }
 
-   if(celcius1 > 33)
+   if(celcius1 > 34)
    {
     auxEncoder = rightCount;
     robot.detenerse();
@@ -1313,18 +1388,19 @@ byte pos;
     rightCount = auxEncoder;
    }
    
-   while(camara.available() > 0){
+  while(camara.available() > 0){
    inByte = camara.read();
     Serial.write(inByte);
     if(inByte == '6'){ // 3 ES PARA LAS VICTIMAS H DEL LADO IZQUIERDO
+      //();
       auxEncoder = rightCount;
       Serial.println();
       robot.detenerse();
-      lcd2.display();
-      lcd2.print("VICTIMA H IZQ");
-      lcd2.clear();
+      //lcd2.display();
+      //lcd2.print("VICTIMA H IZQ");
+      //lcd2.clear();
       dosVictimasIzquierda();
-      lcd2.clear();
+      //lcd2.clear();
       pasado = true;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
@@ -1334,22 +1410,22 @@ byte pos;
       auxEncoder = rightCount;
       Serial.println();
       robot.detenerse();
-      lcd2.display();
-      lcd2.print("VICTIMA S IZQ");
-      lcd2.clear();
+      //lcd2.display();
+      //lcd2.print("VICTIMA S IZQ");
+      //lcd2.clear();
       unaVictimaIzquierda();
-      lcd2.clear();
+      //lcd2.clear();
       pasado = true;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
       break;
     }
-   else  if(inByte == '4' ){ // 1 ES PARA LAS VICTIMAS U DEL LADO IZQUIERDO
+  /* else  if(inByte == '4' ){ // 1 ES PARA LAS VICTIMAS U DEL LADO IZQUIERDO
     auxEncoder = rightCount;
       Serial.println();
       robot.detenerse();
-      lcd2.display();
-      lcd2.print("VICTIMA U IZQ");
+      //lcd2.display();
+      //lcd2.print("VICTIMA U IZQ");
       for(int i = 0;  i < 12; i++)
       {
         digitalWrite(23, HIGH);
@@ -1357,45 +1433,45 @@ byte pos;
         digitalWrite(23, LOW);
         delay(300);  
       }
-      lcd2.clear();
+      //lcd2.clear();
       pasado = true;
       rightCount = auxEncoder;
       break;
-    }
-    else if(inByte == '3'){ // 6 ES PARA LAS VICTIMAS H DEL LADO DERECHO
+    }*/
+   else if(inByte == '3'){ // 6 ES PARA LAS VICTIMAS H DEL LADO DERECHO
       auxEncoder = rightCount;
       Serial.println();
       robot.detenerse();
-      lcd2.display();
-      lcd2.print("VICTIMA H DER");
-      lcd2.clear();
+      //lcd2.display();
+      //lcd2.print("VICTIMA H DER");
+      //lcd2.clear();
       dosVictimasDerecha();
-      lcd2.clear();
+      //lcd2.clear();
       pasado = true;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
       break;
     }
-    else if(inByte == '2'){ // 5 ES PARA LAS VICTIMAS S DE LADO DERECHO
+   else if(inByte == '2'){ // 5 ES PARA LAS VICTIMAS S DE LADO DERECHO
       auxEncoder = rightCount;
       Serial.println();
       robot.detenerse();
-      lcd2.display();
-      lcd2.print("VICTIMA S DER");
-      lcd2.clear();
+      //lcd2.display();
+      //lcd2.print("VICTIMA S DER");
+      //lcd2.clear();
       unaVictimaDerecha();
-      lcd2.clear();
+      //lcd2.clear();
       pasado = true;
       rightCount = auxEncoder;
       robot.actualizaSetpoint();
       break;
     }
-    else if(inByte == '1'){ // 4 ES PARA LAS VICTIMAS U DEL LADO DERECHO
+   /* else if(inByte == '1'){ // 4 ES PARA LAS VICTIMAS U DEL LADO DERECHO
       auxEncoder = rightCount;
       Serial.println();
       robot.detenerse();
-      lcd2.display();
-      lcd2.print("VICTIMA U DER");
+      //lcd2.display();
+      //lcd2.print("VICTIMA U DER");
 
       for(int i = 0;  i < 12; i++)
       {
@@ -1405,7 +1481,7 @@ byte pos;
         delay(300);  
       }
       
-      lcd2.clear();
+      //lcd2.clear();
       pasado = true;
       rightCount = auxEncoder;
       break;
@@ -1413,7 +1489,21 @@ byte pos;
     else
     {
       break;}
-    }}}}
+    }*/}
+    }   
+    }
+    }
+    else{
+    lcd2.clear();
+    lcd2.print("CONDICION X");
+    robot.moveAtras();
+    delay(300);
+    robot.moveAdelanteFast(); 
+    robot.detenerse();
+    break;
+    }
+    }
+    
 
   // blank line to separate data from the two ports:
   //Serial.println();
@@ -1424,12 +1514,38 @@ byte pos;
 
    pasado = false;
    inByte = '0';
-
-   
   
   robot.detenerse();
   //delay(10);
   alineaRobot();
+
+  if(pasado == false){
+
+   celcius1 = temperatureCelcius(device1Address); 
+   celcius2 = temperatureCelcius(device2Address); 
+
+   if(celcius2 > 28)
+   {
+    distanciaDE = distanciaDerechaEnfrente();
+    if(distanciaDE < 20){
+    auxEncoder = rightCount;
+    robot.detenerse();
+     unaVictimaDerecha();
+     pasado = true;
+     rightCount = auxEncoder;}
+   }
+
+   if(celcius1 > 28)
+   {
+    distanciaIE = distanciaIzquierdaEnfrente();
+    if(distanciaIE < 20){
+    auxEncoder = rightCount;
+    robot.detenerse();
+    unaVictimaIzquierda();
+    pasado = true;
+    rightCount = auxEncoder;}
+   }}
+  
   distanciaE = distanciaEnfrente();
 
   if(distanciaE > 10 && distanciaE < 20)
@@ -1477,7 +1593,7 @@ byte pos;
     }
    }
 
-     negro = isBlack();
+     //negro = isBlack();
 
   minisq = 0;
 
